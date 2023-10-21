@@ -2,7 +2,6 @@ package bts.sio.projet;
 
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.fxml.Initializable;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -15,11 +14,9 @@ public class ProjetController implements Initializable {
         try {
             maCnx = new ConnexionBDD();
 
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
-    }
-    }
+}
