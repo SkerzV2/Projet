@@ -19,9 +19,9 @@ public class ServiceUsers {
     }
 
     public String GetConnectionUser(String email, String password) throws SQLException {
-        String rep = "";
+        String rep ="";
         // ecrire la requete
-        ps = uneCnx.prepareStatement("SELECT nom FROM user WHERE email=? AND password=? ;");
+        ps = uneCnx.prepareStatement("SELECT nom FROM user WHERE email=? AND password=?");
         //executer la requete
         ps.setString(1, email);
         ps.setString(2, password);

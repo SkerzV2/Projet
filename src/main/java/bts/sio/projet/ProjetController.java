@@ -6,8 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import bts.sio.projet.Entities.*;
-import bts.sio.projet.Tools.ConnexionBDD;
-import bts.sio.projet.Services.*;
+import bts.sio.projet.Services.ServiceUsers;
+import java.sql.Connection;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,7 +27,6 @@ public class ProjetController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             maCnx = new ConnexionBDD();
-
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -38,12 +37,12 @@ public class ProjetController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnConnexionClicked(Event event) throws SQLException{
+        serviceUsers = new ServiceUsers();
         String rep = serviceUsers.GetConnectionUser(txtEmail.getText(), txtPassword.getText());
-        if (rep.isEmpty()) {
-            System.out.println("sa passe");
-        } else {
+        if (rep.equals("")) {
             System.out.println("sa passe pas");
-        }
+        } else {
+            System.out.println("sa passe");}
     }
 
 }
