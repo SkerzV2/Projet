@@ -2,11 +2,17 @@ package bts.sio.projet;
 
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import bts.sio.projet.Entities.*;
 import bts.sio.projet.Services.ServiceUsers;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.sql.Connection;
 
 import java.net.URL;
@@ -36,13 +42,21 @@ public class ProjetController implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void btnConnexionClicked(Event event) throws SQLException{
+    public void btnConnexionClicked(Event event) throws SQLException, IOException {
         serviceUsers = new ServiceUsers();
         String rep = serviceUsers.GetConnectionUser(txtEmail.getText(), txtPassword.getText());
         if (rep.equals("")) {
             System.out.println("sa passe pas");
         } else {
-            System.out.println("sa passe");}
-    }
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu-view.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            //ModifController modifController = fxmlLoader.getController();
 
+            Stage stage = new Stage();
+            stage.setTitle("Modification d'un contact");
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
 }
