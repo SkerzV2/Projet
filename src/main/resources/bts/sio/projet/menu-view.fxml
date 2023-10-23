@@ -7,18 +7,24 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="865.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bts.sio.projet.MenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="865.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label prefHeight="112.0" prefWidth="170.0" text="          Menu" BorderPane.alignment="CENTER" />
    </top>
    <left>
       <VBox prefHeight="486.0" prefWidth="145.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="151.0" text="Créer ses demandes" />
+            <Button fx:id="btnDemandes" mnemonicParsing="false" prefHeight="38.0" prefWidth="151.0" text="Gérer ses demandes" />
          </children>
       </VBox>
    </left>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="apDemandes" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="213.0" layoutY="180.0" text="Label" />
+            <Label layoutX="524.0" layoutY="180.0" text="Label" />
+            <Label layoutX="259.0" layoutY="87.0" text="Label" />
+         </children>
+      </AnchorPane>
    </center>
 </BorderPane>
