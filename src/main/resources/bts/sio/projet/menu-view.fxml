@@ -2,8 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -19,17 +22,17 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="btnCreerDemande" mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Faire une demande">
+            <Button fx:id="btnCreerDemande" mnemonicParsing="false" onMouseClicked="#btnCreerDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Faire une demande">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnModifDemande" mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Modifier ses demandes">
+            <Button fx:id="btnModifDemande" mnemonicParsing="false" onMouseClicked="#btnModifDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Modifier ses demandes">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnVoirDemande" mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Visualiser ses demandes">
+            <Button fx:id="btnVoirDemande" mnemonicParsing="false" onMouseClicked="#btnVoirDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Visualiser ses demandes">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -42,17 +45,17 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="btnEnregistrerComp" mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Enregistrer ses compétences">
+            <Button fx:id="btnEnregistrerComp" mnemonicParsing="false" onMouseClicked="#btnEnregistrerCompClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Enregistrer ses compétences">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnModifComp" mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Modifier ses compétences">
+            <Button fx:id="btnModifComp" mnemonicParsing="false" onMouseClicked="#btnModifCompClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Modifier ses compétences">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnVoirComp" mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Visualiser ses compétences">
+            <Button fx:id="btnVoirComp" mnemonicParsing="false" onMouseClicked="#btnVoirCompClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Visualiser ses compétences">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -65,7 +68,7 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="btnVoirStats" mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Quelques statistiques">
+            <Button fx:id="btnVoirStats" mnemonicParsing="false" onMouseClicked="#btnVoirStatsClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Quelques statistiques">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -77,9 +80,29 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane prefHeight="498.0" prefWidth="670.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="670.0" BorderPane.alignment="CENTER">
          <children>
-            <ButtonBar layoutY="399.0" prefHeight="40.0" prefWidth="200.0" />
+            <Label layoutX="28.0" layoutY="76.0" text="Date de début :" />
+            <Label layoutX="28.0" layoutY="147.0" text="Date de fin :" />
+            <Label layoutX="28.0" layoutY="221.0" text="Matière :" />
+            <Label layoutX="27.0" layoutY="292.0" text="Sous-matière :" />
+            <DatePicker fx:id="datepDebutDem" layoutX="131.0" layoutY="72.0" prefHeight="26.0" prefWidth="155.0" />
+            <DatePicker fx:id="datepFinDem" layoutX="131.0" layoutY="143.0" prefHeight="26.0" prefWidth="155.0" />
+            <Label layoutX="332.0" layoutY="22.0" text="Mes demandes">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <TreeView fx:id="tvMesDemandes" layoutX="332.0" layoutY="55.0" prefHeight="386.0" prefWidth="306.0" />
+            <Label layoutX="27.0" layoutY="22.0" text="Faire une demande">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnValiderDem" layoutX="26.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" text="Valider" />
+            <Button fx:id="btnAnnulerDem" layoutX="111.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" text="Annuler" />
+            <ComboBox fx:id="cboMatiereDem" layoutX="131.0" layoutY="216.0" prefHeight="26.0" prefWidth="156.0" />
+            <ChoiceBox fx:id="chboxSousMatiereDem" layoutX="131.0" layoutY="287.0" prefHeight="26.0" prefWidth="155.0" />
          </children></AnchorPane>
    </center>
    <top>

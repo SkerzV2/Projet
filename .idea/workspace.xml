@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="test commit" />
+    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="test commit label">
+      <change afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Demande.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Matiere.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_10_2023_17_35__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_10_2023_17_35__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_10_2023_16_16__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_10_2023_16_16__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +28,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -115,37 +124,29 @@
     </task>
     <task id="LOCAL-00005" summary="Connexion sensser marcher">
       <option name="closed" value="true" />
-      <created>1698070855411</created>
+      <created>1698070412097</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1698070855411</updated>
+      <updated>1698070412097</updated>
     </task>
     <task id="LOCAL-00006" summary="Connexion sensser marcher">
       <option name="closed" value="true" />
-      <created>1698070890623</created>
+      <created>1698070810876</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1698070890623</updated>
+      <updated>1698070810876</updated>
     </task>
-    <task id="LOCAL-00007" summary="test commit">
+    <task id="LOCAL-00007" summary="test commit label">
       <option name="closed" value="true" />
-      <created>1698070969554</created>
+      <created>1698071472162</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1698070969554</updated>
+      <updated>1698071472163</updated>
     </task>
-    <task id="LOCAL-00008" summary="test commit">
-      <option name="closed" value="true" />
-      <created>1698071135892</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1698071135892</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -153,8 +154,8 @@
     <MESSAGE value="Base du Projet" />
     <MESSAGE value="modif de merde" />
     <MESSAGE value="Connexion sensser marcher" />
-    <MESSAGE value="test commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="test commit" />
+    <MESSAGE value="test commit label" />
+    <option name="LAST_COMMIT_MESSAGE" value="test commit label" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
