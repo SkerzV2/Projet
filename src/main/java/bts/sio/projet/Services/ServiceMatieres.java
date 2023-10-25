@@ -1,6 +1,7 @@
 package bts.sio.projet.Services;
 
 import bts.sio.projet.Entities.Matiere;
+import bts.sio.projet.Entities.User;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,5 +53,24 @@ public class ServiceMatieres {
             lesMatieres.add(rs.getString("designation"));
         }
         return lesMatieres;
+    }
+
+    // Fonction pour avoir les sous matières
+    // En cours
+    public ObservableList<String> GetAllSousMatiere(String designation) throws SQLException {
+        ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
+
+        //Requête SQL
+        ps = unCnx.prepareStatement("SELECT matiere.sous_matiere \n"
+                + "FROM matiere\n"
+                + "WHERE matiere.designation = ?");
+
+        ps.setString(1, designation);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            String rep =  rs.getString(1);
+            System.out.println(rep);
+        }
+        return lesSousMatieres;
     }
 }

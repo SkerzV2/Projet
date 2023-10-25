@@ -52,15 +52,25 @@ public class MenuController implements Initializable
     private ComboBox cboMatiereDem;
     @javafx.fxml.FXML
     private ChoiceBox chboxSousMatiereDem;
+    @javafx.fxml.FXML
+    private AnchorPane apEnregistrerComp;
+    @javafx.fxml.FXML
+    private ChoiceBox cbCompPrincipale;
+    @javafx.fxml.FXML
+    private ChoiceBox cbCompSecondaire;
+    @javafx.fxml.FXML
+    private Button btnValiderComp;
+    @javafx.fxml.FXML
+    private Button btnAnnulerComp;
 
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         try
         {
             maCnx = new ConnexionBDD();
-            //marche pas encore
             serviceMatieres = new ServiceMatieres();
             cboMatiereDem.getItems().addAll(serviceMatieres.GetAllMatiere());
+
         }
         catch (ClassNotFoundException e)
         {
@@ -120,6 +130,22 @@ public class MenuController implements Initializable
         }
     }
 
+    // initializer la check box
+    @javafx.fxml.FXML
+    public void cboMatiereDemClicked(Event event) throws SQLException {
+        serviceMatieres = new ServiceMatieres();
+        // Matières :
+        // Anglais : #verbesirréguliers#gérondif#présent#date#nombres
+        // Français : #orthographe#conjugaison#participepassé#présent#futursimple,#pronompersonnel,#conjonctioncoordination#auxiliareavoir#indicatif
+        // Informatique : #java#sql#python#php#javascript#modelosi#tcpip#windows#linux#dhcp#dns#voip#cisco#poo#boucles#conditions#json#api
+        // Mathématiques : #équations#factorisation#nombresrelatifs#intégrale#dérivée#tableaudevariation#matrice#développement#loidepoisson#probabilités#statistiques
+        // Histoire : #crise1929#régimestotalitaires#secondeguerremondiale#tiersmonde#france#constructioneuropéenne#puissanceetenjeuxmondiaux
+        // CEJM : #contrats#régulation#organisation#intégration#rôleétat#environnement#facteurséconomiques#structurejuridique#droit
+        cboMatiereDem.getSelectionModel().selectFirst();
+        String matiereSelectionne = ((Matiere)cboMatiereDem.getSelectionModel().getSelectedItem()).getDesignation();
+        serviceMatieres.GetAllSousMatiere(matiereSelectionne);
+    }
+
     // Bouton annuler une demande
     @javafx.fxml.FXML
     public void btnAnnulerDemClicked(Event event)
@@ -150,6 +176,13 @@ public class MenuController implements Initializable
 
     @javafx.fxml.FXML
     public void btnVoirCompClicked(Event event) {
+    }
+    @javafx.fxml.FXML
+    public void btnValiderCompClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void btnAnnulerCompClicked(Event event) {
     }
 
 
