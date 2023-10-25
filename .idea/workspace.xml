@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="test commit label">
+    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="Connexion fini 100%">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ProjetApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ProjetApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ProjetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceUsers.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -57,7 +58,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "test",
     "last_opened_file_path": "C:/Sio2/TP_moi/TP0",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
@@ -152,7 +153,31 @@
       <option name="project" value="LOCAL" />
       <updated>1698236175162</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="modif objet connexion et optimization alerte leo">
+      <option name="closed" value="true" />
+      <created>1698245494477</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1698245494477</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Connexion fini 100%">
+      <option name="closed" value="true" />
+      <created>1698246685503</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1698246685503</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Connexion fini 100%">
+      <option name="closed" value="true" />
+      <created>1698246826211</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1698246826211</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -161,7 +186,9 @@
     <MESSAGE value="modif de merde" />
     <MESSAGE value="Connexion sensser marcher" />
     <MESSAGE value="test commit label" />
-    <option name="LAST_COMMIT_MESSAGE" value="test commit label" />
+    <MESSAGE value="modif objet connexion et optimization alerte leo" />
+    <MESSAGE value="Connexion fini 100%" />
+    <option name="LAST_COMMIT_MESSAGE" value="Connexion fini 100%" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

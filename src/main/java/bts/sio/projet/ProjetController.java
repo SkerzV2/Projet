@@ -4,6 +4,7 @@ import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -46,30 +47,36 @@ public class ProjetController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnConnexionClicked(Event event) throws SQLException, IOException {
-        String erreurs = null;
+        String erreurs = "";
         if (txtEmail.getText().equals("")){
             erreurs = "Veuillez remplir le champ mail!";
         }
         if (txtPassword.getText().equals("")){
-             erreurs += "\nVeuillez remplir le champ mot de passe!";
+            erreurs += "\nVeuillez remplir le champ mot de passe!";
         }
         serviceUsers = new ServiceUsers();
         rep = serviceUsers.GetConnectionUser(txtEmail.getText(), txtPassword.getText());
         if (rep == null) {
+            if (erreurs.equals("")){
+                erreurs="Mail ou mot de passe invalide!";
+            }
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de sélection");
             alert.setContentText(erreurs);
             alert.setHeaderText("");
             alert.showAndWait();
         } else {
+            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            primaryStage.close();
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu-view.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
 
-            Stage stage = new Stage();
-            stage.setTitle("Menu");
-            stage.setScene(scene);
-            stage.show();
+            Stage newStage = new Stage();
+            newStage.setTitle("Menu");
+            newStage.setScene(scene);
+            newStage.show();
         }
     }
 }
