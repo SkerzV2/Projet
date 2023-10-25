@@ -2,6 +2,7 @@ package bts.sio.projet;
 
 import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.User;
+import bts.sio.projet.Services.ServiceMatieres;
 import bts.sio.projet.Services.ServiceUsers;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ import java.util.ResourceBundle;
 public class MenuController implements Initializable
 {
     ConnexionBDD maCnx;
+    ServiceMatieres serviceMatieres = new ServiceMatieres();
     Matiere matiere ;
     @javafx.fxml.FXML
     private Button btnCreerDemande;
@@ -57,7 +59,8 @@ public class MenuController implements Initializable
         {
             maCnx = new ConnexionBDD();
             //marche pas encore
-            //cboMatiereDem.getItems().addAll(matiere.GetAllMatiere());
+            serviceMatieres = new ServiceMatieres();
+            cboMatiereDem.getItems().addAll(serviceMatieres.GetAllMatiere());
         }
         catch (ClassNotFoundException e)
         {

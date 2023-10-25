@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class ProjetController implements Initializable {
     ConnexionBDD maCnx;
-    ServiceUsers serviceUsers =new ServiceUsers();
+    ServiceUsers serviceUsers = new ServiceUsers();
 
     @javafx.fxml.FXML
     private Button btnConnexion;
