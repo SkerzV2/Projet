@@ -38,39 +38,22 @@ public class ServiceMatieres {
         return lesMatieresObj;
     }
 
-    // Fonction pour avoir les matières
-    public ObservableList<String> GetAllMatiere() throws SQLException {
-        ObservableList<String> lesMatieres = FXCollections.observableArrayList();
-
-        //Requête SQL
-        ps = unCnx.prepareStatement("SELECT matiere.designation \n"
-                +"FROM `matiere`\n");
-
-        rs = ps.executeQuery();
-        while(rs.next())
-        {
-            //ajouter à une collection
-            lesMatieres.add(rs.getString("designation"));
-        }
-        return lesMatieres;
-    }
-
     // Fonction pour avoir les sous matières
-    // En cours
     public ObservableList<String> GetAllSousMatiere(String designation) throws SQLException {
         ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
 
-        //Requête SQL
         ps = unCnx.prepareStatement("SELECT matiere.sous_matiere \n"
                 + "FROM matiere\n"
                 + "WHERE matiere.designation = ?");
 
         ps.setString(1, designation);
         rs = ps.executeQuery();
-        if (rs.next()) {
-            String rep =  rs.getString(1);
-            System.out.println(rep);
-        }
+
+        rs.next();
+        String sousMatiere = rs.getString("sous_matiere");
+        String[] splitSousMatiere = sousMatiere.split("#");
+        lesSousMatieres.addAll(splitSousMatiere);
+
         return lesSousMatieres;
     }
 }
