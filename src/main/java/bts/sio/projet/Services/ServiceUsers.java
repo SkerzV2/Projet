@@ -18,18 +18,18 @@ public class ServiceUsers {
         uneCnx = ConnexionBDD.getCnx();
     }
 
-    public String GetConnectionUser(String email, String password) throws SQLException {
-        String rep ="";
-        // ecrire la requete
-        ps = uneCnx.prepareStatement("SELECT nom FROM user WHERE email=? AND password=?");
-        //executer la requete
+    public User GetConnectionUser(String email, String password) throws SQLException {
+        // Écrire la requête
+        ps = uneCnx.prepareStatement("SELECT id, nom, prenom, role, niveau, sexe, telephone FROM user WHERE email=? AND password=?");
+        // Exécuter la requête
         ps.setString(1, email);
         ps.setString(2, password);
-        //parcourir la rs
+        // Parcourir la rs
         rs = ps.executeQuery();
+        User user = null;
         if (rs.next()) {
-            rep = rs.getString(1);
+            user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), email, password, rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
         }
-        return rep;
+        return user;
     }
 }

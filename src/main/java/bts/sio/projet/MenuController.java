@@ -82,9 +82,9 @@ public class MenuController implements Initializable
     @javafx.fxml.FXML
     public void btnValiderDemClicked(Event event)
     {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         if(datepDebutDem.getValue() == null)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une date de début pour votre demande");
             alert.setHeaderText("");
@@ -92,7 +92,6 @@ public class MenuController implements Initializable
         }
         else if(datepFinDem.getValue() == null)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une date de fin pour votre demande");
             alert.setHeaderText("");
@@ -100,7 +99,6 @@ public class MenuController implements Initializable
         }
         else if(cboMatiereDem.getSelectionModel().getSelectedItem() == null)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une matière pour votre demande");
             alert.setHeaderText("");
@@ -108,7 +106,6 @@ public class MenuController implements Initializable
         }
         else if(chboxSousMatiereDem.getSelectionModel().getSelectedItem() == null)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une ou plusieurs sous-matière(s) pour votre demande");
             alert.setHeaderText("");
@@ -120,8 +117,6 @@ public class MenuController implements Initializable
             String datefinDemande = datepDebutDem.getValue().toString();
             String matiere = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
             String sousMatiere = chboxSousMatiereDem.getSelectionModel().getSelectedItem().toString();
-
-
         }
     }
 
@@ -162,5 +157,6 @@ public class MenuController implements Initializable
 
     @javafx.fxml.FXML
     public void btnVoirStatsClicked(Event event) {
+
     }
 }

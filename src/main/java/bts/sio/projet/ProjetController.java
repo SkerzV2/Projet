@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import bts.sio.projet.Entities.*;
@@ -22,6 +23,8 @@ import java.util.ResourceBundle;
 public class ProjetController implements Initializable {
     ConnexionBDD maCnx;
     ServiceUsers serviceUsers = new ServiceUsers();
+
+    User rep;
 
     @javafx.fxml.FXML
     private Button btnConnexion;
@@ -43,18 +46,28 @@ public class ProjetController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnConnexionClicked(Event event) throws SQLException, IOException {
+        String erreurs = null;
+        if (txtEmail.getText().equals("")){
+            erreurs = "Veuillez remplir le champ mail!";
+        }
+        if (txtPassword.getText().equals("")){
+             erreurs += "\nVeuillez remplir le champ mot de passe!";
+        }
         serviceUsers = new ServiceUsers();
-        String rep = serviceUsers.GetConnectionUser(txtEmail.getText(), txtPassword.getText());
-        if (rep.equals("")) {
-            System.out.println("sa passe pas");
+        rep = serviceUsers.GetConnectionUser(txtEmail.getText(), txtPassword.getText());
+        if (rep == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText(erreurs);
+            alert.setHeaderText("");
+            alert.showAndWait();
         } else {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu-view.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
-            //ModifController modifController = fxmlLoader.getController();
 
             Stage stage = new Stage();
-            stage.setTitle("Modification d'un contact");
+            stage.setTitle("Menu");
             stage.setScene(scene);
             stage.show();
         }
