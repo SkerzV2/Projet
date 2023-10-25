@@ -15,9 +15,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="865.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bts.sio.projet.MenuController">
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="498.0" prefWidth="202.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="498.0" prefWidth="202.0" style="-fx-background-color: E3E2DE;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: E3E2DE;" text="Gérer ses demandes" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Gérer ses demandes" textAlignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
@@ -37,7 +37,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
-            <Label alignment="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: E3E2DE;" text="Gérer ses compétences" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Gérer ses compétences" textAlignment="CENTER">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
@@ -60,7 +60,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
-            <Label alignment="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: E3E2DE;" text="Voir les statistiques">
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Voir les statistiques">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
@@ -80,29 +80,48 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="670.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="498.0" prefWidth="670.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="28.0" layoutY="76.0" text="Date de début :" />
-            <Label layoutX="28.0" layoutY="147.0" text="Date de fin :" />
-            <Label layoutX="28.0" layoutY="221.0" text="Matière :" />
-            <Label layoutX="27.0" layoutY="292.0" text="Sous-matière :" />
-            <DatePicker fx:id="datepDebutDem" layoutX="131.0" layoutY="72.0" prefHeight="26.0" prefWidth="155.0" />
-            <DatePicker fx:id="datepFinDem" layoutX="131.0" layoutY="143.0" prefHeight="26.0" prefWidth="155.0" />
-            <Label layoutX="332.0" layoutY="22.0" text="Mes demandes">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Label>
-            <TreeView fx:id="tvMesDemandes" layoutX="332.0" layoutY="55.0" prefHeight="386.0" prefWidth="306.0" />
-            <Label layoutX="27.0" layoutY="22.0" text="Faire une demande">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnValiderDem" layoutX="26.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" text="Valider" />
-            <Button fx:id="btnAnnulerDem" layoutX="111.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" text="Annuler" />
-            <ComboBox fx:id="cboMatiereDem" layoutX="131.0" layoutY="216.0" prefHeight="26.0" prefWidth="156.0" />
-            <ChoiceBox fx:id="chboxSousMatiereDem" layoutX="131.0" layoutY="287.0" prefHeight="26.0" prefWidth="155.0" />
+            <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="662.0" visible="false">
+               <children>
+                  <Label layoutX="-2.0" layoutY="212.0" text="Date de début :" AnchorPane.bottomAnchor="268.79999999999995" />
+                  <ComboBox fx:id="cboMatiereDem" layoutX="87.0" layoutY="109.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.bottomAnchor="363.0" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="109.0" />
+                  <Label layoutX="-2.0" layoutY="166.0" text="Date de fin :" AnchorPane.topAnchor="166.0" />
+                  <Label layoutX="7.0" layoutY="114.0" text="Matière :" AnchorPane.topAnchor="114.0" />
+                  <Label layoutX="95.0" layoutY="48.0" text="Faire une demande">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="datepDebutDem" layoutX="87.0" layoutY="207.0" prefHeight="26.0" prefWidth="210.0" />
+                  <Label layoutX="1.0" layoutY="256.0" text="Sous-matière :" AnchorPane.bottomAnchor="224.79999999999995" />
+                  <DatePicker fx:id="datepFinDem" layoutX="87.0" layoutY="162.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.bottomAnchor="310.0" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="162.0" />
+                  <Button fx:id="btnAnnulerDem" layoutX="44.0" layoutY="403.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" prefWidth="250.0" text="Annuler" />
+                  <Button fx:id="btnValiderDem" layoutX="44.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" prefWidth="250.0" text="Valider" />
+                  <ChoiceBox fx:id="chboxSousMatiereDem" layoutX="87.0" layoutY="252.0" prefHeight="26.0" prefWidth="210.0" />
+                  <TreeView fx:id="tvMesDemandes" layoutX="322.0" layoutY="84.0" prefHeight="386.0" prefWidth="306.0" />
+                  <Label layoutX="434.0" layoutY="48.0" text="Mes demandes">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="apEnregistrerComp" prefHeight="498.0" prefWidth="662.0">
+               <children>
+                  <ChoiceBox fx:id="cbCompPrincipale" layoutX="436.0" layoutY="98.0" prefWidth="150.0" />
+                  <Label layoutX="253.0" layoutY="33.0" text="Enregistrer ses compétences">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="59.0" layoutY="102.0" text="Compétence principale" />
+                  <Label layoutX="56.0" layoutY="189.0" text="Compétence secondaire" />
+                  <ChoiceBox fx:id="cbCompSecondaire" layoutX="436.0" layoutY="185.0" prefWidth="150.0" />
+                  <Button fx:id="btnValiderComp" layoutX="335.0" layoutY="378.0" mnemonicParsing="false" onMouseClicked="#btnValiderCompClicked" prefWidth="250.0" text="Valider" />
+                  <Button fx:id="btnAnnulerComp" layoutX="41.0" layoutY="378.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerCompClicked" prefWidth="250.0" text="Annuler" />
+               </children>
+            </AnchorPane>
          </children></AnchorPane>
    </center>
    <top>
