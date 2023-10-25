@@ -64,6 +64,7 @@ public class ProjetController implements Initializable {
             alert.setTitle("Erreur de sélection");
             alert.setContentText(erreurs);
             alert.setHeaderText("");
+            alert.showAndWait();
         } else {
             Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             primaryStage.close();
