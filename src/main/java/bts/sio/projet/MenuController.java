@@ -73,6 +73,8 @@ public class MenuController implements Initializable
             serviceMatieres = new ServiceMatieres();
             ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
             lesMatieres = serviceMatieres.GetAllMatiereObj();
+
+
             for(Matiere uneMatiere : lesMatieres)
             {
                 cboMatiereDem.getItems().add(uneMatiere.getDesignation());
@@ -100,6 +102,7 @@ public class MenuController implements Initializable
     public void btnValiderDemClicked(Event event)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+
         if(datepDebutDem.getValue() == null)
         {
             alert.setTitle("Erreur de sélection");
@@ -175,12 +178,35 @@ public class MenuController implements Initializable
     // Partie de Pierre
 
     @javafx.fxml.FXML
-    public void btnEnregistrerCompClicked(Event event) {
+    public void btnEnregistrerCompClicked(Event event)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
 
+        if(cbCompPrincipale.getValue() == null)
+        {
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une compétence principale");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else if(cbCompSecondaire.getValue() == null)
+        {
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une compétence secondaire");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else
+        {
+            String matiere = cbCompPrincipale.getValue().toString();
+            String sousMatiere = cbCompSecondaire.getValue().toString();
+        }
     }
 
     @javafx.fxml.FXML
-    public void btnModifCompClicked(Event event) {
+    public void btnModifCompClicked(Event event)
+    {
+
     }
 
     @javafx.fxml.FXML
