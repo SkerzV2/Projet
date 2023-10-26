@@ -1,13 +1,18 @@
 package bts.sio.projet.Services;
 
 import bts.sio.projet.Entities.Demande;
+import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.User;
 import bts.sio.projet.Tools.ConnexionBDD;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Observable;
+import java.util.TreeMap;
 
 public class ServicesDemandes {
     private Connection unCnx;
@@ -30,5 +35,10 @@ public class ServicesDemandes {
         ps.setInt(6, 1);
         // Parcourir la rs
         ps.executeUpdate();
+    }
+
+    public TreeMap<Matiere,TreeMap<String, ObservableList<String>>> getAllDemandes()
+    {
+        return null;
     }
 }
