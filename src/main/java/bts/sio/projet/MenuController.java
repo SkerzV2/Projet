@@ -78,7 +78,9 @@ public class MenuController implements Initializable
             for(Matiere uneMatiere : lesMatieres)
             {
                 cboMatiereDem.getItems().add(uneMatiere.getDesignation());
+                cbCompPrincipale.getItems().add(uneMatiere.getDesignation());
             }
+
 
         }
         catch (ClassNotFoundException e)
@@ -200,6 +202,21 @@ public class MenuController implements Initializable
         {
             String matiere = cbCompPrincipale.getValue().toString();
             String sousMatiere = cbCompSecondaire.getValue().toString();
+            /*if (cbCompPrincipale.getSelectionModel().getSelectedItem() == null) {
+                return;
+            }
+            else
+            {
+                String matiereSelectionne = cbCompPrincipale.getSelectionModel().getSelectedItem().toString();
+                ObservableList<String> sousMatieres = serviceMatieres.GetAllSousMatiere(matiere);
+                cbCompSecondaire.getItems().clear();
+
+                for (String sousMatiere : sousMatieres) {
+                    CustomMenuItem customMenuItem = new CustomMenuItem(new CheckBox(sousMatiere));
+                    customMenuItem.setHideOnClick(false);
+                    menuSousMatiere.getItems().add(customMenuItem);
+                }
+            }*/
         }
     }
 
@@ -236,7 +253,9 @@ public class MenuController implements Initializable
     public void menuSousMatiereClicked(Event event) throws SQLException {
         if (cboMatiereDem.getSelectionModel().getSelectedItem() == null) {
             return;
-        } else {
+        }
+        else
+        {
             String matiereSelectionne = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
             ObservableList<String> sousMatieres = serviceMatieres.GetAllSousMatiere(matiereSelectionne);
             menuSousMatiere.getItems().clear();
@@ -248,4 +267,5 @@ public class MenuController implements Initializable
             }
         }
     }
+
 }
