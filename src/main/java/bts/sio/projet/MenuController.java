@@ -142,7 +142,6 @@ public class MenuController implements Initializable
             System.out.println(user.getId());
             // Creer la demande
             Demande uneDemande = new Demande(user.getId(), dateDébutDemande, datefinDemande, matiere, sous_matiere);
-            //System.out.println(uneDemande);
         }
     }
 
@@ -270,6 +269,10 @@ public class MenuController implements Initializable
                 menuSousMatiere.getItems().add(customMenuItem);
             }
         }
+    }
+
+    public void setProjetController(ProjetController projetController) {
+        this.projetController = projetController;
     }
 
     public void setUser(User user) {

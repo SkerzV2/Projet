@@ -27,7 +27,7 @@ public class ProjetController implements Initializable {
 
     User user;
 
-    MenuController menuController = new MenuController();
+    MenuController menuController;
 
     @javafx.fxml.FXML
     private Button btnConnexion;
@@ -68,23 +68,22 @@ public class ProjetController implements Initializable {
             alert.setHeaderText("");
             alert.showAndWait();
         } else {
-            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            primaryStage.close();
+                Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                primaryStage.close();
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu-view.fxml"));
-            menuController = fxmlLoader.getController();
-            menuController.setUser(user);
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-
-            modificationContactController.initDatas(((Contact)tvContacts.getSelectionModel().getSelectedItem()));
-
-            Stage newStage = new Stage();
-            newStage.setTitle("Menu");
-            newStage.setScene(scene);
-            newStage.show();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu-view.fxml"));
+                Parent root = fxmlLoader.load();
+                Scene scene = new Scene(root);
+                menuController = fxmlLoader.getController();
+                menuController.setUser(user); // Transmettez l'objet User à MenuController
+                menuController.setProjetController(this);
+                Stage newStage = new Stage();
+                newStage.setTitle("Menu");
+                newStage.setScene(scene);
+                newStage.show();
+            }
         }
-    }
+
 
     public User getUser()
     {
