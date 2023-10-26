@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="Connexion fini 100%">
+    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="connexion fini">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ProjetApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ProjetApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceMatieres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceMatieres.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" afterDir="false" />
     </list>
@@ -61,9 +60,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "test",
     "last_opened_file_path": "C:/Sio2/TP_moi/TP0",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class ServiceMatieres {
     private Connection unCnx;
@@ -60,17 +61,23 @@ public class ServiceMatieres {
     public ObservableList<String> GetAllSousMatiere(String designation) throws SQLException {
         ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
 
-        //Requête SQL
-        ps = unCnx.prepareStatement("SELECT matiere.sous_matiere \n"
-                + "FROM matiere\n"
-                + "WHERE matiere.designation = ?");
-
+        // Requête SQL
+        ps = unCnx.prepareStatement("SELECT matiere.sous_matiere FROM matiere WHERE matiere.designation = ?");
         ps.setString(1, designation);
         rs = ps.executeQuery();
-        if (rs.next()) {
-            String rep =  rs.getString(1);
-            System.out.println(rep);
+
+        while (rs.next()) {
+            String sousMatiere = rs.getString("sous_matiere");
+            String[] splitSousMatiere = sousMatiere.split("#");
+            for (String item : splitSousMatiere) {
+                if (!item.isEmpty()) {
+                    lesSousMatieres.add(item);
+                }
+            }
         }
+
         return lesSousMatieres;
     }
+
+
 }
