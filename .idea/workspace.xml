@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="connexion fini">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_10_2023_21_40__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_10_2023_21_40__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_10_2023_22_35__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_10_2023_22_35__Changes_.xml" afterDir="false" />
+    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="test claude">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ProjetController.java" afterDir="false" />
@@ -31,6 +29,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -188,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698327655955</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="test claude">
+      <option name="closed" value="true" />
+      <created>1698355222027</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1698355222027</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,7 +218,8 @@
     <MESSAGE value="modif objet connexion et optimization alerte leo" />
     <MESSAGE value="Connexion fini 100%" />
     <MESSAGE value="connexion fini" />
-    <option name="LAST_COMMIT_MESSAGE" value="connexion fini" />
+    <MESSAGE value="test claude" />
+    <option name="LAST_COMMIT_MESSAGE" value="test claude" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

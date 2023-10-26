@@ -115,21 +115,41 @@ public class MenuController implements Initializable
         if(datepDebutDem.getValue() == null || datepDebutDem.getValue().isBefore(LocalDate.now()))
         {
             alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une date de début");
+            alert.setContentText("Veuillez sélectionner une date de début valide (aujourd'hui ou ultérieure)");
             alert.setHeaderText("");
             alert.showAndWait();
         }
         else if(datepFinDem.getValue() == null)
         {
             alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une date de fin");
+            alert.setContentText("Veuillez sélectionner une date de fin valide (ultérieure à la date de début)");
             alert.setHeaderText("");
             alert.showAndWait();
+        }
+        else if(datepDebutDem.getValue() != null || datepFinDem.getValue() != null)
+        {
+            LocalDate debut = datepDebutDem.getValue();
+            LocalDate fin = datepFinDem.getValue();
+
+            if (debut.isAfter(fin))
+            {
+                alert.setTitle("Erreur de sélection");
+                alert.setContentText("La date de début ne peut pas être après la date de fin");
+                alert.setHeaderText("");
+                alert.showAndWait();
+            }
         }
         else if(cboMatiereDem.getSelectionModel().getSelectedItem() == null)
         {
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une matière");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else if(menuSousMatiere.getItems() == null)
+        {
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une ou plusieurs sous-matière(s)");
             alert.setHeaderText("");
             alert.showAndWait();
         }
@@ -252,6 +272,7 @@ public class MenuController implements Initializable
     public void cboMatiereDemClicked(Event event) {
     }
 
+    // Fonctions
     @javafx.fxml.FXML
     public void menuSousMatiereClicked(Event event) throws SQLException {
         if (cboMatiereDem.getSelectionModel().getSelectedItem() == null) {
@@ -277,5 +298,10 @@ public class MenuController implements Initializable
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setProjetController(ProjetController projetController)
+    {
+        this.projetController = projetController;
     }
 }
