@@ -23,6 +23,38 @@ public class User {
         this.telephone = telephone;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getNiveau() {
+        return niveau;
+    }
+
+    public int getSexe() {
+        return sexe;
+    }
+
+    public int getTelephone() {
+        return telephone;
+    }
+
     public String getNom() {
         return nom;
     }

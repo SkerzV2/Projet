@@ -1,5 +1,6 @@
 package bts.sio.projet;
 
+import bts.sio.projet.Entities.Demande;
 import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.User;
 import bts.sio.projet.Services.ServiceMatieres;
@@ -15,13 +16,17 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable
 {
     ConnexionBDD maCnx;
     ServiceMatieres serviceMatieres = new ServiceMatieres();
+    private ProjetController projetController;
+    User user;
     Matiere matiere ;
+
     @javafx.fxml.FXML
     private Button btnCreerDemande;
     @javafx.fxml.FXML
@@ -92,6 +97,7 @@ public class MenuController implements Initializable
             throw new RuntimeException(e);
         }
     }
+
     // Partie de Léo
     // Bouton Créer une demande (et voir ses demandes)
     @javafx.fxml.FXML
@@ -105,24 +111,25 @@ public class MenuController implements Initializable
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
 
-        if(datepDebutDem.getValue() == null)
+        // ajouter un traitement d'erreur pour que la date de début soit minimun a aujourd'hui
+        if(datepDebutDem.getValue() == null || datepDebutDem.getValue().isBefore(LocalDate.now()))
         {
             alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une date de début pour votre demande");
+            alert.setContentText("Veuillez sélectionner une date de début");
             alert.setHeaderText("");
             alert.showAndWait();
         }
         else if(datepFinDem.getValue() == null)
         {
             alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une date de fin pour votre demande");
+            alert.setContentText("Veuillez sélectionner une date de fin");
             alert.setHeaderText("");
             alert.showAndWait();
         }
         else if(cboMatiereDem.getSelectionModel().getSelectedItem() == null)
         {
             alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une matière pour votre demande");
+            alert.setContentText("Veuillez sélectionner une matière");
             alert.setHeaderText("");
             alert.showAndWait();
         }
@@ -131,16 +138,15 @@ public class MenuController implements Initializable
             String dateDébutDemande = datepDebutDem.getValue().toString();
             String datefinDemande = datepDebutDem.getValue().toString();
             String matiere = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
-            récupérerLesCasesCochées();
+            String sous_matiere = récupérerLesCasesCochées();
+            System.out.println(user.getId());
+            // Creer la demande
+            Demande uneDemande = new Demande(user.getId(), dateDébutDemande, datefinDemande, matiere, sous_matiere);
+            //System.out.println(uneDemande);
         }
     }
 
-    // initializer la check box
-
-    @Deprecated
-    public void chboxSousMatiereDem(Event event) throws SQLException {
-    }
-    public void récupérerLesCasesCochées() {
+    public String récupérerLesCasesCochées() {
         String sousMatiere = "";
         ObservableList<MenuItem> items = menuSousMatiere.getItems();
         for (MenuItem item : items) {
@@ -154,10 +160,8 @@ public class MenuController implements Initializable
                 }
             }
         }
-        System.out.println(sousMatiere);
+        return sousMatiere;
     }
-
-
 
     // Bouton annuler une demande
     @javafx.fxml.FXML
@@ -182,7 +186,7 @@ public class MenuController implements Initializable
     @javafx.fxml.FXML
     public void btnEnregistrerCompClicked(Event event)
     {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        /*Alert alert = new Alert(Alert.AlertType.ERROR);
 
         if(cbCompPrincipale.getValue() == null)
         {
@@ -202,7 +206,7 @@ public class MenuController implements Initializable
         {
             String matiere = cbCompPrincipale.getValue().toString();
             String sousMatiere = cbCompSecondaire.getValue().toString();
-            /*if (cbCompPrincipale.getSelectionModel().getSelectedItem() == null) {
+            if (cbCompPrincipale.getSelectionModel().getSelectedItem() == null) {
                 return;
             }
             else
@@ -216,8 +220,8 @@ public class MenuController implements Initializable
                     customMenuItem.setHideOnClick(false);
                     menuSousMatiere.getItems().add(customMenuItem);
                 }
-            }*/
-        }
+            }
+        }*/
     }
 
     @javafx.fxml.FXML
@@ -268,4 +272,7 @@ public class MenuController implements Initializable
         }
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

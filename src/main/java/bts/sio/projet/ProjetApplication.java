@@ -14,7 +14,7 @@ public class ProjetApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage; // Initialisez la référence à la fenêtre principale
-        FXMLLoader fxmlLoader = new FXMLLoader(ProjetApplication.class.getResource("menu-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ProjetApplication.class.getResource("projet-view.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setTitle("Projet!");

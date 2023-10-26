@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import bts.sio.projet.Entities.*;
 import bts.sio.projet.Services.ServiceUsers;
 import javafx.stage.Stage;
-
+import bts.sio.projet.MenuController;
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -25,7 +25,9 @@ public class ProjetController implements Initializable {
     ConnexionBDD maCnx;
     ServiceUsers serviceUsers = new ServiceUsers();
 
-    User rep;
+    User user;
+
+    MenuController menuController = new MenuController();
 
     @javafx.fxml.FXML
     private Button btnConnexion;
@@ -55,8 +57,8 @@ public class ProjetController implements Initializable {
             erreurs += "\nVeuillez remplir le champ mot de passe!";
         }
         serviceUsers = new ServiceUsers();
-        rep = serviceUsers.GetConnectionUser(txtEmail.getText(), txtPassword.getText());
-        if (rep == null) {
+        user = serviceUsers.GetConnectionUser(txtEmail.getText(), txtPassword.getText());
+        if (user == null) {
             if (erreurs.equals("")){
                 erreurs="Mail ou mot de passe invalide!";
             }
@@ -70,8 +72,12 @@ public class ProjetController implements Initializable {
             primaryStage.close();
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu-view.fxml"));
+            menuController = fxmlLoader.getController();
+            menuController.setUser(user);
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
+
+            modificationContactController.initDatas(((Contact)tvContacts.getSelectionModel().getSelectedItem()));
 
             Stage newStage = new Stage();
             newStage.setTitle("Menu");
@@ -79,4 +85,10 @@ public class ProjetController implements Initializable {
             newStage.show();
         }
     }
+
+    public User getUser()
+    {
+        return this.user;
+    }
+
 }
