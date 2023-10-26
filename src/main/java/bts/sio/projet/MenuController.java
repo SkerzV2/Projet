@@ -15,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable
@@ -62,7 +61,9 @@ public class MenuController implements Initializable
     @javafx.fxml.FXML
     private Button btnAnnulerComp;
     @javafx.fxml.FXML
-    private ComboBox cboSousMatiereDem;
+    private AnchorPane apStat;
+    @javafx.fxml.FXML
+    private MenuButton menuSousMatiere;
 
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -76,7 +77,6 @@ public class MenuController implements Initializable
             {
                 cboMatiereDem.getItems().add(uneMatiere.getDesignation());
             }
-            cboMatiereDem.getSelectionModel().selectFirst();
 
         }
         catch (ClassNotFoundException e)
@@ -113,18 +113,6 @@ public class MenuController implements Initializable
             alert.setContentText("Veuillez sélectionner une date de fin pour votre demande");
             alert.setHeaderText("");
             alert.showAndWait();
-        } else if (datepDebutDem.getValue() == null || datepFinDem.getValue() == null)
-        {
-            LocalDate debut = datepDebutDem.getValue();
-            LocalDate fin = datepFinDem.getValue();
-
-            if (debut.isAfter(fin))
-            {
-                alert.setTitle("Erreur de sélection");
-                alert.setContentText("La date de début ne peut pas être après la date de fin");
-                alert.setHeaderText("");
-                alert.showAndWait();
-            }
         }
         else if(cboMatiereDem.getSelectionModel().getSelectedItem() == null)
         {
@@ -133,31 +121,38 @@ public class MenuController implements Initializable
             alert.setHeaderText("");
             alert.showAndWait();
         }
-        else if(cboSousMatiereDem.getSelectionModel().getSelectedItem() == null)
-        {
-            alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une ou plusieurs sous-matière(s) pour votre demande");
-            alert.setHeaderText("");
-            alert.showAndWait();
-        }
         else
         {
             String dateDébutDemande = datepDebutDem.getValue().toString();
             String datefinDemande = datepDebutDem.getValue().toString();
             String matiere = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
-            String sousMatiere = cboSousMatiereDem.getSelectionModel().getSelectedItem().toString();
+            récupérerLesCasesCochées();
         }
     }
 
     // initializer la check box
-    @javafx.fxml.FXML
-    public void cboSousMatiereDemClicked(Event event) throws SQLException {
-        if (cboMatiereDem.getSelectionModel().getSelectedItem() == null) {
-        } else {
-            String matiereSelectionne = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
-            cboSousMatiereDem.setItems(serviceMatieres.GetAllSousMatiere(matiereSelectionne));
-        }
+
+    @Deprecated
+    public void chboxSousMatiereDem(Event event) throws SQLException {
     }
+    public void récupérerLesCasesCochées() {
+        String sousMatiere = "";
+        ObservableList<MenuItem> items = menuSousMatiere.getItems();
+        for (MenuItem item : items) {
+            if (item instanceof CustomMenuItem) {
+                CustomMenuItem customItem = (CustomMenuItem) item;
+                CheckBox checkBox = (CheckBox) customItem.getContent();
+
+                if (checkBox.isSelected()) {
+                    String sousMatiereSelectioner = checkBox.getText();
+                     sousMatiere += "#"+sousMatiereSelectioner;
+                }
+            }
+        }
+        System.out.println(sousMatiere);
+    }
+
+
 
     // Bouton annuler une demande
     @javafx.fxml.FXML
@@ -181,6 +176,7 @@ public class MenuController implements Initializable
 
     @javafx.fxml.FXML
     public void btnEnregistrerCompClicked(Event event) {
+
     }
 
     @javafx.fxml.FXML
@@ -203,6 +199,27 @@ public class MenuController implements Initializable
 
     @javafx.fxml.FXML
     public void btnVoirStatsClicked(Event event) {
+        apStat.toFront();
+    }
 
+    @javafx.fxml.FXML
+    public void cboMatiereDemClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void menuSousMatiereClicked(Event event) throws SQLException {
+        if (cboMatiereDem.getSelectionModel().getSelectedItem() == null) {
+            return;
+        } else {
+            String matiereSelectionne = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
+            ObservableList<String> sousMatieres = serviceMatieres.GetAllSousMatiere(matiereSelectionne);
+            menuSousMatiere.getItems().clear();
+
+            for (String sousMatiere : sousMatieres) {
+                CustomMenuItem customMenuItem = new CustomMenuItem(new CheckBox(sousMatiere));
+                customMenuItem.setHideOnClick(false);
+                menuSousMatiere.getItems().add(customMenuItem);
+            }
+        }
     }
 }
