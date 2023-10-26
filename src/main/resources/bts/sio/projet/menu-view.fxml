@@ -82,32 +82,32 @@
    <center>
       <AnchorPane prefHeight="498.0" prefWidth="670.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="662.0" visible="false">
+            <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="662.0">
                <children>
-                  <Label layoutX="-2.0" layoutY="212.0" text="Date de début :" AnchorPane.bottomAnchor="268.79999999999995" />
-                  <ComboBox fx:id="cboMatiereDem" layoutX="87.0" layoutY="109.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.bottomAnchor="363.0" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="109.0" />
-                  <Label layoutX="-2.0" layoutY="166.0" text="Date de fin :" AnchorPane.topAnchor="166.0" />
-                  <Label layoutX="7.0" layoutY="114.0" text="Matière :" AnchorPane.topAnchor="114.0" />
-                  <Label layoutX="95.0" layoutY="48.0" text="Faire une demande">
+                  <Label layoutX="14.0" layoutY="122.00000000000003" text="Date de début :" AnchorPane.bottomAnchor="358.79999999999995" />
+                  <ComboBox fx:id="cboMatiereDem" layoutX="122.0" layoutY="237.0" prefHeight="26.0" prefWidth="175.0" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="237.0" />
+                  <Label layoutX="14.0" layoutY="180.0" text="Date de fin :" AnchorPane.topAnchor="180.0" />
+                  <Label layoutX="14.0" layoutY="241.0" text="Matière :" AnchorPane.topAnchor="241.0" />
+                  <Label layoutX="24.0" layoutY="48.0" text="Faire une demande">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="datepDebutDem" layoutX="87.0" layoutY="207.0" prefHeight="26.0" prefWidth="210.0" />
-                  <Label layoutX="1.0" layoutY="256.0" text="Sous-matière :" AnchorPane.bottomAnchor="224.79999999999995" />
-                  <DatePicker fx:id="datepFinDem" layoutX="87.0" layoutY="162.0" prefHeight="26.0" prefWidth="210.0" AnchorPane.bottomAnchor="310.0" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="162.0" />
-                  <Button fx:id="btnAnnulerDem" layoutX="44.0" layoutY="403.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" prefWidth="250.0" text="Annuler" />
-                  <Button fx:id="btnValiderDem" layoutX="44.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" prefWidth="250.0" text="Valider" />
-                  <ChoiceBox fx:id="chboxSousMatiereDem" layoutX="87.0" layoutY="252.0" prefHeight="26.0" prefWidth="210.0" />
+                  <DatePicker fx:id="datepDebutDem" layoutX="123.0" layoutY="117.0" prefHeight="26.0" prefWidth="175.0" />
+                  <Label layoutX="16.0" layoutY="301.0" text="Sous-matière :" AnchorPane.bottomAnchor="179.79999999999995" />
+                  <DatePicker fx:id="datepFinDem" layoutX="123.0" layoutY="176.0" prefHeight="26.0" prefWidth="175.0" AnchorPane.bottomAnchor="296.0" AnchorPane.leftAnchor="123.0" AnchorPane.rightAnchor="364.0" AnchorPane.topAnchor="176.0" />
+                  <Button fx:id="btnAnnulerDem" layoutX="183.0" layoutY="377.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" prefHeight="26.0" prefWidth="90.0" text="Annuler" />
+                  <Button fx:id="btnValiderDem" layoutX="51.0" layoutY="377.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" prefHeight="26.0" prefWidth="90.0" text="Valider" />
                   <TreeView fx:id="tvMesDemandes" layoutX="322.0" layoutY="84.0" prefHeight="386.0" prefWidth="306.0" />
-                  <Label layoutX="434.0" layoutY="48.0" text="Mes demandes">
+                  <Label layoutX="331.0" layoutY="48.0" text="Mes demandes">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
+                  <ComboBox fx:id="cboSousMatiereDem" layoutX="123.0" layoutY="296.0" onMouseClicked="#cboSousMatiereDemClicked" prefHeight="26.0" prefWidth="175.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="apEnregistrerComp" prefHeight="498.0" prefWidth="662.0">
+            <AnchorPane fx:id="apEnregistrerComp" prefHeight="498.0" prefWidth="662.0" visible="false">
                <children>
                   <ChoiceBox fx:id="cbCompPrincipale" layoutX="436.0" layoutY="98.0" prefWidth="150.0" />
                   <Label layoutX="253.0" layoutY="33.0" text="Enregistrer ses compétences">

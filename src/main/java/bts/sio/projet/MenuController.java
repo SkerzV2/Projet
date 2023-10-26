@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable
@@ -51,16 +52,32 @@ public class MenuController implements Initializable
     @javafx.fxml.FXML
     private ComboBox cboMatiereDem;
     @javafx.fxml.FXML
-    private ChoiceBox chboxSousMatiereDem;
+    private AnchorPane apEnregistrerComp;
+    @javafx.fxml.FXML
+    private ChoiceBox cbCompPrincipale;
+    @javafx.fxml.FXML
+    private ChoiceBox cbCompSecondaire;
+    @javafx.fxml.FXML
+    private Button btnValiderComp;
+    @javafx.fxml.FXML
+    private Button btnAnnulerComp;
+    @javafx.fxml.FXML
+    private ComboBox cboSousMatiereDem;
 
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         try
         {
             maCnx = new ConnexionBDD();
-            //marche pas encore
             serviceMatieres = new ServiceMatieres();
-            cboMatiereDem.getItems().addAll(serviceMatieres.GetAllMatiere());
+            ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
+            lesMatieres = serviceMatieres.GetAllMatiereObj();
+            for(Matiere uneMatiere : lesMatieres)
+            {
+                cboMatiereDem.getItems().add(uneMatiere.getDesignation());
+            }
+            cboMatiereDem.getSelectionModel().selectFirst();
+
         }
         catch (ClassNotFoundException e)
         {
@@ -96,6 +113,18 @@ public class MenuController implements Initializable
             alert.setContentText("Veuillez sélectionner une date de fin pour votre demande");
             alert.setHeaderText("");
             alert.showAndWait();
+        } else if (datepDebutDem.getValue() == null || datepFinDem.getValue() == null)
+        {
+            LocalDate debut = datepDebutDem.getValue();
+            LocalDate fin = datepFinDem.getValue();
+
+            if (debut.isAfter(fin))
+            {
+                alert.setTitle("Erreur de sélection");
+                alert.setContentText("La date de début ne peut pas être après la date de fin");
+                alert.setHeaderText("");
+                alert.showAndWait();
+            }
         }
         else if(cboMatiereDem.getSelectionModel().getSelectedItem() == null)
         {
@@ -104,7 +133,7 @@ public class MenuController implements Initializable
             alert.setHeaderText("");
             alert.showAndWait();
         }
-        else if(chboxSousMatiereDem.getSelectionModel().getSelectedItem() == null)
+        else if(cboSousMatiereDem.getSelectionModel().getSelectedItem() == null)
         {
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une ou plusieurs sous-matière(s) pour votre demande");
@@ -116,7 +145,17 @@ public class MenuController implements Initializable
             String dateDébutDemande = datepDebutDem.getValue().toString();
             String datefinDemande = datepDebutDem.getValue().toString();
             String matiere = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
-            String sousMatiere = chboxSousMatiereDem.getSelectionModel().getSelectedItem().toString();
+            String sousMatiere = cboSousMatiereDem.getSelectionModel().getSelectedItem().toString();
+        }
+    }
+
+    // initializer la check box
+    @javafx.fxml.FXML
+    public void cboSousMatiereDemClicked(Event event) throws SQLException {
+        if (cboMatiereDem.getSelectionModel().getSelectedItem() == null) {
+        } else {
+            String matiereSelectionne = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
+            cboSousMatiereDem.setItems(serviceMatieres.GetAllSousMatiere(matiereSelectionne));
         }
     }
 
@@ -150,6 +189,13 @@ public class MenuController implements Initializable
 
     @javafx.fxml.FXML
     public void btnVoirCompClicked(Event event) {
+    }
+    @javafx.fxml.FXML
+    public void btnValiderCompClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void btnAnnulerCompClicked(Event event) {
     }
 
 
