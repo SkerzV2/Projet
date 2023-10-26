@@ -14,8 +14,8 @@
          </font>
       </Label>
       <Button fx:id="btnConnexion" layoutX="118.0" layoutY="322.0" mnemonicParsing="false" onMouseClicked="#btnConnexionClicked" prefHeight="34.0" prefWidth="182.0" text="Connexion" />
-      <TextField fx:id="txtEmail" layoutX="210.0" layoutY="149.0" prefHeight="31.0" prefWidth="150.0" />
-      <TextField fx:id="txtPassword" layoutX="210.0" layoutY="228.0" prefHeight="31.0" prefWidth="150.0" />
+      <TextField fx:id="txtEmail" layoutX="210.0" layoutY="149.0" prefHeight="31.0" prefWidth="150.0" text="sabine.castaing@lerebours.org" />
+      <TextField fx:id="txtPassword" layoutX="210.0" layoutY="228.0" prefHeight="31.0" prefWidth="150.0" text="sabcas" />
       <Label layoutX="53.0" layoutY="146.0" text="Adresse Mail :">
          <font>
             <Font size="21.0" />
@@ -26,6 +26,5 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <TextField layoutX="43.0" layoutY="187.0" text="sabine.castaing@lerebours.org" />
    </children>
 </AnchorPane>

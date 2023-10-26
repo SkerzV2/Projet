@@ -5,6 +5,7 @@ import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.User;
 import bts.sio.projet.Services.ServiceMatieres;
 import bts.sio.projet.Services.ServiceUsers;
+import bts.sio.projet.Services.ServicesDemandes;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +23,9 @@ import java.util.ResourceBundle;
 public class MenuController implements Initializable
 {
     ConnexionBDD maCnx;
+    ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
     ServiceMatieres serviceMatieres = new ServiceMatieres();
+    ServicesDemandes servicesDemandes = new ServicesDemandes();
     private ProjetController projetController;
     User user;
     Matiere matiere ;
@@ -69,6 +72,10 @@ public class MenuController implements Initializable
     private AnchorPane apStat;
     @javafx.fxml.FXML
     private MenuButton menuSousMatiere;
+    @javafx.fxml.FXML
+    private AnchorPane apVisualiserDemandes;
+    @javafx.fxml.FXML
+    private TreeView tvVisualiserDemandes;
 
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -76,7 +83,6 @@ public class MenuController implements Initializable
         {
             maCnx = new ConnexionBDD();
             serviceMatieres = new ServiceMatieres();
-            ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
             lesMatieres = serviceMatieres.GetAllMatiereObj();
 
 
@@ -107,62 +113,64 @@ public class MenuController implements Initializable
     }
     // Bouton valider une demande
     @javafx.fxml.FXML
-    public void btnValiderDemClicked(Event event)
-    {
+    public void btnValiderDemClicked(Event event) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.ERROR);
 
-        // ajouter un traitement d'erreur pour que la date de début soit minimun a aujourd'hui
-        if(datepDebutDem.getValue() == null || datepDebutDem.getValue().isBefore(LocalDate.now()))
-        {
+        if (datepDebutDem.getValue() == null || datepDebutDem.getValue().isBefore(LocalDate.now())) {
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une date de début valide (aujourd'hui ou ultérieure)");
             alert.setHeaderText("");
             alert.showAndWait();
-        }
-        else if(datepFinDem.getValue() == null)
-        {
+        } else if (datepFinDem.getValue() == null) {
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une date de fin valide (ultérieure à la date de début)");
             alert.setHeaderText("");
             alert.showAndWait();
-        }
-        else if(datepDebutDem.getValue() != null || datepFinDem.getValue() != null)
-        {
+        } else if (datepDebutDem.getValue() != null && datepFinDem.getValue() != null) {
             LocalDate debut = datepDebutDem.getValue();
             LocalDate fin = datepFinDem.getValue();
 
-            if (debut.isAfter(fin))
-            {
+            if (debut.isAfter(fin)) {
                 alert.setTitle("Erreur de sélection");
                 alert.setContentText("La date de début ne peut pas être après la date de fin");
                 alert.setHeaderText("");
                 alert.showAndWait();
+            } else if (cboMatiereDem.getSelectionModel().isEmpty()) {
+                alert.setTitle("Erreur de sélection");
+                alert.setContentText("Veuillez sélectionner une matière");
+                alert.setHeaderText("");
+                alert.showAndWait();
+            } else if (menuSousMatiere.getItems().isEmpty()) {
+                alert.setTitle("Erreur de sélection");
+                alert.setContentText("Veuillez sélectionner une ou plusieurs sous-matières");
+                alert.setHeaderText("");
+                alert.showAndWait();
+            } else {
+                String dateDébutDemande = datepDebutDem.getValue().toString();
+                String datefinDemande = datepFinDem.getValue().toString();
+                String nomMatiereSelectionnee = (String) cboMatiereDem.getSelectionModel().getSelectedItem();
+
+                Matiere matiereSelectionnee = null;
+
+                int idMatiere = 0;
+                for (Matiere uneMatiere : lesMatieres) {
+                    if (uneMatiere.getDesignation().equals(nomMatiereSelectionnee)) {
+                        matiereSelectionnee = uneMatiere;
+                        break;
+                    }
+                }
+                if (matiereSelectionnee != null) {
+                    idMatiere = matiereSelectionnee.getIdMatiere();
+                }
+                String sous_matiere = récupérerLesCasesCochées();
+
+                // Créer la demande
+                Demande uneDemande = new Demande(dateDébutDemande, datefinDemande, sous_matiere, user.getId(), idMatiere);
+
+                servicesDemandes.creationDemande(uneDemande);
             }
         }
-        else if(cboMatiereDem.getSelectionModel().getSelectedItem() == null)
-        {
-            alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une matière");
-            alert.setHeaderText("");
-            alert.showAndWait();
-        }
-        else if(menuSousMatiere.getItems() == null)
-        {
-            alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une ou plusieurs sous-matière(s)");
-            alert.setHeaderText("");
-            alert.showAndWait();
-        }
-        else
-        {
-            String dateDébutDemande = datepDebutDem.getValue().toString();
-            String datefinDemande = datepDebutDem.getValue().toString();
-            String matiere = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
-            String sous_matiere = récupérerLesCasesCochées();
-            System.out.println(user.getId());
-            // Creer la demande
-            Demande uneDemande = new Demande(user.getId(), dateDébutDemande, datefinDemande, matiere, sous_matiere);
-        }
+
     }
 
     public String récupérerLesCasesCochées() {
@@ -186,6 +194,7 @@ public class MenuController implements Initializable
     @javafx.fxml.FXML
     public void btnAnnulerDemClicked(Event event)
     {
+
     }
 
     // Bouton modifier une demande
@@ -198,7 +207,9 @@ public class MenuController implements Initializable
     @javafx.fxml.FXML
     public void btnVoirDemandeClicked(Event event)
     {
+        apVisualiserDemandes.toFront();
     }
+
 
     // Partie de Pierre
 
@@ -290,10 +301,6 @@ public class MenuController implements Initializable
                 menuSousMatiere.getItems().add(customMenuItem);
             }
         }
-    }
-
-    public void setProjetController(ProjetController projetController) {
-        this.projetController = projetController;
     }
 
     public void setUser(User user) {

@@ -10,13 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Matiere {
-    private int id;
+    private int idMatiere;
     private String designation;
     private String sousMatiere;
 
 
-    public Matiere(int id, String designation, String sousMatiere) {
-        this.id = id;
+    public Matiere(int idMatiere, String designation, String sousMatiere) {
+        this.idMatiere = idMatiere;
         this.designation = designation;
         this.sousMatiere = sousMatiere;
     }
@@ -24,10 +24,10 @@ public class Matiere {
     // Fonction pour avoir les objet matières
 
     public int getId() {
-        return id;
+        return idMatiere;
     }
 
-    public void setId(int id) {this.id = id;}
+    public void setId(int idMatiere) {this.idMatiere = idMatiere;}
 
     public String getDesignation() {return designation;}
 
@@ -36,4 +36,8 @@ public class Matiere {
     public String getSousMatiere() {return sousMatiere;}
 
     public void setSousMatiere(String sousMatiere) {this.sousMatiere = sousMatiere;}
+
+    public int getIdMatiere() {
+        return idMatiere;
+    }
 }
