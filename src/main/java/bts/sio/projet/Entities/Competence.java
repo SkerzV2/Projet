@@ -2,20 +2,18 @@ package bts.sio.projet.Entities;
 
 public class Competence
 {
-    private int id;
     private String matierePrincipale;
     private String matiereSecondaire;
+    private int idUser;
 
-    public Competence(int id, String matierePrincipale, String matiereSecondaire)
+    public Competence( String matierePrincipale, String matiereSecondaire, int idUser)
     {
-        this.id = id;
         this.matierePrincipale = matierePrincipale;
         this.matiereSecondaire = matiereSecondaire;
+        this.idUser = idUser;
     }
 
-    public int getId() {
-        return id;
-    }
+
     public String getMatierePrincipale()
     {
         return matierePrincipale;
@@ -24,13 +22,14 @@ public class Competence
     {
         return matiereSecondaire;
     }
+    public int getIdUser()
+    {
+        return idUser;
+    }
+
     public void setMatierePrincipale(String matierePrincipale)
     {
         this.matierePrincipale = matierePrincipale;
-    }
-    public void setId(int id)
-    {
-        this.id = id;
     }
     public void setMatiereSecondaire(String matiereSecondaire)
     {
