@@ -7,6 +7,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -83,7 +84,7 @@
    <center>
       <AnchorPane prefHeight="498.0" prefWidth="670.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="662.0" style="-fx-background-color: D2D2D2;" visible="false">
+            <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="662.0" style="-fx-background-color: D2D2D2;">
                <children>
                   <Label layoutX="14.0" layoutY="122.00000000000003" text="Date de début :" AnchorPane.bottomAnchor="358.79999999999995" />
                   <ComboBox fx:id="cboMatiereDem" layoutX="122.0" layoutY="237.0" onMouseClicked="#cboMatiereDemClicked" prefHeight="26.0" prefWidth="175.0" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="237.0" />
@@ -108,7 +109,7 @@
                   <MenuButton fx:id="menuSousMatiere" layoutX="123.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#menuSousMatiereClicked" prefHeight="26.0" prefWidth="174.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="apEnregistrerComp" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;" visible="false">
+            <AnchorPane fx:id="apEnregistrerComp" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;">
                <children>
                   <ChoiceBox fx:id="cbCompPrincipale" layoutX="436.0" layoutY="98.0" prefWidth="200.0" />
                   <Label layoutX="257.0" layoutY="33.0" text="Enregistrer ses compétences">
@@ -124,13 +125,18 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <ChoiceBox fx:id="cbCompSecondaire" layoutX="436.0" layoutY="185.0" prefWidth="200.0" />
                   <Button fx:id="btnValiderComp" layoutX="335.0" layoutY="378.0" mnemonicParsing="false" onMouseClicked="#btnValiderCompClicked" prefWidth="250.0" text="Valider" />
                   <Button fx:id="btnAnnulerComp" layoutX="41.0" layoutY="378.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerCompClicked" prefWidth="250.0" text="Annuler" />
+                  <MenuButton fx:id="mbSousMatieres" layoutX="437.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#mbSousMatieresClicked" prefHeight="26.0" prefWidth="200.0">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                  </MenuButton>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="apStat" prefHeight="497.0" prefWidth="670.0" style="-fx-background-color: grey;" visible="false" />
-            <AnchorPane fx:id="apVisualiserDemandes" prefHeight="498.0" prefWidth="666.0" style="-fx-background-color: grey;">
+            <AnchorPane fx:id="apVisualiserDemandes" prefHeight="498.0" prefWidth="666.0" style="-fx-background-color: D2D2D2;">
                <children>
                   <Label layoutX="38.0" layoutY="23.0" text="Visualiser ses demandes">
                      <font>

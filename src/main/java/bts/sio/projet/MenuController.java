@@ -1,8 +1,10 @@
 package bts.sio.projet;
 
+import bts.sio.projet.Entities.Competence;
 import bts.sio.projet.Entities.Demande;
 import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.User;
+import bts.sio.projet.Services.ServiceCompetences;
 import bts.sio.projet.Services.ServiceMatieres;
 import bts.sio.projet.Services.ServiceUsers;
 import bts.sio.projet.Services.ServicesDemandes;
@@ -18,7 +20,10 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 
 public class MenuController implements Initializable
 {
@@ -26,9 +31,13 @@ public class MenuController implements Initializable
     ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
     ServiceMatieres serviceMatieres = new ServiceMatieres();
     ServicesDemandes servicesDemandes = new ServicesDemandes();
+    ServiceCompetences serviceCompetences = new ServiceCompetences();
     private ProjetController projetController;
     User user;
     Matiere matiere ;
+    HashMap<Matiere, TreeMap<String, ObservableList<String>>> lesDemandes;
+    TreeItem root;
+
 
     @javafx.fxml.FXML
     private Button btnCreerDemande;
@@ -63,8 +72,6 @@ public class MenuController implements Initializable
     @javafx.fxml.FXML
     private ChoiceBox cbCompPrincipale;
     @javafx.fxml.FXML
-    private ChoiceBox cbCompSecondaire;
-    @javafx.fxml.FXML
     private Button btnValiderComp;
     @javafx.fxml.FXML
     private Button btnAnnulerComp;
@@ -76,6 +83,8 @@ public class MenuController implements Initializable
     private AnchorPane apVisualiserDemandes;
     @javafx.fxml.FXML
     private TreeView tvVisualiserDemandes;
+    @javafx.fxml.FXML
+    private MenuButton mbSousMatieres;
 
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -92,6 +101,8 @@ public class MenuController implements Initializable
                 cbCompPrincipale.getItems().add(uneMatiere.getDesignation());
             }
 
+            root = new TreeItem("Mes demandes");
+            tvVisualiserDemandes.setRoot(root);
 
         }
         catch (ClassNotFoundException e)
@@ -162,7 +173,8 @@ public class MenuController implements Initializable
                 if (matiereSelectionnee != null) {
                     idMatiere = matiereSelectionnee.getIdMatiere();
                 }
-                String sous_matiere = récupérerLesCasesCochées();
+                MenuButton menu = menuSousMatiere;
+                String sous_matiere = recupererLesCasesCochees(menu);
 
                 // Créer la demande
                 Demande uneDemande = new Demande(dateDébutDemande, datefinDemande, sous_matiere, user.getId(), idMatiere);
@@ -173,9 +185,9 @@ public class MenuController implements Initializable
 
     }
 
-    public String récupérerLesCasesCochées() {
+    public String recupererLesCasesCochees(MenuButton menu) {
         String sousMatiere = "";
-        ObservableList<MenuItem> items = menuSousMatiere.getItems();
+        ObservableList<MenuItem> items = menu.getItems();
         for (MenuItem item : items) {
             if (item instanceof CustomMenuItem) {
                 CustomMenuItem customItem = (CustomMenuItem) item;
@@ -201,13 +213,42 @@ public class MenuController implements Initializable
     @javafx.fxml.FXML
     public void btnModifDemandeClicked(Event event)
     {
+
     }
 
     // Bouton voir les demandes des autres (et les siennes)
     @javafx.fxml.FXML
-    public void btnVoirDemandeClicked(Event event)
-    {
+    public void btnVoirDemandeClicked(Event event) throws SQLException {
         apVisualiserDemandes.toFront();
+        lesDemandes = servicesDemandes.getAllDemandes(user.getId());
+
+        RemplirTreeViewDemandes();
+    }
+
+    public void RemplirTreeViewDemandes()
+    {
+        root.getChildren().clear();
+        tvVisualiserDemandes.getRoot().getChildren().clear();
+
+        for(Matiere nomMatiere : lesDemandes.keySet())
+        {
+            TreeItem noeudMatiere = new TreeItem(nomMatiere.getDesignation());
+            for (String dateDebut: lesDemandes.get(nomMatiere).keySet())
+            {
+
+                TreeItem noeudDate = new TreeItem(dateDebut);
+                for (String sousMatiere  : lesDemandes.get(nomMatiere).get(dateDebut))
+                {
+                    TreeItem noeudSousMatiere = new TreeItem(sousMatiere);
+                    noeudDate.getChildren().add(noeudSousMatiere);
+                }
+                noeudMatiere.getChildren().add(noeudDate);
+            }
+            root.getChildren().add(noeudMatiere);
+            root.setExpanded(true);
+
+            tvVisualiserDemandes.setRoot(root);
+        }
     }
 
 
@@ -216,42 +257,22 @@ public class MenuController implements Initializable
     @javafx.fxml.FXML
     public void btnEnregistrerCompClicked(Event event)
     {
-        /*Alert alert = new Alert(Alert.AlertType.ERROR);
+        apEnregistrerComp.toFront();
+    }
 
-        if(cbCompPrincipale.getValue() == null)
-        {
-            alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une compétence principale");
-            alert.setHeaderText("");
-            alert.showAndWait();
-        }
-        else if(cbCompSecondaire.getValue() == null)
-        {
-            alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une compétence secondaire");
-            alert.setHeaderText("");
-            alert.showAndWait();
-        }
-        else
-        {
-            String matiere = cbCompPrincipale.getValue().toString();
-            String sousMatiere = cbCompSecondaire.getValue().toString();
-            if (cbCompPrincipale.getSelectionModel().getSelectedItem() == null) {
-                return;
-            }
-            else
-            {
-                String matiereSelectionne = cbCompPrincipale.getSelectionModel().getSelectedItem().toString();
-                ObservableList<String> sousMatieres = serviceMatieres.GetAllSousMatiere(matiere);
-                cbCompSecondaire.getItems().clear();
+    public void mbSousMatieresClicked(Event event) throws SQLException {
+        if (cbCompPrincipale.getSelectionModel().getSelectedItem() == null) {
+        } else {
+            String matiere = cbCompPrincipale.getSelectionModel().getSelectedItem().toString();
+            ObservableList<String> sousMatieres = serviceMatieres.GetAllSousMatiere(matiere);
+            mbSousMatieres.getItems().clear();
 
-                for (String sousMatiere : sousMatieres) {
-                    CustomMenuItem customMenuItem = new CustomMenuItem(new CheckBox(sousMatiere));
-                    customMenuItem.setHideOnClick(false);
-                    menuSousMatiere.getItems().add(customMenuItem);
-                }
+            for (String sousMatiere : sousMatieres) {
+                CustomMenuItem customMenuItem = new CustomMenuItem(new CheckBox(sousMatiere));
+                customMenuItem.setHideOnClick(false);
+                mbSousMatieres.getItems().add(customMenuItem);
             }
-        }*/
+        }
     }
 
     @javafx.fxml.FXML
@@ -264,7 +285,52 @@ public class MenuController implements Initializable
     public void btnVoirCompClicked(Event event) {
     }
     @javafx.fxml.FXML
-    public void btnValiderCompClicked(Event event) {
+    public void btnValiderCompClicked(Event event) throws SQLException {
+        apEnregistrerComp.toFront();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        if(cbCompPrincipale.getValue() == null)
+        {
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une compétence principale");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else if(mbSousMatieres.getItems().isEmpty())
+        {
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une compétence secondaire");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else {
+            String matiere = cbCompPrincipale.getValue().toString();
+            String sousMatiere = mbSousMatieres.getItems().toString();
+
+
+            Matiere matiereSelectionnee = null;
+
+            int idMatiere = 0;
+            for (Matiere uneMatiere : lesMatieres) {
+                if (uneMatiere.getDesignation().equals(matiere)) {
+                    matiereSelectionnee = uneMatiere;
+                    break;
+                }
+            }
+            if (matiereSelectionnee != null) {
+                idMatiere = matiereSelectionnee.getIdMatiere();
+            }
+            MenuButton menu = mbSousMatieres;
+            String sous_matiere = recupererLesCasesCochees(menu);
+
+
+            // Créer la compétence
+            Competence uneCompetence = new Competence(matiere, sous_matiere,user.getId());
+
+            serviceCompetences.creationCompetence(uneCompetence, idMatiere);
+
+        }
+
     }
 
     @javafx.fxml.FXML
