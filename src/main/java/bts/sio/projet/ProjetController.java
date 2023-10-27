@@ -13,9 +13,8 @@ import javafx.scene.control.TextField;
 import bts.sio.projet.Entities.*;
 import bts.sio.projet.Services.ServiceUsers;
 import javafx.stage.Stage;
-import bts.sio.projet.MenuController;
+
 import java.io.IOException;
-import java.sql.Connection;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -83,6 +82,13 @@ public class ProjetController implements Initializable {
             newStage.show();
         }
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                                           //
+    //                                                                                                          //
+    //                                           Partie de Claude                                              //
+    //                                                                                                        //
+    //                                                                                                       //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public User getUser()
     {
