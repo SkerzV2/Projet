@@ -8,6 +8,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -24,17 +26,17 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="btnCreerDemande" mnemonicParsing="false" onMouseClicked="#btnCreerDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Faire une demande">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="btnModifDemande" mnemonicParsing="false" onMouseClicked="#btnModifDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Modifier ses demandes">
+            <Button fx:id="btnCreerDemande" mnemonicParsing="false" onMouseClicked="#btnCreerDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Faire une demande">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
             <Button fx:id="btnVoirDemande" mnemonicParsing="false" onMouseClicked="#btnVoirDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Visualiser ses demandes">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnModifDemande" mnemonicParsing="false" onMouseClicked="#btnModifDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Modifier ses demandes">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -84,29 +86,23 @@
    <center>
       <AnchorPane prefHeight="498.0" prefWidth="670.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="662.0" style="-fx-background-color: D2D2D2;">
+            <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;">
                <children>
-                  <Label layoutX="14.0" layoutY="122.00000000000003" text="Date de début :" AnchorPane.bottomAnchor="358.79999999999995" />
-                  <ComboBox fx:id="cboMatiereDem" layoutX="122.0" layoutY="237.0" onMouseClicked="#cboMatiereDemClicked" prefHeight="26.0" prefWidth="175.0" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="237.0" />
-                  <Label layoutX="14.0" layoutY="180.0" text="Date de fin :" AnchorPane.topAnchor="180.0" />
-                  <Label layoutX="14.0" layoutY="241.0" text="Matière :" AnchorPane.topAnchor="241.0" />
-                  <Label layoutX="24.0" layoutY="48.0" text="Faire une demande">
+                  <Label layoutX="146.0" layoutY="130.00000000000003" text="Date de début :" AnchorPane.bottomAnchor="350.79999999999995" />
+                  <ComboBox fx:id="cboMatiereDem" layoutX="280.0" layoutY="245.0" prefHeight="26.0" prefWidth="222.0" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="168.0" AnchorPane.topAnchor="245.0" />
+                  <Label layoutX="146.0" layoutY="188.0" text="Date de fin :" AnchorPane.topAnchor="188.0" />
+                  <Label layoutX="146.0" layoutY="249.0" text="Matière :" AnchorPane.topAnchor="249.0" />
+                  <Label layoutX="277.0" layoutY="53.0" text="Faire une demande">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="datepDebutDem" layoutX="123.0" layoutY="117.0" prefHeight="26.0" prefWidth="175.0" />
-                  <Label layoutX="16.0" layoutY="301.0" text="Sous-matière :" AnchorPane.bottomAnchor="179.79999999999995" />
-                  <DatePicker fx:id="datepFinDem" layoutX="123.0" layoutY="176.0" prefHeight="26.0" prefWidth="175.0" AnchorPane.bottomAnchor="296.0" AnchorPane.leftAnchor="123.0" AnchorPane.rightAnchor="364.0" AnchorPane.topAnchor="176.0" />
-                  <Button fx:id="btnAnnulerDem" layoutX="183.0" layoutY="377.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" prefHeight="26.0" prefWidth="90.0" text="Annuler" />
-                  <Button fx:id="btnValiderDem" layoutX="51.0" layoutY="377.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" prefHeight="26.0" prefWidth="90.0" text="Valider" />
-                  <TreeView fx:id="tvMesDemandes" layoutX="322.0" layoutY="84.0" prefHeight="386.0" prefWidth="306.0" />
-                  <Label layoutX="331.0" layoutY="48.0" text="Mes demandes">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font>
-                  </Label>
-                  <MenuButton fx:id="menuSousMatiere" layoutX="123.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#menuSousMatiereClicked" prefHeight="26.0" prefWidth="174.0" />
+                  <DatePicker fx:id="datepDebutDem" layoutX="281.0" layoutY="125.0" prefHeight="26.0" prefWidth="220.0" />
+                  <Label layoutX="148.0" layoutY="309.0" text="Sous-matière :" AnchorPane.bottomAnchor="171.79999999999995" />
+                  <DatePicker fx:id="datepFinDem" layoutX="281.0" layoutY="184.0" prefHeight="26.0" prefWidth="220.0" AnchorPane.bottomAnchor="288.0" AnchorPane.leftAnchor="281.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="184.0" />
+                  <Button fx:id="btnAnnulerDem" layoutX="352.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" prefHeight="26.0" prefWidth="155.0" text="Annuler" />
+                  <Button fx:id="btnValiderDem" layoutX="155.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" prefHeight="26.0" prefWidth="155.0" text="Valider" />
+                  <MenuButton fx:id="menuSousMatiere" layoutX="281.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#menuSousMatiereClicked" prefHeight="26.0" prefWidth="221.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="apEnregistrerComp" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;">
@@ -135,15 +131,32 @@
                   </MenuButton>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="apStat" prefHeight="497.0" prefWidth="670.0" style="-fx-background-color: grey;" visible="false" />
-            <AnchorPane fx:id="apVisualiserDemandes" prefHeight="498.0" prefWidth="666.0" style="-fx-background-color: D2D2D2;">
+            <AnchorPane fx:id="apStat" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: grey;" visible="false" />
+            <AnchorPane fx:id="apVisualiserDemandes" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;">
                <children>
-                  <Label layoutX="38.0" layoutY="23.0" text="Visualiser ses demandes">
+                  <Label layoutX="256.0" layoutY="24.0" text="Visualiser mes demandes">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
                   <TreeView fx:id="tvVisualiserDemandes" layoutX="38.0" layoutY="60.0" prefHeight="419.0" prefWidth="577.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="apModifierDemande" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;">
+               <children>
+                  <Label layoutX="270.0" layoutY="23.0" text="Modifier mes demandes">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tvModifDemandes" layoutX="26.0" layoutY="66.0" onMouseClicked="#tvModifDemandes" prefHeight="404.0" prefWidth="622.0">
+                    <columns>
+                        <TableColumn fx:id="tcMatiere" prefWidth="95.20001602172852" text="Matière" />
+                      <TableColumn fx:id="tcDateDebut" prefWidth="95.20001602172852" text="Date de début" />
+                        <TableColumn fx:id="tcDateFin" prefWidth="95.20001602172852" text="Date de fin" />
+                        <TableColumn fx:id="tcSousMatieres" prefWidth="333.6000122070312" text="Sous-matière(s)" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
          </children></AnchorPane>

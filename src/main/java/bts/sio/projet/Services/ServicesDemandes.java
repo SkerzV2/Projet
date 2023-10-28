@@ -36,6 +36,26 @@ public class ServicesDemandes {
         ps.executeUpdate();
     }
 
+    public void modificationDemande(Demande demandeModifiee) throws SQLException {
+        String sql = "UPDATE demande "
+                + "SET demande.date_updated = ?, demande.date_fin_demande = ?,  demande.sous_matiere = ?, demande.id_user = ?, demande.id_matiere = ? "
+                +" WHERE id_demande = ?";
+
+        ps = unCnx.prepareStatement(sql);
+
+        // Remplacez les paramètres de la requête par les valeurs de demandeModifiee
+        ps.setString(1, demandeModifiee.getDateDebut());
+        ps.setString(2, demandeModifiee.getDateFin());
+        ps.setString(3, demandeModifiee.getSousMatiere());
+        ps.setInt(4, demandeModifiee.getIdUser());
+        ps.setInt(5, demandeModifiee.getIdMatiere());
+        ps.setObject(6, demandeModifiee);
+
+        // Exécutez la requête de mise à jour
+        ps.executeUpdate();
+    }
+
+
     public HashMap<String, TreeMap<String, ObservableList<String>>> getAllDemandes(int idUser) throws SQLException {
         ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
                 + "FROM demande "
@@ -61,16 +81,16 @@ public class ServicesDemandes {
                 ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
                 lesSousMatieres.add(sousMatiere);
                 TreeMap<String, ObservableList<String>> lesDates = new TreeMap<>();
-                lesDates.put(dateDebut, lesSousMatieres);
+                lesDates.put(dateDebut + " au " + dateFin, lesSousMatieres);
                 lesDemandes.put(matiereDesignation, lesDates);
             } else {
                 TreeMap<String, ObservableList<String>> lesDates = lesDemandes.get(matiereDesignation);
                 if (!lesDates.containsKey(dateDebut)) {
                     ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
                     lesSousMatieres.add(sousMatiere);
-                    lesDates.put(dateDebut, lesSousMatieres);
+                    lesDates.put(dateDebut + " au " + dateFin, lesSousMatieres);
                 } else {
-                    lesDates.get(dateDebut).add(sousMatiere);
+                    lesDates.get(dateDebut + " au " + dateFin).add(sousMatiere);
                 }
             }
         }
