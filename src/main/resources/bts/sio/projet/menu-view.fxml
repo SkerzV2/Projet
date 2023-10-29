@@ -96,7 +96,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="667.0" style="-fx-background-color: D2D2D2;" visible="false">
+            <AnchorPane fx:id="apFaireDemande" prefHeight="498.0" prefWidth="667.0" style="-fx-background-color: D2D2D2;">
                <children>
                   <Label layoutX="146.0" layoutY="130.00000000000003" text="Date de début :" AnchorPane.bottomAnchor="350.79999999999995" />
                   <ComboBox fx:id="cboMatiereDem" layoutX="280.0" layoutY="245.0" prefHeight="26.0" prefWidth="222.0" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="168.0" AnchorPane.topAnchor="245.0" />
@@ -142,7 +142,7 @@
                </children>
             </AnchorPane>
             <AnchorPane fx:id="apStat" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: grey;" visible="false" />
-            <AnchorPane fx:id="apVisualiserDemandes" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;" visible="false">
+            <AnchorPane fx:id="apVisualiserDemandes" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;">
                <children>
                   <Label layoutX="256.0" layoutY="24.0" text="Visualiser mes demandes">
                      <font>
@@ -152,7 +152,7 @@
                   <TreeView fx:id="tvVisualiserDemandes" layoutX="38.0" layoutY="60.0" prefHeight="419.0" prefWidth="577.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="apModifierDemande" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;" visible="false">
+            <AnchorPane fx:id="apModifierDemande" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;">
                <children>
                   <Label layoutX="270.0" layoutY="23.0" text="Modifier mes demandes">
                      <font>

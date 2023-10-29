@@ -56,19 +56,20 @@ public class ServicesDemandes {
     }
 
 
-    public HashMap<String, TreeMap<String, ObservableList<String>>> getAllDemandes(int idUser) throws SQLException {
+    public HashMap<String, TreeMap<String, ObservableList<String>>> getAllDemandes(int idUser) throws SQLException
+    {
         ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
                 + "WHERE demande.id_user = ?");
 
-        // Exécuter la requête
         ps.setInt(1, idUser);
         rs = ps.executeQuery();
 
         HashMap<String, TreeMap<String, ObservableList<String>>> lesDemandes = new HashMap<>();
 
-        while (rs.next()) {
+        while (rs.next())
+        {
             String matiereDesignation = rs.getString("matiere.designation");
             String sousMatiere = rs.getString("demande.sous_matiere");
             int idMatiere = rs.getInt("demande.id_matiere");
@@ -77,19 +78,23 @@ public class ServicesDemandes {
 
             Matiere matiere = new Matiere(idMatiere, matiereDesignation, sousMatiere);
 
-            if (!lesDemandes.containsKey(matiereDesignation)) {
+            if (!lesDemandes.containsKey(matiereDesignation))
+            {
                 ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
                 lesSousMatieres.add(sousMatiere);
                 TreeMap<String, ObservableList<String>> lesDates = new TreeMap<>();
                 lesDates.put(dateDebut + " au " + dateFin, lesSousMatieres);
                 lesDemandes.put(matiereDesignation, lesDates);
-            } else {
+            } else
+            {
                 TreeMap<String, ObservableList<String>> lesDates = lesDemandes.get(matiereDesignation);
-                if (!lesDates.containsKey(dateDebut)) {
+                if (!lesDates.containsKey(dateDebut))
+                {
                     ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
                     lesSousMatieres.add(sousMatiere);
                     lesDates.put(dateDebut + " au " + dateFin, lesSousMatieres);
-                } else {
+                } else
+                {
                     lesDates.get(dateDebut + " au " + dateFin).add(sousMatiere);
                 }
             }
@@ -98,7 +103,8 @@ public class ServicesDemandes {
     }
 
 
-    public ObservableList<Demande> getAllDemandesTv(int idUser) throws SQLException {
+    public ObservableList<Demande> getAllDemandesTv(int idUser) throws SQLException
+    {
         ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
@@ -110,7 +116,8 @@ public class ServicesDemandes {
 
         ObservableList<Demande> lesDemandes = FXCollections.observableArrayList();
 
-        while (rs.next()) {
+        while (rs.next())
+        {
             String matiereDesignation = rs.getString("matiere.designation");
             String sousMatiere = rs.getString("demande.sous_matiere");
             int idMatiere = rs.getInt("demande.id_matiere");
@@ -122,5 +129,21 @@ public class ServicesDemandes {
             lesDemandes.add(uneDemande);
         }
         return lesDemandes;
+    }
+
+    public void modifDemande(int idUser, int idMatiere, String dateDebut, String dateFin, String lesSousMatieres) throws SQLException {
+        // Vous devez exécuter une requête UPDATE pour modifier la demande.
+        ps = unCnx.prepareStatement("UPDATE demande "
+                + "SET id_matiere = ?, date_updated = ?, date_fin_demande = ?, sous_matiere = ? "
+                + "WHERE id_user = ?");
+
+        // Remplacez les "?" dans la requête par les valeurs que vous avez.
+        ps.setInt(1, idMatiere);
+        ps.setString(2, dateDebut);
+        ps.setString(3, dateFin);
+        ps.setString(4, lesSousMatieres);
+        ps.setInt(5, idUser);
+
+        ps.executeUpdate();
     }
 }
