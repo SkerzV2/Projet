@@ -306,13 +306,13 @@ public class MenuController implements Initializable {
     // permet charger la view de modifer une demande
     @javafx.fxml.FXML
     public void tvModifDemandesClicked(Event event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("modif-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("modifierDemande-view.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         ModifierDemandeController modifController = fxmlLoader.getController();
         modifController.initDatas(((Demande)tvModifDemandes.getSelectionModel().getSelectedItem()));
         Stage stage = new Stage();
-        stage.setTitle("Modification d'un contact");
+        stage.setTitle("Modification d'une demande");
         stage.setScene(scene);
         stage.show();
     }
