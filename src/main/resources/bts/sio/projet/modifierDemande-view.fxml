@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bts.sio.projet.ModifierDemandeController">
+   <children>
+      <Label layoutX="103.0" layoutY="98.0" text="Matière :" />
+      <Label layoutX="103.0" layoutY="156.0" text="Date de début :" />
+      <Label layoutX="103.0" layoutY="214.0" text="Date de fin :" />
+      <Label layoutX="103.0" layoutY="274.0" text="Sous-matière(s) :" />
+      <DatePicker fx:id="datepFinModif" layoutX="268.0" layoutY="209.0" prefHeight="26.0" prefWidth="222.0" />
+      <DatePicker fx:id="datepDebutModif" layoutX="268.0" layoutY="151.0" prefHeight="26.0" prefWidth="222.0" />
+      <ComboBox fx:id="cboMatiereModif" layoutX="268.0" layoutY="93.0" onMouseClicked="#cboMatiereModifClicked" prefHeight="26.0" prefWidth="222.0" />
+      <MenuButton fx:id="mbSousMatiereModif" layoutX="268.0" layoutY="269.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="222.0">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <Label layoutX="232.0" layoutY="27.0" text="Modifier votre demande">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnValiderModif" layoutX="150.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#btnValiderModifClicked" prefHeight="26.0" prefWidth="99.0" text="Valider" />
+      <Button fx:id="btnAnnulerModifier" layoutX="317.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerModifierClicked" prefHeight="26.0" prefWidth="99.0" text="Annuler" />
+   </children>
+</AnchorPane>

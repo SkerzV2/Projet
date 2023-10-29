@@ -102,7 +102,7 @@
                   <DatePicker fx:id="datepFinDem" layoutX="281.0" layoutY="184.0" prefHeight="26.0" prefWidth="220.0" AnchorPane.bottomAnchor="288.0" AnchorPane.leftAnchor="281.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="184.0" />
                   <Button fx:id="btnAnnulerDem" layoutX="352.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" prefHeight="26.0" prefWidth="155.0" text="Annuler" />
                   <Button fx:id="btnValiderDem" layoutX="155.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" prefHeight="26.0" prefWidth="155.0" text="Valider" />
-                  <MenuButton fx:id="menuSousMatiere" layoutX="281.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#menuSousMatiereClicked" prefHeight="26.0" prefWidth="221.0" />
+                  <MenuButton fx:id="menuSousMatiere" layoutX="281.0" layoutY="306.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="221.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="apEnregistrerComp" prefHeight="498.0" prefWidth="669.0" style="-fx-background-color: D2D2D2;">
@@ -149,7 +149,7 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tvModifDemandes" layoutX="26.0" layoutY="66.0" onMouseClicked="#tvModifDemandes" prefHeight="404.0" prefWidth="622.0">
+                  <TableView fx:id="tvModifDemandes" layoutX="26.0" layoutY="66.0" onMouseClicked="#tvModifDemandesClicked" prefHeight="404.0" prefWidth="622.0">
                     <columns>
                         <TableColumn fx:id="tcMatiere" prefWidth="95.20001602172852" text="Matière" />
                       <TableColumn fx:id="tcDateDebut" prefWidth="95.20001602172852" text="Date de début" />

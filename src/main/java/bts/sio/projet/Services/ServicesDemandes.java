@@ -96,4 +96,31 @@ public class ServicesDemandes {
         }
         return lesDemandes;
     }
+
+
+    public ObservableList<Demande> getAllDemandesTv(int idUser) throws SQLException {
+        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
+                + "FROM demande "
+                + "JOIN matiere ON demande.id_matiere = matiere.id "
+                + "WHERE demande.id_user = ?");
+
+        // Exécuter la requête
+        ps.setInt(1, idUser);
+        rs = ps.executeQuery();
+
+        ObservableList<Demande> lesDemandes = FXCollections.observableArrayList();
+
+        while (rs.next()) {
+            String matiereDesignation = rs.getString("matiere.designation");
+            String sousMatiere = rs.getString("demande.sous_matiere");
+            int idMatiere = rs.getInt("demande.id_matiere");
+            String dateDebut = rs.getString("demande.date_updated");
+            String dateFin = rs.getString("demande.date_fin_demande");
+
+            Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere,idUser ,idMatiere, matiereDesignation);
+
+            lesDemandes.add(uneDemande);
+        }
+        return lesDemandes;
+    }
 }

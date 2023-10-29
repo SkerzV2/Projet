@@ -6,13 +6,21 @@ import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.User;
 import bts.sio.projet.Services.*;
 import bts.sio.projet.Tools.ConnexionBDD;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -30,6 +38,7 @@ public class MenuController implements Initializable {
     User user;
     Matiere matiere;
     HashMap<String, TreeMap<String, ObservableList<String>>> lesDemandes;
+    ObservableList lesDemandesTv;
     TreeItem root;
 
     @javafx.fxml.FXML
@@ -118,6 +127,21 @@ public class MenuController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        // Ajoutez un ChangeListener pour surveiller les changements de sélection dans le ComboBox de matières
+        cboMatiereDem.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue != null) {
+                    String matiereSelectionne = newValue;
+                    try {
+                        updateSousMatieres(matiereSelectionne);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -191,7 +215,7 @@ public class MenuController implements Initializable {
             String sous_matiere = recupererLesCasesCochees(menu);
 
             // Créer la demande
-            Demande uneDemande = new Demande(dateDebutDemande, dateFinDemande, sous_matiere, user.getId(), idMatiere);
+            Demande uneDemande = new Demande(dateDebutDemande, dateFinDemande, sous_matiere, user.getId(), idMatiere, matiereSelectionnee.getDesignation());
 
             servicesDemandes.creationDemande(uneDemande);
         }
@@ -211,6 +235,7 @@ public class MenuController implements Initializable {
                 checkBox.setSelected(false);
             }
         });
+        menuSousMatiere.getItems().clear();
     }
 
     // Bouton voir ses demandes
@@ -222,21 +247,19 @@ public class MenuController implements Initializable {
         RemplirTreeViewSesDemandes();
     }
 
-    // afficher les sous matieres dans le menu button de création demande
-    @javafx.fxml.FXML
-    public void menuSousMatiereClicked(Event event) throws SQLException {
-        if (cboMatiereDem.getSelectionModel().getSelectedItem() == null) {
-        } else {
-            String matiereSelectionne = cboMatiereDem.getSelectionModel().getSelectedItem().toString();
-            ObservableList<String> sousMatieres = serviceMatieres.GetAllSousMatiere(matiereSelectionne);
-            menuSousMatiere.getItems().clear();
+    // remplir les sous-matieres
+    private void updateSousMatieres(String matiereSelectionne) throws SQLException {
+        // Insérez le code pour mettre à jour le menuSousMatiere en fonction de la matière sélectionnée.
+        // Vous pouvez utiliser la variable matiereSelectionne pour obtenir la matière sélectionnée.
+        ObservableList<String> sousMatieres = serviceMatieres.GetAllSousMatiere(matiereSelectionne);
+        menuSousMatiere.getItems().clear();
 
-            for (String sousMatiere : sousMatieres) {
-                CustomMenuItem customMenuItem = new CustomMenuItem(new CheckBox(sousMatiere));
-                customMenuItem.setHideOnClick(false);
-                menuSousMatiere.getItems().add(customMenuItem);
-            }
+        for (String sousMatiere : sousMatieres) {
+            CustomMenuItem customMenuItem = new CustomMenuItem(new CheckBox(sousMatiere));
+            customMenuItem.setHideOnClick(false);
+            menuSousMatiere.getItems().add(customMenuItem);
         }
+
     }
 
     // afficher les demandes dans visualiser
@@ -269,18 +292,30 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     public void btnModifDemandeClicked(Event event) throws SQLException {
         apModifierDemande.toFront();
-        lesDemandes = servicesDemandes.getAllDemandes(user.getId());
+        lesDemandesTv = servicesDemandes.getAllDemandesTv(user.getId());
 
-        // a faire : afficher la tableview
+        tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
+        tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+        tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
+        tcSousMatieres.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
 
+
+        tvModifDemandes.setItems(lesDemandesTv);
     }
 
+    // permet charger la view de modifer une demande
     @javafx.fxml.FXML
-    public void tvModifDemandes(Event event)
-    {
-
+    public void tvModifDemandesClicked(Event event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("modif-view.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        ModifierDemandeController modifController = fxmlLoader.getController();
+        modifController.initDatas(((Demande)tvModifDemandes.getSelectionModel().getSelectedItem()));
+        Stage stage = new Stage();
+        stage.setTitle("Modification d'un contact");
+        stage.setScene(scene);
+        stage.show();
     }
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                                           //

@@ -7,15 +7,17 @@ public class Demande {
     private String sousMatiere;
     private int idUser;
     private int idMatiere;
+    private String designation;
 
 
-    public Demande(String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere) {
+    public Demande(String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere, String designation) {
 
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.sousMatiere = sousMatiere;
         this.idUser = idUser;
         this.idMatiere = idMatiere;
+        this.designation = designation;
     }
 
     public int getIdMatiere() {return idMatiere;}
@@ -36,5 +38,9 @@ public class Demande {
 
     public int getIdUser() {
         return idUser;
+    }
+
+    public String getDesignation() {
+        return designation;
     }
 }
