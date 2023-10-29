@@ -38,8 +38,10 @@ public class MenuController implements Initializable {
     User user;
     Matiere matiere;
     HashMap<String, TreeMap<String, ObservableList<String>>> lesDemandes;
+    TreeMap<String, ObservableList<String>> lesCompetences;
     ObservableList lesDemandesTv;
     TreeItem root;
+    TreeItem rootComp;
 
     @javafx.fxml.FXML
     private Button btnCreerDemande;
@@ -97,6 +99,10 @@ public class MenuController implements Initializable {
     private TableColumn tcDateFin;
     @javafx.fxml.FXML
     private TableColumn tcSousMatieres;
+    @javafx.fxml.FXML
+    private AnchorPane apVisualiserComp;
+    @javafx.fxml.FXML
+    private TreeView tvVisualiserComp;
 
     public void setUser(User user) {
 
@@ -120,7 +126,9 @@ public class MenuController implements Initializable {
             }
 
             root = new TreeItem("Mes demandes");
+            rootComp = new TreeItem("Mes Compétences");
             tvVisualiserDemandes.setRoot(root);
+            tvVisualiserComp.setRoot(rootComp);
 
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -346,12 +354,43 @@ public class MenuController implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void btnModifCompClicked(Event event) {
+    public void btnModifCompClicked(Event event)
+    {
 
     }
 
     @javafx.fxml.FXML
-    public void btnVoirCompClicked(Event event) {
+    public void btnVoirCompClicked(Event event) throws SQLException {
+        apVisualiserComp.toFront();
+        lesCompetences = serviceCompetences.getAllCompetences(user.getId());
+
+        RemplirTreeViewSesCompetences();
+    }
+
+    public void RemplirTreeViewSesCompetences()
+    {
+        root.getChildren().clear();
+        tvVisualiserComp.getRoot().getChildren().clear();
+
+        for (String nomMatiere : lesCompetences.keySet())
+        {
+            TreeItem noeudMatiere = new TreeItem(nomMatiere);
+            for (String sousMatiere : lesCompetences.get(nomMatiere))
+            {
+                String[] splitSousMatiere = sousMatiere.split("#");
+                for (String item : splitSousMatiere)
+                {
+                    if (!item.isEmpty())
+                    {
+                        TreeItem noeudSousMatiere = new TreeItem(item);
+                        noeudMatiere.getChildren().add(noeudSousMatiere);
+                    }
+                }
+            }
+            root.getChildren().add(noeudMatiere);
+            root.setExpanded(true);
+        }
+        tvVisualiserComp.setRoot(rootComp);
     }
 
     @javafx.fxml.FXML
@@ -441,4 +480,6 @@ public class MenuController implements Initializable {
         }
         return sousMatiere;
     }
+
+
 }
