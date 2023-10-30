@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="Commit pierre non fonctionnel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Matiere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Matiere.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ModifierDemandeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/ModifierDemandeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceMatieres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceMatieres.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServicesDemandes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServicesDemandes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

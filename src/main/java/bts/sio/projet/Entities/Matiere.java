@@ -23,10 +23,6 @@ public class Matiere {
 
     // Fonction pour avoir les objet matières
 
-    public int getId() {
-        return idMatiere;
-    }
-
     public void setId(int idMatiere) {this.idMatiere = idMatiere;}
 
     public String getDesignation() {return designation;}

@@ -103,6 +103,14 @@ public class MenuController implements Initializable {
     private AnchorPane apVisualiserComp;
     @javafx.fxml.FXML
     private TreeView tvVisualiserComp;
+    @javafx.fxml.FXML
+    private AnchorPane apModifierComp;
+    @javafx.fxml.FXML
+    private TableView tvModifComp;
+    @javafx.fxml.FXML
+    private TableColumn tcMatiere1;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatieres1;
 
     public void setUser(User user) {
 
@@ -390,12 +398,6 @@ public class MenuController implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void btnModifCompClicked(Event event)
-    {
-
-    }
-
-    @javafx.fxml.FXML
     public void btnVoirCompClicked(Event event) throws SQLException {
         apVisualiserComp.toFront();
         lesCompetences = serviceCompetences.getAllCompetences(user.getId());
@@ -405,7 +407,7 @@ public class MenuController implements Initializable {
 
     public void RemplirTreeViewSesCompetences()
     {
-        root.getChildren().clear();
+        rootComp.getChildren().clear();
         tvVisualiserComp.getRoot().getChildren().clear();
 
         for (String nomMatiere : lesCompetences.keySet())
@@ -423,8 +425,8 @@ public class MenuController implements Initializable {
                     }
                 }
             }
-            root.getChildren().add(noeudMatiere);
-            root.setExpanded(true);
+            rootComp.getChildren().add(noeudMatiere);
+            rootComp.setExpanded(true);
         }
         tvVisualiserComp.setRoot(rootComp);
     }
@@ -475,7 +477,20 @@ public class MenuController implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void btnAnnulerCompClicked(Event event) {
+    public void btnAnnulerCompClicked(Event event)
+    {
+        apEnregistrerComp.toFront();
+    }
+
+    public void btnModifCompClicked(Event event)
+    {
+        apModifierComp.toFront();
+    }
+
+    @javafx.fxml.FXML
+    public void tvModifCompClicked(Event event)
+    {
+
     }
 
 
@@ -516,4 +531,5 @@ public class MenuController implements Initializable {
         }
         return sousMatiere;
     }
+
 }
