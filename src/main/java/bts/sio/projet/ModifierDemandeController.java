@@ -11,9 +11,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -41,9 +44,9 @@ public class ModifierDemandeController implements Initializable
     ConnexionBDD maCnx;
     User user;
     ServiceMatieres serviceMatieres;
-    ServicesDemandes servicesDemandes;
+    ServicesDemandes servicesDemandes = new ServicesDemandes();
+    MenuController menuController = new MenuController();
     ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
-
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try
@@ -108,13 +111,14 @@ public class ModifierDemandeController implements Initializable
         }
     }
 
-    public void initDatas(Demande demandeSelectionnee, String matiere, String dateDebut, String dateFin, String sousMatiere) {
+    public void initDatas(Demande demandeSelectionnee) {
         laDemande = demandeSelectionnee;
-        datepDebutModif.setValue(LocalDate.parse(dateDebut));
-        datepFinModif.setValue(LocalDate.parse(dateFin));
-        cboMatiereModif.setValue(matiere);
 
-        String[] sousMatieresArray = sousMatiere.split("#");
+        datepDebutModif.setValue(LocalDate.parse(demandeSelectionnee.getDateDebut()));
+        datepFinModif.setValue(LocalDate.parse(demandeSelectionnee.getDateFin()));
+        cboMatiereModif.setValue(demandeSelectionnee.getDesignation());
+
+        String[] sousMatieresArray = demandeSelectionnee.getSousMatiere().split("#");
         for (MenuItem menuItem : mbSousMatiereModif.getItems())
         {
             if (menuItem instanceof CustomMenuItem)
@@ -142,6 +146,7 @@ public class ModifierDemandeController implements Initializable
 
 
     // pour afficher les sous matieres
+    @javafx.fxml.FXML
     public void cboMatiereModifClicked(Event event) {
         String matiereSelectionne = (String) cboMatiereModif.getValue(); // Obtenir la matière sélectionnée
         if (matiereSelectionne != null)
@@ -155,20 +160,79 @@ public class ModifierDemandeController implements Initializable
     }
 
     // valider les modif
-    /*@javafx.fxml.FXML
-    public void btnValiderModifClicked(Event event) throws SQLException
-    {
-        String matiereSelectionne = (String) cboMatiereModif.getValue();
-        int idMatiere = Integer.parseInt(matiereSelectionne);
+    @FXML
+    public void btnValiderModifClicked(Event event) throws SQLException, IOException {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        String erreurs = "";
 
-        String dateDebut = datepDebutModif.getValue().toString();
-        String dateFin = datepFinModif.getValue().toString();
+        if (datepDebutModif.getValue() == null || datepDebutModif.getValue().isBefore(LocalDate.now()))
+        {
+            erreurs += "Veuillez sélectionner une date de début valide (aujourd'hui ou ultérieure)\n";
+        }
 
-        MenuButton menu = mbSousMatiereModif;
-        String sousMatiere = recupererLesCasesCocheesModif(menu);
+        if (datepFinModif.getValue() == null)
+        {
+            erreurs += "Veuillez sélectionner une date de fin valide (ultérieure à la date de début)\n";
+        }
 
-        servicesDemandes.modifDemande(user.getId() , idMatiere, dateDebut, dateFin, sousMatiere);
-    }*/
+        if (datepDebutModif.getValue() != null && datepFinModif.getValue() != null)
+        {
+            LocalDate debut = datepDebutModif.getValue();
+            LocalDate fin = datepFinModif.getValue();
+
+            if (debut.isAfter(fin))
+            {
+                erreurs += "La date de début ne peut pas être après la date de fin\n";
+            }
+        }
+
+        if (cboMatiereModif.getSelectionModel().isEmpty())
+        {
+            erreurs += "Veuillez sélectionner une matière\n";
+        }
+
+        if (menuController.recupererLesCasesCochees(mbSousMatiereModif).isEmpty())
+        {
+            erreurs += "Veuillez sélectionner une ou plusieurs sous-matières\n";
+        }
+
+        if (!erreurs.isEmpty())
+        {
+            alert.setTitle("Erreurs de sélection");
+            alert.setHeaderText("");
+            alert.setContentText(erreurs);
+            alert.showAndWait();
+        } else
+        {
+            String nomMatiere = cboMatiereModif.getSelectionModel().getSelectedItem().toString();
+            Matiere matiereSelectionnee = null;
+            int idMatiere = 0;
+            for (Matiere uneMatiere : lesMatieres)
+            {
+                if (uneMatiere.getDesignation().equals(nomMatiere))
+                {
+                    matiereSelectionnee = uneMatiere;
+                    break;
+                }
+            }
+            if (matiereSelectionnee != null)
+            {
+                idMatiere = matiereSelectionnee.getIdMatiere();
+            }
+            String dateDebut = datepDebutModif.getValue().toString();
+            String dateFin = datepFinModif.getValue().toString();
+
+            MenuButton menu = mbSousMatiereModif;
+            String sousMatiere = menuController.recupererLesCasesCochees(mbSousMatiereModif);
+            int idDemande = laDemande.getIdDemande();
+
+            servicesDemandes.modifDemande(user.getId() , idMatiere, dateDebut, dateFin, sousMatiere, idDemande);
+            Stage stage = (Stage) btnValiderModif.getScene().getWindow();
+            stage.close();
+            TableView a = menuController.getTvModifDemandes();
+            menuController.refreshTvDemande(a);
+        }
+    }
 
     // annuler les modif
     @javafx.fxml.FXML
@@ -176,29 +240,9 @@ public class ModifierDemandeController implements Initializable
     {
     }
 
-    public String recupererLesCasesCocheesModif(MenuButton menu)
-    {
-        String sousMatiere = "";
-        ObservableList<MenuItem> items = menu.getItems();
-        for (MenuItem item : items)
-        {
-            if (item instanceof CustomMenuItem)
-            {
-                CustomMenuItem customItem = (CustomMenuItem) item;
-                CheckBox checkBox = (CheckBox) customItem.getContent();
-
-                if (checkBox.isSelected())
-                {
-                    String sousMatiereSelectioner = checkBox.getText();
-                    sousMatiere += "#" + sousMatiereSelectioner;
-                }
-            }
-        }
-        return sousMatiere;
-    }
-
     public void initUser(User user)
     {
         this.user = user;
     }
+
 }

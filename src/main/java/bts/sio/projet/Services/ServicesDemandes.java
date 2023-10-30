@@ -105,7 +105,7 @@ public class ServicesDemandes {
 
     public ObservableList<Demande> getAllDemandesTv(int idUser) throws SQLException
     {
-        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
+        ps = unCnx.prepareStatement("SELECT demande.id, demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
                 + "WHERE demande.id_user = ?");
@@ -123,19 +123,21 @@ public class ServicesDemandes {
             int idMatiere = rs.getInt("demande.id_matiere");
             String dateDebut = rs.getString("demande.date_updated");
             String dateFin = rs.getString("demande.date_fin_demande");
+            int idDemande = rs.getInt("demande.id");
 
-            Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere,idUser ,idMatiere, matiereDesignation);
+            Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere,idUser ,idMatiere, matiereDesignation, idDemande);
 
             lesDemandes.add(uneDemande);
         }
         return lesDemandes;
     }
 
-    public void modifDemande(int idUser, int idMatiere, String dateDebut, String dateFin, String lesSousMatieres) throws SQLException {
+    public void modifDemande(int idUser, int idMatiere, String dateDebut, String dateFin, String lesSousMatieres, int idDemande) throws SQLException {
         // Vous devez exécuter une requête UPDATE pour modifier la demande.
         ps = unCnx.prepareStatement("UPDATE demande "
                 + "SET id_matiere = ?, date_updated = ?, date_fin_demande = ?, sous_matiere = ? "
-                + "WHERE id_user = ?");
+                + "WHERE id_user = ? "
+                + "AND demande.id = ? ");
 
         // Remplacez les "?" dans la requête par les valeurs que vous avez.
         ps.setInt(1, idMatiere);
@@ -143,6 +145,7 @@ public class ServicesDemandes {
         ps.setString(3, dateFin);
         ps.setString(4, lesSousMatieres);
         ps.setInt(5, idUser);
+        ps.setInt(6, idDemande);
 
         ps.executeUpdate();
     }

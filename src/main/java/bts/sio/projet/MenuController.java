@@ -42,6 +42,7 @@ public class MenuController implements Initializable {
     ObservableList lesDemandesTv;
     TreeItem root;
     TreeItem rootComp;
+    private Stage thirdStage;
 
     @javafx.fxml.FXML
     private Button btnCreerDemande;
@@ -208,7 +209,7 @@ public class MenuController implements Initializable {
             erreurs += "Veuillez sélectionner une matière\n";
         }
 
-        if (menuSousMatiere.getItems().isEmpty())
+        if (recupererLesCasesCochees(menuSousMatiere).isEmpty())
         {
             erreurs += "Veuillez sélectionner une ou plusieurs sous-matières\n";
         }
@@ -328,8 +329,7 @@ public class MenuController implements Initializable {
 
     // Bouton modifier une demande
     @javafx.fxml.FXML
-    public void btnModifDemandeClicked(Event event) throws SQLException
-    {
+    public void btnModifDemandeClicked(Event event) throws SQLException, IOException {
         apModifierDemande.toFront();
         lesDemandesTv = servicesDemandes.getAllDemandesTv(user.getId());
 
@@ -340,6 +340,7 @@ public class MenuController implements Initializable {
 
 
         tvModifDemandes.setItems(lesDemandesTv);
+
     }
 
     // permet charger la view de modifer une demande
@@ -348,20 +349,13 @@ public class MenuController implements Initializable {
     {
         Demande demandeSelectionnee = (Demande) tvModifDemandes.getSelectionModel().getSelectedItem();
 
-        if (demandeSelectionnee != null)
-        {
-            String matiere = demandeSelectionnee.getDesignation();
-            String dateDebut = demandeSelectionnee.getDateDebut();
-            String dateFin = demandeSelectionnee.getDateFin();
-            String sousMatiere = demandeSelectionnee.getSousMatiere();
-
-            // Ensuite, vous pouvez ouvrir la fenêtre de modification et passer ces valeurs au contrôleur de modification.
+        if (demandeSelectionnee != null) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("modifierDemande-view.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             ModifierDemandeController modifController = fxmlLoader.getController();
             modifController.initUser(user);
-            modifController.initDatas(demandeSelectionnee, matiere, dateDebut, dateFin, sousMatiere);
+            modifController.initDatas(demandeSelectionnee);
             Stage stage = new Stage();
             stage.setTitle("Modification d'une demande");
             stage.setScene(scene);
@@ -369,6 +363,13 @@ public class MenuController implements Initializable {
         }
     }
 
+    public void refreshTvDemande(TableView a) throws IOException {
+        a.refresh();
+    }
+    public TableView getTvModifDemandes()
+    {
+        return tvModifDemandes;
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                                           //
     //                                                                                                          //
