@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="312.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bts.sio.projet.SupprimerDemandeController">
+   <children>
+      <Label layoutX="161.0" layoutY="23.0" text="Suppression d'une demande">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="77.0" layoutY="73.0" text="Matière :" />
+      <Label layoutX="77.0" layoutY="116.0" text="Date de début :" />
+      <Label layoutX="77.0" layoutY="160.0" text="Date de fin :" />
+      <Label layoutX="77.0" layoutY="205.0" text="Sous-Matières :" />
+      <Label layoutX="102.0" layoutY="241.0" text="Êtes-vous sûr de vouloir supprimer cette demande ?" />
+      <Button fx:id="btnSupprimerDemande" layoutX="116.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#btnSupprimerDemandeClicked" prefHeight="26.0" prefWidth="82.0" text="Supprimer" />
+      <Button fx:id="btnAnnulerDemandeSupp" layoutX="276.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemandeSuppClicked" prefHeight="26.0" prefWidth="89.0" text="Annuler" />
+      <Label fx:id="lbMatiereSupp" layoutX="195.0" layoutY="73.0" prefHeight="18.0" prefWidth="234.0" />
+      <Label fx:id="lbDateDebutSupp" layoutX="195.0" layoutY="115.0" prefHeight="18.0" prefWidth="234.0" />
+      <Label fx:id="lbDateFinSupp" layoutX="195.0" layoutY="159.0" prefHeight="18.0" prefWidth="234.0" />
+      <Label fx:id="lbSousMatiereSupp" layoutX="195.0" layoutY="204.0" prefHeight="18.0" prefWidth="234.0" />
+   </children>
+</AnchorPane>

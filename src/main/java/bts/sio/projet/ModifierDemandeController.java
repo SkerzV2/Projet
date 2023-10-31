@@ -229,8 +229,7 @@ public class ModifierDemandeController implements Initializable
             servicesDemandes.modifDemande(user.getId() , idMatiere, dateDebut, dateFin, sousMatiere, idDemande);
             Stage stage = (Stage) btnValiderModif.getScene().getWindow();
             stage.close();
-            TableView a = menuController.getTvModifDemandes();
-            menuController.refreshTvDemande(a);
+
         }
     }
 
@@ -238,6 +237,8 @@ public class ModifierDemandeController implements Initializable
     @javafx.fxml.FXML
     public void btnAnnulerModifierClicked(Event event)
     {
+        Stage stage = (Stage) btnAnnulerModifier.getScene().getWindow();
+        stage.close();
     }
 
     public void initUser(User user)

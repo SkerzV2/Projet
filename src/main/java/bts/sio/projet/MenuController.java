@@ -112,6 +112,10 @@ public class MenuController implements Initializable {
     private TableColumn tcMatiere1;
     @javafx.fxml.FXML
     private TableColumn tcSousMatieres1;
+    @javafx.fxml.FXML
+    private Button btnModiferDemande;
+    @javafx.fxml.FXML
+    private Button BtnSupprimerDemande;
 
     public void setUser(User user) {
 
@@ -345,21 +349,62 @@ public class MenuController implements Initializable {
 
     // permet charger la view de modifer une demande
     @javafx.fxml.FXML
-    public void tvModifDemandesClicked(Event event) throws IOException
-    {
+    public void btnModiferDemandeClicked(Event event) throws IOException {
         Demande demandeSelectionnee = (Demande) tvModifDemandes.getSelectionModel().getSelectedItem();
 
-        if (demandeSelectionnee != null) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("modifierDemande-view.fxml"));
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            ModifierDemandeController modifController = fxmlLoader.getController();
-            modifController.initUser(user);
-            modifController.initDatas(demandeSelectionnee);
-            Stage stage = new Stage();
-            stage.setTitle("Modification d'une demande");
-            stage.setScene(scene);
-            stage.show();
+        if(demandeSelectionnee == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une demande pour supprimer");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else
+        {
+            if (demandeSelectionnee != null)
+            {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("modifierDemande-view.fxml"));
+                Parent root = fxmlLoader.load();
+                Scene scene = new Scene(root);
+                ModifierDemandeController modifController = fxmlLoader.getController();
+                modifController.initUser(user);
+                modifController.initDatas(demandeSelectionnee);
+                Stage stage = new Stage();
+                stage.setTitle("Modification d'une demande");
+                stage.setScene(scene);
+                stage.show();
+            }
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void BtnSupprimerDemandeClicked(Event event) throws IOException {
+        Demande demandeSelectionnee = (Demande) tvModifDemandes.getSelectionModel().getSelectedItem();
+
+        if(demandeSelectionnee == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une demande pour supprimer");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else
+        {
+            if (demandeSelectionnee != null)
+            {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("supprimerDemande-view.fxml"));
+                Parent root = fxmlLoader.load();
+                Scene scene = new Scene(root);
+                SupprimerDemandeController supprimerDemandeController = fxmlLoader.getController();
+                supprimerDemandeController.initUser(user);
+                supprimerDemandeController.initDatas(demandeSelectionnee);
+                Stage stage = new Stage();
+                stage.setTitle("Suppression d'une demande");
+                stage.setScene(scene);
+                stage.show();
+            }
         }
     }
 
@@ -483,6 +528,7 @@ public class MenuController implements Initializable {
         apEnregistrerComp.toFront();
     }
 
+    @javafx.fxml.FXML
     public void btnModifCompClicked(Event event)
     {
         apModifierComp.toFront();
@@ -532,5 +578,4 @@ public class MenuController implements Initializable {
         }
         return sousMatiere;
     }
-
 }

@@ -149,4 +149,13 @@ public class ServicesDemandes {
 
         ps.executeUpdate();
     }
+
+    public void supprimerDemande(int idDemande) throws SQLException {
+        PreparedStatement ps = unCnx.prepareStatement("DELETE FROM demande "
+                + "WHERE id = ? ");
+
+        ps.setInt(1, idDemande);
+
+        ps.executeUpdate();
+    }
 }

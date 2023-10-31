@@ -168,7 +168,7 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tvModifDemandes" layoutX="26.0" layoutY="66.0" onMouseClicked="#tvModifDemandesClicked" prefHeight="404.0" prefWidth="622.0">
+                  <TableView fx:id="tvModifDemandes" layoutX="26.0" layoutY="66.0" prefHeight="350.0" prefWidth="622.0">
                     <columns>
                         <TableColumn fx:id="tcMatiere" prefWidth="95.20001602172852" text="Matière" />
                       <TableColumn fx:id="tcDateDebut" prefWidth="95.20001602172852" text="Date de début" />
@@ -176,6 +176,8 @@
                         <TableColumn fx:id="tcSousMatieres" prefWidth="333.6000122070312" text="Sous-matière(s)" />
                     </columns>
                   </TableView>
+                  <Button fx:id="btnModiferDemande" layoutX="151.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#btnModiferDemandeClicked" prefHeight="26.0" prefWidth="118.0" text="Modifer" />
+                  <Button fx:id="BtnSupprimerDemande" layoutX="404.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#BtnSupprimerDemandeClicked" prefHeight="26.0" prefWidth="118.0" text="Supprimer" />
                </children>
             </AnchorPane>
          </children></AnchorPane>
