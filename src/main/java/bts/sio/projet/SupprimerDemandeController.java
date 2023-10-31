@@ -71,6 +71,7 @@ public class SupprimerDemandeController implements Initializable {
     @javafx.fxml.FXML
     public void btnSupprimerDemandeClicked(Event event) throws IOException, SQLException {
         servicesDemandes.supprimerDemande(laDemande.getIdDemande());
+        //menuController.refreshTvDemande(initUser(user));
         Stage stage = (Stage) btnSupprimerDemande.getScene().getWindow();
         stage.close();
     }
@@ -82,8 +83,9 @@ public class SupprimerDemandeController implements Initializable {
         stage.close();
     }
 
-    public void initUser(User user)
+    public User initUser(User user)
     {
         this.user = user;
+        return user;
     }
 }

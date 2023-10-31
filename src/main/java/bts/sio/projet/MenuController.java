@@ -42,7 +42,6 @@ public class MenuController implements Initializable {
     ObservableList lesDemandesTv;
     TreeItem root;
     TreeItem rootComp;
-    private Stage thirdStage;
 
     @javafx.fxml.FXML
     private Button btnCreerDemande;
@@ -118,7 +117,6 @@ public class MenuController implements Initializable {
     private Button BtnSupprimerDemande;
 
     public void setUser(User user) {
-
         this.user = user;
     }
 
@@ -342,9 +340,7 @@ public class MenuController implements Initializable {
         tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
         tcSousMatieres.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
 
-
         tvModifDemandes.setItems(lesDemandesTv);
-
     }
 
     // permet charger la view de modifer une demande
@@ -408,13 +404,26 @@ public class MenuController implements Initializable {
         }
     }
 
-    public void refreshTvDemande(TableView a) throws IOException {
-        a.refresh();
-    }
-    public TableView getTvModifDemandes()
-    {
-        return tvModifDemandes;
-    }
+    /*public void refreshTvDemande(User user) throws IOException, SQLException {
+        if (user == null) {
+            return;
+        }
+
+        try {
+            lesDemandesTv = servicesDemandes.getAllDemandesTv(user.getId());
+
+            tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
+            tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+            tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
+            tcSousMatieres.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+
+            tvModifDemandes.setItems(lesDemandesTv);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }*/
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                                           //
     //                                                                                                          //

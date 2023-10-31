@@ -227,9 +227,9 @@ public class ModifierDemandeController implements Initializable
             int idDemande = laDemande.getIdDemande();
 
             servicesDemandes.modifDemande(user.getId() , idMatiere, dateDebut, dateFin, sousMatiere, idDemande);
+            //menuController.refreshTvDemande(initUser(user));
             Stage stage = (Stage) btnValiderModif.getScene().getWindow();
             stage.close();
-
         }
     }
 
@@ -241,9 +241,10 @@ public class ModifierDemandeController implements Initializable
         stage.close();
     }
 
-    public void initUser(User user)
+    public User initUser(User user)
     {
         this.user = user;
+        return user;
     }
 
 }
