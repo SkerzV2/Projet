@@ -20,25 +20,12 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="498.0" prefWidth="202.0" style="-fx-background-color: E3E2DE;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Voir les demandes">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Visualiser les demandes">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Button>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Gérer ses demandes" textAlignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets />
                </VBox.margin>
             </Label>
             <Button fx:id="btnCreerDemande" mnemonicParsing="false" onMouseClicked="#btnCreerDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Faire une demande">
@@ -75,6 +62,19 @@
                </VBox.margin>
             </Button>
             <Button fx:id="btnModifComp" mnemonicParsing="false" onMouseClicked="#btnModifCompClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #EED093;" text="Modifier ses compétences">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Voir les demandes">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Visualiser les demandes">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -166,7 +166,6 @@
                   <MenuButton fx:id="mbSousMatieres" layoutX="444.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#mbSousMatieresClicked" prefHeight="26.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="apStat" prefHeight="567.0" prefWidth="707.0" style="-fx-background-color: grey;" />
             <AnchorPane fx:id="apVisualiserDemandes" prefHeight="567.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;">
                <children>
                   <Label layoutX="283.0" layoutY="23.0" text="Visualiser mes demandes">
@@ -196,6 +195,24 @@
                   <Button fx:id="BtnSupprimerDemande" layoutX="404.0" layoutY="507.0" mnemonicParsing="false" onMouseClicked="#BtnSupprimerDemandeClicked" prefHeight="26.0" prefWidth="118.0" text="Supprimer" />
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="apStat" prefHeight="567.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;">
+               <children>
+                  <TableView fx:id="tvModifDemandes1" layoutX="14.0" layoutY="105.0" prefHeight="415.0" prefWidth="679.0">
+                     <columns>
+                        <TableColumn fx:id="tcMatiere2" prefWidth="120.79999732971191" text="Nom" />
+                        <TableColumn fx:id="tcDateDebut1" prefWidth="111.20001220703125" text="Prenom" />
+                        <TableColumn fx:id="tcSousMatieres2" prefWidth="132.0" text="Matière" />
+                        <TableColumn fx:id="tcSousMatieres21" prefWidth="99.99993896484375" text="Date de Debut" />
+                        <TableColumn fx:id="tcSousMatieres211" prefWidth="103.19998168945312" text="Date de fin" />
+                        <TableColumn fx:id="tcSousMatieres2111" prefWidth="110.39990234375" text="Sous matière" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="275.0" layoutY="39.0" text="Visualiser les demandes">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
          </children></AnchorPane>
    </center>
    <top>

@@ -11,7 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import bts.sio.projet.Entities.*;
-import bts.sio.projet.Services.ServiceUsers;
+import bts.sio.projet.Tools.Services.ServiceUsers;
 import javafx.stage.Stage;
 
 import java.io.IOException;

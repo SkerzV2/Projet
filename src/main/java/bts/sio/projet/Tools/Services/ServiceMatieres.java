@@ -1,7 +1,6 @@
-package bts.sio.projet.Services;
+package bts.sio.projet.Tools.Services;
 
 import bts.sio.projet.Entities.Matiere;
-import bts.sio.projet.Entities.User;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class ServiceMatieres {
     private Connection unCnx;

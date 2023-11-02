@@ -4,7 +4,7 @@ import bts.sio.projet.Entities.Competence;
 import bts.sio.projet.Entities.Demande;
 import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.User;
-import bts.sio.projet.Services.*;
+import bts.sio.projet.Tools.Services.*;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,7 +32,7 @@ public class MenuController implements Initializable {
     ConnexionBDD maCnx;
     ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
     ServiceMatieres serviceMatieres = new ServiceMatieres();
-    ServicesDemandes servicesDemandes = new ServicesDemandes();
+    ServiceDemandes serviceDemandes = new ServiceDemandes();
     ServiceCompetences serviceCompetences = new ServiceCompetences();
     private ProjetController projetController;
     User user;
@@ -230,25 +230,25 @@ public class MenuController implements Initializable {
 
             Matiere matiereSelectionnee = null;
 
-            int idMatiere = 0;
-            for (Matiere uneMatiere : lesMatieres)
-            {
-                if (uneMatiere.getDesignation().equals(nomMatiereSelectionnee))
+                int idMatiere = 0;
+                for (Matiere uneMatiere : lesMatieres)
                 {
-                    matiereSelectionnee = uneMatiere;
-                    break;
+                    if (uneMatiere.getDesignation().equals(nomMatiereSelectionnee))
+                    {
+                        matiereSelectionnee = uneMatiere;
+                        break;
+                    }
                 }
-            }
-            if (matiereSelectionnee != null)
-            {
-                idMatiere = matiereSelectionnee.getIdMatiere();
-            }
+                if (matiereSelectionnee != null)
+                {
+                    idMatiere = matiereSelectionnee.getIdMatiere();
+                }
             MenuButton menu = menuSousMatiere;
             String sous_matiere = recupererLesCasesCochees(menu);
 
             Demande uneDemande = new Demande(dateDebutDemande, dateFinDemande, sous_matiere, user.getId(), idMatiere, matiereSelectionnee.getDesignation());
 
-            servicesDemandes.creationDemande(uneDemande);
+            serviceDemandes.creationDemande(uneDemande);
         }
     }
 
@@ -276,7 +276,7 @@ public class MenuController implements Initializable {
     public void btnVoirDemandeClicked(Event event) throws SQLException
     {
         apVisualiserDemandes.toFront();
-        lesDemandes = servicesDemandes.getAllDemandes(user.getId());
+        lesDemandes = serviceDemandes.getAllDemandes(user.getId());
 
         RemplirTreeViewSesDemandes();
     }
@@ -333,7 +333,7 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     public void btnModifDemandeClicked(Event event) throws SQLException, IOException {
         apModifierDemande.toFront();
-        lesDemandesTv = servicesDemandes.getAllDemandesTv(user.getId());
+        lesDemandesTv = serviceDemandes.getAllDemandesTv(user.getId());
 
         tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
@@ -410,7 +410,7 @@ public class MenuController implements Initializable {
         }
 
         try {
-            lesDemandesTv = servicesDemandes.getAllDemandesTv(user.getId());
+            lesDemandesTv = serviceDemandes.getAllDemandesTv(user.getId());
 
             tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
             tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));

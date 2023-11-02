@@ -3,11 +3,9 @@ package bts.sio.projet;
 import bts.sio.projet.Entities.Demande;
 import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.User;
-import bts.sio.projet.Services.ServiceMatieres;
-import bts.sio.projet.Services.ServicesDemandes;
+import bts.sio.projet.Tools.Services.ServiceDemandes;
+import bts.sio.projet.Tools.Services.ServiceMatieres;
 import bts.sio.projet.Tools.ConnexionBDD;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -18,7 +16,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SupprimerDemandeController implements Initializable {
@@ -26,7 +23,7 @@ public class SupprimerDemandeController implements Initializable {
     ConnexionBDD maCnx;
     User user;
     ServiceMatieres serviceMatieres;
-    ServicesDemandes servicesDemandes = new ServicesDemandes();
+    ServiceDemandes serviceDemandes = new ServiceDemandes();
     MenuController menuController = new MenuController();
     ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
 
@@ -70,7 +67,7 @@ public class SupprimerDemandeController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnSupprimerDemandeClicked(Event event) throws IOException, SQLException {
-        servicesDemandes.supprimerDemande(laDemande.getIdDemande());
+        serviceDemandes.supprimerDemande(laDemande.getIdDemande());
         //menuController.refreshTvDemande(initUser(user));
         Stage stage = (Stage) btnSupprimerDemande.getScene().getWindow();
         stage.close();

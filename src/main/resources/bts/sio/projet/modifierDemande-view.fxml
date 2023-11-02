@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bts.sio.projet.ModifierDemandeController">
    <children>
       <Label layoutX="103.0" layoutY="98.0" text="Matière :" />
@@ -30,7 +29,7 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="btnValiderModif" layoutX="150.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#btnValiderModifClicked" prefHeight="26.0" prefWidth="99.0" text="Valider" />
+      <Button fx:id="btnValiderModif" layoutX="152.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#btnValiderModifClicked" prefHeight="26.0" prefWidth="99.0" text="Valider" />
       <Button fx:id="btnAnnulerModifier" layoutX="317.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerModifierClicked" prefHeight="26.0" prefWidth="99.0" text="Annuler" />
    </children>
 </AnchorPane>

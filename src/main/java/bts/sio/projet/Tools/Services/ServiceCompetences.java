@@ -1,4 +1,4 @@
-package bts.sio.projet.Services;
+package bts.sio.projet.Tools.Services;
 
 import bts.sio.projet.Entities.Competence;
 import bts.sio.projet.Entities.Matiere;

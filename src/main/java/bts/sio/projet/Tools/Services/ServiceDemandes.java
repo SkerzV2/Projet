@@ -1,4 +1,4 @@
-package bts.sio.projet.Services;
+package bts.sio.projet.Tools.Services;
 
 import bts.sio.projet.Entities.Demande;
 import bts.sio.projet.Entities.Matiere;
@@ -13,11 +13,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-public class ServicesDemandes {
+public class ServiceDemandes {
     private Connection unCnx;
     private PreparedStatement ps;
     private ResultSet rs;
-    public ServicesDemandes()
+    public ServiceDemandes()
     {
         unCnx = ConnexionBDD.getCnx();
     }
