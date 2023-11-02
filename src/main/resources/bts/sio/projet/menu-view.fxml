@@ -128,7 +128,7 @@
             </AnchorPane>
             <AnchorPane fx:id="apFaireDemande" prefHeight="567.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;">
                <children>
-                  <Label layoutX="137.0" layoutY="140.00000000000003" text="Date de début :" AnchorPane.bottomAnchor="409.6" />
+                  <Label layoutX="137.0" layoutY="140.00000000000003" text="Date d'aujourd'hui :" AnchorPane.bottomAnchor="409.6" />
                   <ComboBox fx:id="cboMatiereDem" layoutX="279.0" layoutY="272.0" prefHeight="26.0" prefWidth="225.0" AnchorPane.bottomAnchor="270.0" AnchorPane.leftAnchor="279.0" AnchorPane.rightAnchor="206.0" AnchorPane.topAnchor="272.0" />
                   <Label layoutX="137.0" layoutY="207.0" text="Date de fin :" AnchorPane.topAnchor="207.0" />
                   <Label layoutX="137.0" layoutY="276.0" text="Matière :" AnchorPane.topAnchor="276.0" />
@@ -137,12 +137,12 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="datepDebutDem" layoutX="281.0" layoutY="136.0" prefHeight="26.0" prefWidth="225.0" />
                   <Label layoutX="138.0" layoutY="344.20000000000005" text="Sous-matière :" AnchorPane.bottomAnchor="205.39999999999998" />
                   <DatePicker fx:id="datepFinDem" layoutX="281.0" layoutY="203.0" prefHeight="26.0" prefWidth="225.0" AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="281.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="203.0" />
                   <Button fx:id="btnAnnulerDem" layoutX="352.0" layoutY="443.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" prefHeight="26.0" prefWidth="155.0" text="Annuler" />
                   <Button fx:id="btnValiderDem" layoutX="155.0" layoutY="443.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" prefHeight="26.0" prefWidth="155.0" text="Valider" />
                   <MenuButton fx:id="menuSousMatiere" layoutX="281.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="225.0" />
+                  <Label fx:id="lbDateNow" layoutX="281.0" layoutY="135.0" prefHeight="26.0" prefWidth="225.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="apEnregistrerComp" prefHeight="567.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;">

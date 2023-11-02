@@ -62,8 +62,6 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private Button btnValiderDem;
     @javafx.fxml.FXML
-    private DatePicker datepDebutDem;
-    @javafx.fxml.FXML
     private DatePicker datepFinDem;
     @javafx.fxml.FXML
     private Button btnAnnulerDem;
@@ -115,6 +113,22 @@ public class MenuController implements Initializable {
     private Button btnModiferDemande;
     @javafx.fxml.FXML
     private Button BtnSupprimerDemande;
+    @javafx.fxml.FXML
+    private Label lbDateNow;
+    @javafx.fxml.FXML
+    private TableView tvModifDemandes1;
+    @javafx.fxml.FXML
+    private TableColumn tcMatiere2;
+    @javafx.fxml.FXML
+    private TableColumn tcDateDebut1;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatieres2;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatieres21;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatieres211;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatieres2111;
 
     public void setUser(User user) {
         this.user = user;
@@ -130,6 +144,8 @@ public class MenuController implements Initializable {
             maCnx = new ConnexionBDD();
             serviceMatieres = new ServiceMatieres();
             lesMatieres = serviceMatieres.GetAllMatiereObj();
+            String dateNow = LocalDate.now().toString();
+            lbDateNow.setText(dateNow);
 
             for (Matiere uneMatiere : lesMatieres) {
                 cboMatiereDem.getItems().add(uneMatiere.getDesignation());
@@ -185,24 +201,19 @@ public class MenuController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         String erreurs = "";
 
-        if (datepDebutDem.getValue() == null || datepDebutDem.getValue().isBefore(LocalDate.now()))
-        {
-            erreurs += "Veuillez sélectionner une date de début valide (aujourd'hui ou ultérieure)\n";
-        }
-
         if (datepFinDem.getValue() == null)
         {
             erreurs += "Veuillez sélectionner une date de fin valide (ultérieure à la date de début)\n";
         }
 
-        if (datepDebutDem.getValue() != null && datepFinDem.getValue() != null)
+        if (datepFinDem.getValue() != null)
         {
-            LocalDate debut = datepDebutDem.getValue();
+            LocalDate debut = LocalDate.parse(lbDateNow.getText());
             LocalDate fin = datepFinDem.getValue();
 
             if (debut.isAfter(fin))
             {
-                erreurs += "La date de début ne peut pas être après la date de fin\n";
+                erreurs += "La date de fin ne peut pas être avant la date d'aujourd'hui\n";
             }
         }
 
@@ -224,7 +235,7 @@ public class MenuController implements Initializable {
             alert.showAndWait();
         } else
         {
-            String dateDebutDemande = datepDebutDem.getValue().toString();
+            String dateDebutDemande = lbDateNow.getText();
             String dateFinDemande = datepFinDem.getValue().toString();
             String nomMatiereSelectionnee = (String) cboMatiereDem.getSelectionModel().getSelectedItem();
 
@@ -256,7 +267,6 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     public void btnAnnulerDemClicked(Event event)
     {
-        datepDebutDem.setValue(null);
         datepFinDem.setValue(null);
         cboMatiereDem.getSelectionModel().clearSelection();
         menuSousMatiere.getItems().forEach(item ->
