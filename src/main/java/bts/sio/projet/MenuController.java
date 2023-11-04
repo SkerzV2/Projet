@@ -123,9 +123,15 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private TableColumn tcPrenom;
     @javafx.fxml.FXML
-    private TableColumn tcSousMatiere;
-    @javafx.fxml.FXML
     private Button btnCreeSoutient;
+    @javafx.fxml.FXML
+    private TableColumn tcMatiereSoutient;
+    @javafx.fxml.FXML
+    private TableColumn tcDateDebutSoutient;
+    @javafx.fxml.FXML
+    private TableColumn tcDateFinSoutient;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereSoutient;
 
     public void setUser(User user) {
         this.user = user;
@@ -345,7 +351,6 @@ public class MenuController implements Initializable {
         tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
         tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
         tcSousMatieres.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
-
         tvModifDemandes.setItems(lesDemandesTv);
     }
 
@@ -571,10 +576,10 @@ public class MenuController implements Initializable {
         apVoirLesDemande.toFront();
         lesAutresDemandesTv = serviceSoutients.getAllDemandesTv(user.getId());
         System.out.print(lesAutresDemandesTv);
-        tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
-        tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
-        tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
-        tcSousMatiere.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+        tcDateDebutSoutient.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
+        tcDateFinSoutient.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+        tcMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("designation"));
+        tcSousMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
         tcNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         tcPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         tvVisualiserAutresDemandes.setItems(lesAutresDemandesTv);

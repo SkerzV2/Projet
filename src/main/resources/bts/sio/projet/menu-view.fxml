@@ -201,10 +201,10 @@
                      <columns>
                         <TableColumn fx:id="tcNom" prefWidth="88.80000114440918" text="Nom" />
                         <TableColumn fx:id="tcPrenom" prefWidth="89.60004425048828" text="Prenom" />
-                        <TableColumn fx:id="tcMatiere" prefWidth="91.20001220703125" text="Matière" />
-                        <TableColumn fx:id="tcDateDebut" prefWidth="96.0" text="Date de Debut" />
-                        <TableColumn fx:id="tcDateFin" prefWidth="88.7999267578125" text="Date de fin" />
-                        <TableColumn fx:id="tcSousMatiere" prefWidth="224.80001831054688" text="Sous matière" />
+                        <TableColumn fx:id="tcMatiereSoutient" prefWidth="91.20001220703125" text="Matière" />
+                        <TableColumn fx:id="tcDateDebutSoutient" prefWidth="96.0" text="Date de Debut" />
+                        <TableColumn fx:id="tcDateFinSoutient" prefWidth="88.7999267578125" text="Date de fin" />
+                        <TableColumn fx:id="tcSousMatiereSoutient" prefWidth="224.80001831054688" text="Sous matière" />
                      </columns>
                   </TableView>
                   <Label layoutX="275.0" layoutY="39.0" text="Visualiser les demandes">
