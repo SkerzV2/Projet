@@ -7,7 +7,7 @@ module bts.sio.projeet {
     opens bts.sio.projet.Entities;
     opens bts.sio.projet.Tools.Services;
 
-    opens bts.sio.projet to javafx.fxml;
     exports bts.sio.projet;
+    opens bts.sio.projet;
 
 }

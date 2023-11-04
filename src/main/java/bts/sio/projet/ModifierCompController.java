@@ -1,17 +1,18 @@
 package bts.sio.projet;
 
+import bts.sio.projet.Entities.Competence;
 import bts.sio.projet.Entities.Demande;
 import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.User;
+import bts.sio.projet.Tools.ConnexionBDD;
+import bts.sio.projet.Tools.Services.ServiceCompetences;
 import bts.sio.projet.Tools.Services.ServiceDemandes;
 import bts.sio.projet.Tools.Services.ServiceMatieres;
-import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -22,16 +23,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-
-public class ModifierDemandeController implements Initializable
+public class ModifierCompController implements Initializable
 {
-    private Demande laDemande;
+    private Competence laCompetence;
+
     @javafx.fxml.FXML
-    private DatePicker datepFinModif;
-    @javafx.fxml.FXML
-    private DatePicker datepDebutModif;
-    @javafx.fxml.FXML
-    private ComboBox cboMatiereModif;
+    private ComboBox cbMatiereModif;
     @javafx.fxml.FXML
     private MenuButton mbSousMatiereModif;
     @javafx.fxml.FXML
@@ -42,11 +39,12 @@ public class ModifierDemandeController implements Initializable
     ConnexionBDD maCnx;
     User user;
     ServiceMatieres serviceMatieres;
-    ServiceDemandes serviceDemandes = new ServiceDemandes();
+    ServiceCompetences serviceCompetences = new ServiceCompetences();
     MenuController menuController = new MenuController();
     ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
 
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
         try
         {
             maCnx = new ConnexionBDD();
@@ -71,10 +69,10 @@ public class ModifierDemandeController implements Initializable
 
         for (Matiere uneMatiere : lesMatieres)
         {
-            cboMatiereModif.getItems().add(uneMatiere.getDesignation());
+            cbMatiereModif.getItems().add(uneMatiere.getDesignation());
 
         }
-        cboMatiereModif.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+        cbMatiereModif.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
         {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
@@ -93,6 +91,7 @@ public class ModifierDemandeController implements Initializable
                 }
             }
         });
+
     }
 
     private void updateSousMatieres(String matiereSelectionne) throws SQLException {
@@ -109,14 +108,12 @@ public class ModifierDemandeController implements Initializable
         }
     }
 
-    public void initDatas(Demande demandeSelectionnee) {
-        laDemande = demandeSelectionnee;
+    public void initDatas(Competence competenceSelectionnee) {
+        laCompetence = competenceSelectionnee;
 
-        datepDebutModif.setValue(LocalDate.parse(demandeSelectionnee.getDateDebut()));
-        datepFinModif.setValue(LocalDate.parse(demandeSelectionnee.getDateFin()));
-        cboMatiereModif.setValue(demandeSelectionnee.getDesignation());
+        cbMatiereModif.setValue(competenceSelectionnee.getMatierePrincipale());
 
-        String[] sousMatieresArray = demandeSelectionnee.getSousMatiere().split("#");
+        String[] sousMatieresArray = competenceSelectionnee.getMatiereSecondaire().split("#");
         for (MenuItem menuItem : mbSousMatiereModif.getItems())
         {
             if (menuItem instanceof CustomMenuItem)
@@ -142,109 +139,74 @@ public class ModifierDemandeController implements Initializable
 
     }
 
-
-    // pour afficher les sous matieres
     @javafx.fxml.FXML
-    public void cboMatiereModifClicked(Event event) {
-        String matiereSelectionne = (String) cboMatiereModif.getValue(); // Obtenir la matière sélectionnée
+    public void cbMatiereModifClicked(Event event)
+    {
+        String matiereSelectionne = (String) cbMatiereModif.getValue(); // Obtenir la matière sélectionnée
         if (matiereSelectionne != null)
         {
             try {
                 updateSousMatieres(matiereSelectionne);
-            }
-            catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    // valider les modif
-    @FXML
+    @javafx.fxml.FXML
     public void btnValiderModifClicked(Event event) throws SQLException, IOException {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        String erreurs = "";
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    String erreurs = "";
 
-        if (datepDebutModif.getValue() == null || datepDebutModif.getValue().isBefore(LocalDate.now()))
-        {
-            erreurs += "Veuillez sélectionner une date de début valide (aujourd'hui ou ultérieure)\n";
-        }
-
-        if (datepFinModif.getValue() == null)
-        {
-            erreurs += "Veuillez sélectionner une date de fin valide (ultérieure à la date de début)\n";
-        }
-
-        if (datepDebutModif.getValue() != null && datepFinModif.getValue() != null)
-        {
-            LocalDate debut = datepDebutModif.getValue();
-            LocalDate fin = datepFinModif.getValue();
-
-            if (debut.isAfter(fin))
-            {
-                erreurs += "La date de début ne peut pas être après la date de fin\n";
-            }
-        }
-
-        if (cboMatiereModif.getSelectionModel().isEmpty())
-        {
-            erreurs += "Veuillez sélectionner une matière\n";
-        }
-
-        if (menuController.recupererLesCasesCochees(mbSousMatiereModif).isEmpty())
-        {
-            erreurs += "Veuillez sélectionner une ou plusieurs sous-matières\n";
-        }
-
-        if (!erreurs.isEmpty())
-        {
-            alert.setTitle("Erreurs de sélection");
-            alert.setHeaderText("");
-            alert.setContentText(erreurs);
-            alert.showAndWait();
-        } else
-        {
-            String nomMatiere = cboMatiereModif.getSelectionModel().getSelectedItem().toString();
-            Matiere matiereSelectionnee = null;
-            int idMatiere = 0;
-            for (Matiere uneMatiere : lesMatieres)
-            {
-                if (uneMatiere.getDesignation().equals(nomMatiere))
-                {
-                    matiereSelectionnee = uneMatiere;
-                    break;
-                }
-            }
-            if (matiereSelectionnee != null)
-            {
-                idMatiere = matiereSelectionnee.getIdMatiere();
-            }
-            String dateDebut = datepDebutModif.getValue().toString();
-            String dateFin = datepFinModif.getValue().toString();
-
-            MenuButton menu = mbSousMatiereModif;
-            String sousMatiere = menuController.recupererLesCasesCochees(mbSousMatiereModif);
-            int idDemande = laDemande.getIdDemande();
-
-            serviceDemandes.modifDemande(user.getId() , idMatiere, dateDebut, dateFin, sousMatiere, idDemande);
-            //menuController.refreshTvDemande(initUser(user));
-            Stage stage = (Stage) btnValiderModif.getScene().getWindow();
-            stage.close();
-        }
+    if (cbMatiereModif.getSelectionModel().isEmpty())
+    {
+        erreurs += "Veuillez sélectionner une matière\n";
     }
 
-    // annuler les modif
+    if (menuController.recupererLesCasesCochees(mbSousMatiereModif).isEmpty())
+    {
+        erreurs += "Veuillez sélectionner une ou plusieurs sous-matières\n";
+    }
+
+    if (!erreurs.isEmpty())
+    {
+        alert.setTitle("Erreurs de sélection");
+        alert.setHeaderText("");
+        alert.setContentText(erreurs);
+        alert.showAndWait();
+    } else
+    {
+        String nomMatiere = cbMatiereModif.getSelectionModel().getSelectedItem().toString();
+        Matiere matiereSelectionnee = null;
+        int idMatiere = 0;
+        for (Matiere uneMatiere : lesMatieres)
+        {
+            if (uneMatiere.getDesignation().equals(nomMatiere))
+            {
+                matiereSelectionnee = uneMatiere;
+                break;
+            }
+        }
+        if (matiereSelectionnee != null)
+        {
+            idMatiere = matiereSelectionnee.getIdMatiere();
+        }
+
+        /*MenuButton menu = mbSousMatiereModif;
+        String sousMatiere = menuController.recupererLesCasesCochees(mbSousMatiereModif);
+        int idDemande = laCompetence.getIdCompetence();
+
+        serviceCompetences.modifCompetence(user.getId() , idMatiere, sousMatiere);
+        //menuController.refreshTvDemande(initUser(user));
+        Stage stage = (Stage) btnValiderModif.getScene().getWindow();
+        stage.close();
+        */}
+    }
+
     @javafx.fxml.FXML
     public void btnAnnulerModifierClicked(Event event)
     {
-        Stage stage = (Stage) btnAnnulerModifier.getScene().getWindow();
-        stage.close();
-    }
 
-    public User initUser(User user)
-    {
-        this.user = user;
-        return user;
     }
 
 }

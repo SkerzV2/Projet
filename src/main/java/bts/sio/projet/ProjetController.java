@@ -20,7 +20,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class ProjetController implements Initializable {
+public class ProjetController implements Initializable
+{
     ConnexionBDD maCnx;
     ServiceUsers serviceUsers = new ServiceUsers();
 

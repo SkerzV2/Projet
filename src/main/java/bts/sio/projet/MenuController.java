@@ -438,12 +438,14 @@ public class MenuController implements Initializable {
     //                                                                                                       //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     @javafx.fxml.FXML
-    public void btnEnregistrerCompClicked(Event event) {
+    public void btnEnregistrerCompClicked(Event event)
+    {
         apEnregistrerComp.toFront();
     }
 
     @javafx.fxml.FXML
-    public void mbSousMatieresClicked(Event event) throws SQLException {
+    public void mbSousMatieresClicked(Event event) throws SQLException
+    {
         if (cbCompPrincipale.getSelectionModel().getSelectedItem() == null) {
         } else {
             String matiere = cbCompPrincipale.getSelectionModel().getSelectedItem().toString();
