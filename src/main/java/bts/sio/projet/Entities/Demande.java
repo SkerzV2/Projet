@@ -2,6 +2,9 @@ package bts.sio.projet.Entities;
 
 public class Demande {
 
+    private String niveau;
+    private String prenom;
+    private String nom;
     private String dateDebut;
     private String dateFin;
     private String sousMatiere;
@@ -32,6 +35,30 @@ public class Demande {
         this.designation = designation;
     }
 
+    public String getNiveau() {
+        return niveau;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public Demande(String dateDebut, String dateFin, String sousMatiere, int idMatiere, String designation, int idDemande, int idUser, String nom, String prenom, String niveau) {
+        this.idDemande=idDemande;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.sousMatiere = sousMatiere;
+        this.idMatiere = idMatiere;
+        this.designation = designation;
+        this.idUser = idUser;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.niveau = niveau;
+    }
     public int getIdMatiere() {return idMatiere;}
 
     public void setIdMatiere(int idMatiere) {this.idMatiere = idMatiere;}

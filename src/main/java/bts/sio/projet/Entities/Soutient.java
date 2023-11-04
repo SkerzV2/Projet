@@ -11,7 +11,7 @@ public class Soutient {
     private int idMatiere;
     private int status;
 
-    public Soutient(int idDemande, int idCompetence, int idSalle, String dateDebut, String dateFin, String sousMatière, int idUser, int idMatiere, int status) {
+    public Soutient(int idDemande, int idCompetence, int idSalle, String dateDebut, String dateFin, String sousMatière, User user) {
         this.idDemande = idDemande;
         this.idCompetence = idCompetence;
         this.idSalle = idSalle;

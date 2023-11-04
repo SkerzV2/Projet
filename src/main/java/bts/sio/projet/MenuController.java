@@ -1,9 +1,6 @@
 package bts.sio.projet;
 
-import bts.sio.projet.Entities.Competence;
-import bts.sio.projet.Entities.Demande;
-import bts.sio.projet.Entities.Matiere;
-import bts.sio.projet.Entities.User;
+import bts.sio.projet.Entities.*;
 import bts.sio.projet.Tools.Services.*;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.beans.value.ChangeListener;
@@ -29,17 +26,19 @@ import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 public class MenuController implements Initializable {
+    private ProjetController projetController;
     ConnexionBDD maCnx;
     ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
     ServiceMatieres serviceMatieres = new ServiceMatieres();
     ServiceDemandes serviceDemandes = new ServiceDemandes();
     ServiceCompetences serviceCompetences = new ServiceCompetences();
-    private ProjetController projetController;
+    ServiceSoutients serviceSoutients = new ServiceSoutients();
     User user;
     Matiere matiere;
     HashMap<String, TreeMap<String, ObservableList<String>>> lesDemandes;
     TreeMap<String, ObservableList<String>> lesCompetences;
     ObservableList lesDemandesTv;
+    ObservableList<Demande> lesAutresDemandesTv;
     TreeItem root;
     TreeItem rootComp;
 
@@ -75,8 +74,6 @@ public class MenuController implements Initializable {
     private Button btnValiderComp;
     @javafx.fxml.FXML
     private Button btnAnnulerComp;
-    @javafx.fxml.FXML
-    private AnchorPane apStat;
     @javafx.fxml.FXML
     private MenuButton menuSousMatiere;
     @javafx.fxml.FXML
@@ -116,19 +113,19 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private Label lbDateNow;
     @javafx.fxml.FXML
-    private TableView tvModifDemandes1;
+    private TableView tvVisualiserAutresDemandes;
     @javafx.fxml.FXML
-    private TableColumn tcMatiere2;
+    private Button btnVoirLesDemande;
     @javafx.fxml.FXML
-    private TableColumn tcDateDebut1;
+    private AnchorPane apVoirLesDemande;
     @javafx.fxml.FXML
-    private TableColumn tcSousMatieres2;
+    private TableColumn tcNom;
     @javafx.fxml.FXML
-    private TableColumn tcSousMatieres21;
+    private TableColumn tcPrenom;
     @javafx.fxml.FXML
-    private TableColumn tcSousMatieres211;
+    private TableColumn tcSousMatiere;
     @javafx.fxml.FXML
-    private TableColumn tcSousMatieres2111;
+    private Button btnCreeSoutient;
 
     public void setUser(User user) {
         this.user = user;
@@ -344,7 +341,6 @@ public class MenuController implements Initializable {
     public void btnModifDemandeClicked(Event event) throws SQLException, IOException {
         apModifierDemande.toFront();
         lesDemandesTv = serviceDemandes.getAllDemandesTv(user.getId());
-
         tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
         tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
@@ -567,11 +563,56 @@ public class MenuController implements Initializable {
     //                                                                                                        //
     //                                                                                                       //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @javafx.fxml.FXML
+    public void btnVoirLesDemandeClicked(Event event) throws SQLException {
+        apVoirLesDemande.toFront();
+        lesAutresDemandesTv = serviceSoutients.getAllDemandesTv(user.getId());
+        System.out.print(lesAutresDemandesTv);
+        tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
+        tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+        tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
+        tcSousMatiere.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+        tcNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        tcPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        tvVisualiserAutresDemandes.setItems(lesAutresDemandesTv);
+    }
+    @javafx.fxml.FXML
+    public void btnCreeSoutientClicked(Event event) throws IOException {
+        Demande demandeSelectionnee = (Demande) tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
+
+        if(demandeSelectionnee == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une demande pour supprimer");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else
+        {
+            if (demandeSelectionnee != null)
+            {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("creeSoutient-view.fxml"));
+                Parent root = fxmlLoader.load();
+                Scene scene = new Scene(root);
+                CreeSoutientController creeSoutientController = fxmlLoader.getController();
+                creeSoutientController.initUser(user);
+                creeSoutientController.initDatas(demandeSelectionnee);
+                Stage stage = new Stage();
+                stage.setTitle("Modification d'une demande");
+                stage.setScene(scene);
+                stage.show();
+            }
+        }
+    }
+    @javafx.fxml.FXML
+    public void tvVisualiserAutresDemandesClicked(Event event) {
+
+    }
     @javafx.fxml.FXML
     public void btnVoirStatsClicked(Event event) {
-        apStat.toFront();
     }
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                                           //
@@ -580,6 +621,8 @@ public class MenuController implements Initializable {
     //                                                                                                        //
     //                                                                                                       //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     public String recupererLesCasesCochees(MenuButton menu) {
         String sousMatiere = "";

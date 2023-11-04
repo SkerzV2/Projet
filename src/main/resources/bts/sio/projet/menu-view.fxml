@@ -74,7 +74,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Visualiser les demandes">
+            <Button fx:id="btnVoirLesDemande" mnemonicParsing="false" onMouseClicked="#btnVoirLesDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Visualiser les demandes">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -195,16 +195,16 @@
                   <Button fx:id="BtnSupprimerDemande" layoutX="404.0" layoutY="507.0" mnemonicParsing="false" onMouseClicked="#BtnSupprimerDemandeClicked" prefHeight="26.0" prefWidth="118.0" text="Supprimer" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="apStat" prefHeight="567.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;">
+            <AnchorPane fx:id="apVoirLesDemande" prefHeight="567.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;">
                <children>
-                  <TableView fx:id="tvModifDemandes1" layoutX="14.0" layoutY="105.0" prefHeight="415.0" prefWidth="679.0">
+                  <TableView fx:id="tvVisualiserAutresDemandes" layoutX="14.0" layoutY="94.0" onMouseClicked="#tvVisualiserAutresDemandesClicked" prefHeight="415.0" prefWidth="679.0">
                      <columns>
-                        <TableColumn fx:id="tcMatiere2" prefWidth="120.79999732971191" text="Nom" />
-                        <TableColumn fx:id="tcDateDebut1" prefWidth="111.20001220703125" text="Prenom" />
-                        <TableColumn fx:id="tcSousMatieres2" prefWidth="132.0" text="Matière" />
-                        <TableColumn fx:id="tcSousMatieres21" prefWidth="99.99993896484375" text="Date de Debut" />
-                        <TableColumn fx:id="tcSousMatieres211" prefWidth="103.19998168945312" text="Date de fin" />
-                        <TableColumn fx:id="tcSousMatieres2111" prefWidth="110.39990234375" text="Sous matière" />
+                        <TableColumn fx:id="tcNom" prefWidth="88.80000114440918" text="Nom" />
+                        <TableColumn fx:id="tcPrenom" prefWidth="89.60004425048828" text="Prenom" />
+                        <TableColumn fx:id="tcMatiere" prefWidth="91.20001220703125" text="Matière" />
+                        <TableColumn fx:id="tcDateDebut" prefWidth="96.0" text="Date de Debut" />
+                        <TableColumn fx:id="tcDateFin" prefWidth="88.7999267578125" text="Date de fin" />
+                        <TableColumn fx:id="tcSousMatiere" prefWidth="224.80001831054688" text="Sous matière" />
                      </columns>
                   </TableView>
                   <Label layoutX="275.0" layoutY="39.0" text="Visualiser les demandes">
@@ -212,6 +212,7 @@
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Label>
+                  <Button fx:id="btnCreeSoutient" layoutX="543.0" layoutY="522.0" mnemonicParsing="false" onMouseClicked="#btnCreeSoutientClicked" prefHeight="26.0" prefWidth="144.0" text="Crée le soutient" />
                </children></AnchorPane>
          </children></AnchorPane>
    </center>

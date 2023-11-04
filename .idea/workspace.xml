@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="Ma partie demande est terminé, il reste quelques opti et modif a faire">
+      <change afterPath="$PROJECT_DIR$/lib/opennlp-tools-1.9.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/CreeSoutientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/creeSoutient-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Demande.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Demande.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Soutient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Soutient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceSoutients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceSoutients.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +67,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Sio2/Projet/Projet/lib/opennlp-tools-1.9.3.jar&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Sio2/buftteau/TP_moi/TP3&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,

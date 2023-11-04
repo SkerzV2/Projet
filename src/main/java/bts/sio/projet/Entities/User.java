@@ -22,6 +22,12 @@ public class User {
         this.sexe = sexe;
         this.telephone = telephone;
     }
+    public User(int id, String nom, String prenom, String niveau) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.niveau = niveau;
+    }
 
 
     public int getId() {
