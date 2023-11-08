@@ -29,8 +29,6 @@ public class ModifierDemandeController implements Initializable
     @javafx.fxml.FXML
     private DatePicker datepFinModif;
     @javafx.fxml.FXML
-    private DatePicker datepDebutModif;
-    @javafx.fxml.FXML
     private ComboBox cboMatiereModif;
     @javafx.fxml.FXML
     private MenuButton mbSousMatiereModif;
@@ -45,11 +43,15 @@ public class ModifierDemandeController implements Initializable
     ServiceDemandes serviceDemandes = new ServiceDemandes();
     MenuController menuController = new MenuController();
     ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
+    @FXML
+    private Label lbDateNowModifier;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try
         {
             maCnx = new ConnexionBDD();
+            String dateNow = LocalDate.now().toString();
+            lbDateNowModifier.setText(dateNow);
         }
         catch (ClassNotFoundException e)
         {
@@ -112,7 +114,6 @@ public class ModifierDemandeController implements Initializable
     public void initDatas(Demande demandeSelectionnee) {
         laDemande = demandeSelectionnee;
 
-        datepDebutModif.setValue(LocalDate.parse(demandeSelectionnee.getDateDebut()));
         datepFinModif.setValue(LocalDate.parse(demandeSelectionnee.getDateFin()));
         cboMatiereModif.setValue(demandeSelectionnee.getDesignation());
 
@@ -165,19 +166,14 @@ public class ModifierDemandeController implements Initializable
         Alert alert = new Alert(Alert.AlertType.ERROR);
         String erreurs = "";
 
-        if (datepDebutModif.getValue() == null || datepDebutModif.getValue().isBefore(LocalDate.now()))
-        {
-            erreurs += "Veuillez sélectionner une date de début valide (aujourd'hui ou ultérieure)\n";
-        }
-
         if (datepFinModif.getValue() == null)
         {
             erreurs += "Veuillez sélectionner une date de fin valide (ultérieure à la date de début)\n";
         }
 
-        if (datepDebutModif.getValue() != null && datepFinModif.getValue() != null)
+        if (datepFinModif.getValue() != null)
         {
-            LocalDate debut = datepDebutModif.getValue();
+            LocalDate debut = LocalDate.parse(lbDateNowModifier.getText());
             LocalDate fin = datepFinModif.getValue();
 
             if (debut.isAfter(fin))
@@ -219,7 +215,7 @@ public class ModifierDemandeController implements Initializable
             {
                 idMatiere = matiereSelectionnee.getIdMatiere();
             }
-            String dateDebut = datepDebutModif.getValue().toString();
+            String dateDebut = lbDateNowModifier.getText();
             String dateFin = datepFinModif.getValue().toString();
 
             MenuButton menu = mbSousMatiereModif;
