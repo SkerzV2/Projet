@@ -385,6 +385,7 @@ public class MenuController implements Initializable {
         }
     }
 
+    // Je peux supprimer une demande uniquement si il y a pas de soutient en cours
     @javafx.fxml.FXML
     public void BtnSupprimerDemandeClicked(Event event) throws IOException {
         Demande demandeSelectionnee = (Demande) tvModifDemandes.getSelectionModel().getSelectedItem();
