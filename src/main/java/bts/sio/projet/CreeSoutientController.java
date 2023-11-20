@@ -6,6 +6,7 @@ import bts.sio.projet.Entities.User;
 import bts.sio.projet.Tools.ConnexionBDD;
 import bts.sio.projet.Tools.Services.ServiceDemandes;
 import bts.sio.projet.Tools.Services.ServiceMatieres;
+import bts.sio.projet.Tools.Services.ServiceSoutients;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,9 +31,7 @@ public class CreeSoutientController implements Initializable {
     private Demande laDemande;
     ConnexionBDD maCnx;
     User user;
-    ServiceMatieres serviceMatieres;
-    ServiceDemandes serviceDemandes = new ServiceDemandes();
-    MenuController menuController = new MenuController();
+    ServiceSoutients serviceSoutients = new ServiceSoutients();
     @javafx.fxml.FXML
     private DatePicker dateSoutient;
     @javafx.fxml.FXML
@@ -51,40 +50,36 @@ public class CreeSoutientController implements Initializable {
             throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-    }
+        }}
     public void initDatas(Demande demandeSelectionnee) {
         laDemande = demandeSelectionnee;
+        cboMatiereSoutient.getItems().add(laDemande.getDesignation());
+        cboMatiereSoutient.getSelectionModel().selectFirst();
         String[] sousMatieresArray = demandeSelectionnee.getSousMatiere().split("#");
-        for (MenuItem menuItem : mbSousMatiereSoutient.getItems()) {
-            if (menuItem instanceof CustomMenuItem) {
-                CustomMenuItem customMenuItem = (CustomMenuItem) menuItem;
-                if (customMenuItem.getContent() instanceof CheckBox) {
-                    CheckBox checkBox = (CheckBox) customMenuItem.getContent();
-                    String checkBoxText = checkBox.getText();
-                    boolean isChecked = false;
-                    for (String selectedSousMatiere : sousMatieresArray) {
-                        if (selectedSousMatiere.trim().equals(checkBoxText)) {
-                            isChecked = true;
-                            break;
-                        }
-                    }
-                    checkBox.setSelected(isChecked);
-                }
+        ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
+        for (String sousMatiere : sousMatieresArray) {
+            if (!sousMatiere.isEmpty()) {
+                lesSousMatieres.add(sousMatiere);
             }
         }
+        mbSousMatiereSoutient.getItems().clear();
+
+        for (String sousMatiere : lesSousMatieres)
+        {
+            CustomMenuItem customMenuItem = new CustomMenuItem(new CheckBox(sousMatiere));
+            customMenuItem.setHideOnClick(false);
+            mbSousMatiereSoutient.getItems().add(customMenuItem);
+        }
     }
-    public User initUser(User user)
-    {
+    public User initUser(User user) {
         this.user = user;
         return user;
-    }
-    @javafx.fxml.FXML
-    public void mbSousMatiereSoutientClicked(Event event) {
     }
 
     @javafx.fxml.FXML
     public void btnValiderSoutientClicked(Event event) {
+        String dateNow = LocalDate.now().toString();
+        //serviceSoutients.CreeSoutient(laDemande.getIdMatiere());
     }
 
     @javafx.fxml.FXML

@@ -65,11 +65,11 @@ public class ServiceMatieres {
         {
             String sousMatiere = rs.getString("sous_matiere");
             String[] splitSousMatiere = sousMatiere.split("#");
-            for (String item : splitSousMatiere)
+            for (String uneSousMatiere : splitSousMatiere)
             {
-                if (!item.isEmpty())
+                if (!uneSousMatiere.isEmpty())
                 {
-                    lesSousMatieres.add(item);
+                    lesSousMatieres.add(uneSousMatiere);
                 }
             }
         }
