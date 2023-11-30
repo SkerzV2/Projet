@@ -20,62 +20,32 @@ public class ServiceSoutients {
     private Connection unCnx;
     private PreparedStatement ps;
     private ResultSet rs;
+    private HashMap<Integer, String> lesNiveaux;
     public ServiceSoutients()
     {
         unCnx = ConnexionBDD.getCnx();
     }
     public ObservableList<Demande> getAllDemandesTv(int idUser) throws SQLException
     {
-        String leNiveau = getNiveau(idUser);
         ArrayList<String> mesCompetences = getMesCompetences(idUser);
-
-        // Correspondance entre les valeurs numériques et les niveaux
-        HashMap<Integer, String> lesNiveaux = new HashMap<>();
-        lesNiveaux.put(5, "Master 2");
-        lesNiveaux.put(4, "Master 1");
-        lesNiveaux.put(3, "Bachelor");
-        lesNiveaux.put(2, "BTS 2");
-        lesNiveaux.put(1, "BTS 1");
-        lesNiveaux.put(0, "Etudiant");
-
-        int leIntNiveau = -1;
-
-        // Trouver la valeur numérique correspondant au niveau de l'utilisateur
-        for (int intNiveau : lesNiveaux.keySet()) {
-            if (leNiveau.equals(lesNiveaux.get(intNiveau))) {
-                leIntNiveau = intNiveau;
-                break;
-            }
-        }
-
-        if (leIntNiveau == -1) {
-            // Gérer le cas où le niveau de l'utilisateur n'est pas dans la correspondance
-            throw new IllegalArgumentException("Niveau non pris en charge: " + leNiveau);
-        }
-
-        // Construire la partie de la requête avec les OR
-        StringBuilder niveauCondition = new StringBuilder();
-        for (int i = 0; i <= leIntNiveau; i++) {
-            if (niveauCondition.length() > 0) {
-                niveauCondition.append(" OR ");
-            }
-            niveauCondition.append("user.niveau = ?");
-        }
+        int leIntNiveau = getIntNiveau(idUser);
+        String niveauCondition = getRequetNiveauCondition(leIntNiveau);
 
         ps = unCnx.prepareStatement("SELECT user.id, user.nom, user.prenom, user.niveau, demande.id, demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
                 + "JOIN user ON user.id = demande.id_user "
-                + "WHERE demande.id_user != ? " // Exclut l'utilisateur actuel
-                + "AND (" + niveauCondition + ")"); // Utilisation des valeurs numériques avec des OR
+                + "WHERE demande.id_user != ? "
+                + "AND (" + niveauCondition + ")");
 
-        // Exécuter la requête
         ps.setInt(1, idUser);
 
-        // Utiliser les valeurs numériques pour les niveaux autorisés
-        for (int i = 0; i <= leIntNiveau; i++) {
-            ps.setString(i + 2, lesNiveaux.get(i));
+        int parametreNiveau = leIntNiveau -2;
+        for (int i = 0; i <= parametreNiveau; i++) {
+          ps.setString(i + 2, lesNiveaux.get(i));
         }
+        System.out.print(ps);
+
 
         rs = ps.executeQuery();
 
@@ -112,13 +82,48 @@ public class ServiceSoutients {
             }
         return lesDemandes;
     }
+    public int getIntNiveau(int idUser) throws SQLException {
+        String leNiveau = getNiveau(idUser);
+
+        lesNiveaux = new HashMap<>();
+        lesNiveaux.put(5, "Master 2");
+        lesNiveaux.put(4, "Master 1");
+        lesNiveaux.put(3, "Bachelor");
+        lesNiveaux.put(2, "BTS 2");
+        lesNiveaux.put(1, "BTS 1");
+        lesNiveaux.put(0, "Terminale");
+
+        int leIntNiveau = 0;
+
+        for (int intNiveau : lesNiveaux.keySet()) {
+            if (leNiveau.equals(lesNiveaux.get(intNiveau))) {
+                leIntNiveau = intNiveau;
+                break;
+            }
+        }
+        return leIntNiveau;
+    }
+    public String getRequetNiveauCondition(int IntNiveau){
+        int niveauMoinDeux = IntNiveau-2;
+        String niveauCondition = "";
+        if (niveauMoinDeux > 1){
+        for (int i = 0; i <= niveauMoinDeux; i++) {
+            System.out.println(i);
+            if (niveauCondition.length() > 0) {
+                niveauCondition = niveauCondition + " OR user.niveau = ?";
+            } else {
+                niveauCondition = "user.niveau = ?";
+            }
+        }
+        }
+        return niveauCondition;
+    }
     public ArrayList getMesCompetences(int idUser) throws SQLException {
         ArrayList<String> mesCompetences = new ArrayList<>();
         ps = unCnx.prepareStatement("SELECT competence.sous_matiere "
                 + "FROM competence "
                 + "WHERE competence.id_user = ?");
 
-        // Exécuter la requête
         ps.setInt(1, idUser);
         rs = ps.executeQuery();
         while (rs.next()) {
