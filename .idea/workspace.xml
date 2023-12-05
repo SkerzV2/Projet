@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="pour modifier la date de début est mis par défaut à la date d'aujourd'ui">
+    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="Affiche les autre demande de soutient -2 marche parfaitement!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/ConnexionBDD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/ConnexionBDD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceSoutients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceSoutients.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -253,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700468813213</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Affiche les autre demande de soutient -2 marche parfaitement!">
+      <option name="closed" value="true" />
+      <created>1701303711474</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1701303711474</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -283,7 +290,8 @@
     <MESSAGE value="Ma partie demande est terminé, il reste quelques opti et modif a faire" />
     <MESSAGE value="pour faire une demande la date de début est mis par défaut a la date d'aujourd'hui" />
     <MESSAGE value="pour modifier la date de début est mis par défaut à la date d'aujourd'ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="pour modifier la date de début est mis par défaut à la date d'aujourd'ui" />
+    <MESSAGE value="Affiche les autre demande de soutient -2 marche parfaitement!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Affiche les autre demande de soutient -2 marche parfaitement!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

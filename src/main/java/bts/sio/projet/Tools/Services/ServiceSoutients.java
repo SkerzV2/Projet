@@ -42,44 +42,43 @@ public class ServiceSoutients {
 
         int parametreNiveau = leIntNiveau -2;
         for (int i = 0; i <= parametreNiveau; i++) {
-          ps.setString(i + 2, lesNiveaux.get(i));
+            ps.setString(i + 2, lesNiveaux.get(i));
+            System.out.print(ps);
         }
-        System.out.print(ps);
-
 
         rs = ps.executeQuery();
 
         ObservableList<Demande> lesDemandes = FXCollections.observableArrayList();
 
         while (rs.next()) {
-                String matiereDesignation = rs.getString("matiere.designation");
-                String sousMatiere = rs.getString("demande.sous_matiere");
-                int idMatiere = rs.getInt("demande.id_matiere");
-                String dateDebut = rs.getString("demande.date_updated");
-                String dateFin = rs.getString("demande.date_fin_demande");
-                int idDemande = rs.getInt("demande.id");
-                int idUserdem = rs.getInt("user.id");
-                String nomUser = rs.getString("user.nom");
-                String prenomUser = rs.getString("user.prenom");
-                String niveauUser = rs.getString("user.niveau");
-                String[] splitSousMatiereDem = sousMatiere.split("#");
-                String sousMatiereDem = "";
-                for (String uneSousMatiere : splitSousMatiereDem) {
-                    if (!uneSousMatiere.isEmpty()) {
-                        for (String competence : mesCompetences) {
-                            if (uneSousMatiere.equals(competence)) {
-                                sousMatiereDem += "#" + uneSousMatiere;
-                            }
+            String matiereDesignation = rs.getString("matiere.designation");
+            String sousMatiere = rs.getString("demande.sous_matiere");
+            int idMatiere = rs.getInt("demande.id_matiere");
+            String dateDebut = rs.getString("demande.date_updated");
+            String dateFin = rs.getString("demande.date_fin_demande");
+            int idDemande = rs.getInt("demande.id");
+            int idUserdem = rs.getInt("user.id");
+            String nomUser = rs.getString("user.nom");
+            String prenomUser = rs.getString("user.prenom");
+            String niveauUser = rs.getString("user.niveau");
+            String[] splitSousMatiereDem = sousMatiere.split("#");
+            String sousMatiereDem = "";
+            for (String uneSousMatiere : splitSousMatiereDem) {
+                if (!uneSousMatiere.isEmpty()) {
+                    for (String competence : mesCompetences) {
+                        if (uneSousMatiere.equals(competence)) {
+                            sousMatiereDem += "#" + uneSousMatiere;
                         }
                     }
                 }
-                System.out.println(sousMatiereDem);
-                if (!sousMatiereDem.equals("")) {
-                    Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere, idMatiere, matiereDesignation, idDemande, idUserdem, nomUser, prenomUser, niveauUser);
-
-                    lesDemandes.add(uneDemande);
-                }
             }
+            System.out.println(sousMatiereDem);
+            if (!sousMatiereDem.equals("")) {
+                Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere, idMatiere, matiereDesignation, idDemande, idUserdem, nomUser, prenomUser, niveauUser);
+
+                lesDemandes.add(uneDemande);
+            }
+        }
         return lesDemandes;
     }
     public int getIntNiveau(int idUser) throws SQLException {
@@ -106,19 +105,18 @@ public class ServiceSoutients {
     public String getRequetNiveauCondition(int IntNiveau){
         int niveauMoinDeux = IntNiveau-2;
         String niveauCondition = "";
-        if (niveauMoinDeux > 1){
-        for (int i = 0; i <= niveauMoinDeux; i++) {
-            System.out.println(i);
-            if (niveauCondition.length() > 0) {
-                niveauCondition = niveauCondition + " OR user.niveau = ?";
-            } else {
-                niveauCondition = "user.niveau = ?";
+        if (niveauMoinDeux >= 0){
+            for (int i = 0; i <= niveauMoinDeux; i++) {
+                if (!niveauCondition.isEmpty()) {
+                    niveauCondition = niveauCondition + " OR user.niveau = ?";
+                } else {
+                    niveauCondition = "user.niveau = ?";
+                }
             }
-        }
         }
         return niveauCondition;
     }
-    public ArrayList getMesCompetences(int idUser) throws SQLException {
+    public ArrayList<String> getMesCompetences(int idUser) throws SQLException {
         ArrayList<String> mesCompetences = new ArrayList<>();
         ps = unCnx.prepareStatement("SELECT competence.sous_matiere "
                 + "FROM competence "
@@ -142,7 +140,6 @@ public class ServiceSoutients {
         ps = unCnx.prepareStatement("INSERT INTO soutient (id_demande, id_competence, date_du_soutient, date_updated,description, status) "+
                 "VALUES (?,?,?,?,?,?)");
 
-// Exécuter la requête
         ps.setInt(1, idDemande);
         ps.setInt(2, idCompetence);
         ps.setString(3, dateDuSoutient);
@@ -156,7 +153,7 @@ public class ServiceSoutients {
         ps = unCnx.prepareStatement("SELECT user.niveau"
                 + " FROM user "
                 + " WHERE user.id = ? ");
-        ps.setInt(1, idUser);  // Correction : définir la valeur du paramètre
+        ps.setInt(1, idUser);
         rs = ps.executeQuery();
 
         rs.next();
@@ -164,4 +161,3 @@ public class ServiceSoutients {
         return niveau;
     }
 }
-
