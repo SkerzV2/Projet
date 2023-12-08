@@ -6,23 +6,52 @@ public class Soutient {
     private int idSalle;
     private String dateDebut;
     private String dateFin;
-    private String sousMatière;
+    private String sousMatiere;
     private int idUser;
     private int idMatiere;
     private int status;
+    private String description;
 
-    public Soutient(int idDemande, int idCompetence, int idSalle, String dateDebut, String dateFin, String sousMatière, User user) {
+    private String nom;
+    private String prenom;
+    private String matiere;
+
+    public Soutient(int idDemande, int idCompetence, int idSalle, String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere, int status) {
         this.idDemande = idDemande;
         this.idCompetence = idCompetence;
         this.idSalle = idSalle;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.sousMatière = sousMatière;
+        this.sousMatiere = sousMatiere;
         this.idUser = idUser;
         this.idMatiere = idMatiere;
         this.status = status;
     }
 
+    public Soutient(String nom, String prenom, String matiere, int idDemande, int idCompetence, String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere) {
+        this.idDemande = idDemande;
+        this.idCompetence = idCompetence;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.sousMatiere = sousMatiere;
+        this.idUser = idUser;
+        this.idMatiere = idMatiere;
+        this.prenom = prenom;
+        this.nom = nom;
+        this.matiere = matiere;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getMatiere() {
+        return matiere;
+    }
     public int getIdDemande() {
         return idDemande;
     }
@@ -43,8 +72,8 @@ public class Soutient {
         return dateFin;
     }
 
-    public String getSousMatière() {
-        return sousMatière;
+    public String getSousMatiere() {
+        return sousMatiere;
     }
 
     public int getIdUser() {

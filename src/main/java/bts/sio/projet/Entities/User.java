@@ -7,11 +7,11 @@ public class User {
     private String email;
     private String password;
     private String role;
-    private String niveau;
+    private int niveau;
     private int sexe;
     private int telephone;
 
-    public User(int id, String nom, String prenom, String email, String password, String role, String niveau, int sexe, int telephone) {
+    public User(int id, String nom, String prenom, String email, String password, String role, int niveau, int sexe, int telephone) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -22,7 +22,7 @@ public class User {
         this.sexe = sexe;
         this.telephone = telephone;
     }
-    public User(int id, String nom, String prenom, String niveau) {
+    public User(int id, String nom, String prenom, int niveau) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -50,7 +50,7 @@ public class User {
         return role;
     }
 
-    public String getNiveau() {
+    public int getNiveau() {
         return niveau;
     }
 

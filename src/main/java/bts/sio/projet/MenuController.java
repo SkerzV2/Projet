@@ -38,7 +38,7 @@ public class MenuController implements Initializable {
     HashMap<String, TreeMap<String, ObservableList<String>>> lesDemandes;
     TreeMap<String, ObservableList<String>> lesCompetences;
     ObservableList lesDemandesTv;
-    ObservableList<Demande> lesAutresDemandesTv;
+    ObservableList<Soutient> lesAutresDemandesTv;
     TreeItem root;
     TreeItem rootComp;
 
@@ -579,7 +579,7 @@ public class MenuController implements Initializable {
         System.out.print(lesAutresDemandesTv);
         tcDateDebutSoutient.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         tcDateFinSoutient.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
-        tcMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("designation"));
+        tcMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("matiere"));
         tcSousMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
         tcNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         tcPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
@@ -587,7 +587,7 @@ public class MenuController implements Initializable {
     }
     @javafx.fxml.FXML
     public void btnCreeSoutientClicked(Event event) throws IOException {
-        Demande demandeSelectionnee = (Demande) tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
+        Soutient demandeSelectionnee = (Soutient) tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
 
         if(demandeSelectionnee == null)
         {

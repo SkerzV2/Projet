@@ -1,7 +1,7 @@
 package bts.sio.projet.Tools.Services;
 
 import bts.sio.projet.Entities.Demande;
-import bts.sio.projet.Entities.User;
+import bts.sio.projet.Entities.Soutient;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class ServiceSoutients {
@@ -20,35 +19,40 @@ public class ServiceSoutients {
     private Connection unCnx;
     private PreparedStatement ps;
     private ResultSet rs;
-    private HashMap<Integer, String> lesNiveaux;
+    private HashMap<Integer, ArrayList<String>> lescompetences;
+    HashMap<Integer, ArrayList<String>> mesCompetences;
     public ServiceSoutients()
     {
         unCnx = ConnexionBDD.getCnx();
     }
-    public ObservableList<Demande> getAllDemandesTv(int idUser) throws SQLException
-    {
+    public ObservableList<Soutient> getAllDemandesTv(int idUser) throws SQLException {
+        mesCompetences = getMesCompetences(idUser);
+        int leIntNiveau = getNiveau(idUser);
+        /*
         ArrayList<String> mesCompetences = getMesCompetences(idUser);
         int leIntNiveau = getIntNiveau(idUser);
         String niveauCondition = getRequetNiveauCondition(leIntNiveau);
+        if (leIntNiveau >= 2) {
 
+     */
         ps = unCnx.prepareStatement("SELECT user.id, user.nom, user.prenom, user.niveau, demande.id, demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
                 + "JOIN user ON user.id = demande.id_user "
                 + "WHERE demande.id_user != ? "
-                + "AND (" + niveauCondition + ")");
+                + "AND user.niveau <= ?" +
+                " AND demande.status = 1");
 
         ps.setInt(1, idUser);
 
-        int parametreNiveau = leIntNiveau -2;
-        for (int i = 0; i <= parametreNiveau; i++) {
-            ps.setString(i + 2, lesNiveaux.get(i));
-            System.out.print(ps);
-        }
+        int parametreNiveau = leIntNiveau - 2;
+        ps.setInt(2, parametreNiveau);
+        System.out.print(ps);
+
 
         rs = ps.executeQuery();
 
-        ObservableList<Demande> lesDemandes = FXCollections.observableArrayList();
+        ObservableList<Soutient> lesDemandes = FXCollections.observableArrayList();
 
         while (rs.next()) {
             String matiereDesignation = rs.getString("matiere.designation");
@@ -63,24 +67,28 @@ public class ServiceSoutients {
             String niveauUser = rs.getString("user.niveau");
             String[] splitSousMatiereDem = sousMatiere.split("#");
             String sousMatiereDem = "";
+            int idCompetence = 0;
             for (String uneSousMatiere : splitSousMatiereDem) {
                 if (!uneSousMatiere.isEmpty()) {
-                    for (String competence : mesCompetences) {
-                        if (uneSousMatiere.equals(competence)) {
-                            sousMatiereDem += "#" + uneSousMatiere;
+                    for (int idComp : mesCompetences.keySet()) {
+                        for (String competence : mesCompetences.get(idComp)) {
+                            if (uneSousMatiere.equals(competence)) {
+                                sousMatiereDem += "#" + uneSousMatiere;
+                            }
                         }
+                        idCompetence=idComp;
                     }
                 }
             }
-            System.out.println(sousMatiereDem);
             if (!sousMatiereDem.equals("")) {
-                Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere, idMatiere, matiereDesignation, idDemande, idUserdem, nomUser, prenomUser, niveauUser);
+                Soutient unSoutient = new Soutient(nomUser, prenomUser, matiereDesignation, idDemande,idCompetence, dateDebut, dateFin, sousMatiere, idUser, idMatiere);
 
-                lesDemandes.add(uneDemande);
+                lesDemandes.add(unSoutient);
             }
         }
-        return lesDemandes;
-    }
+            return lesDemandes;
+        }
+    /*
     public int getIntNiveau(int idUser) throws SQLException {
         String leNiveau = getNiveau(idUser);
 
@@ -116,9 +124,11 @@ public class ServiceSoutients {
         }
         return niveauCondition;
     }
-    public ArrayList<String> getMesCompetences(int idUser) throws SQLException {
+    */
+    public HashMap<Integer, ArrayList<String>> getMesCompetences(int idUser) throws SQLException {
+        lescompetences = new HashMap<>();
         ArrayList<String> mesCompetences = new ArrayList<>();
-        ps = unCnx.prepareStatement("SELECT competence.sous_matiere "
+        ps = unCnx.prepareStatement("SELECT competence.sous_matiere ,competence.id "
                 + "FROM competence "
                 + "WHERE competence.id_user = ?");
 
@@ -132,24 +142,12 @@ public class ServiceSoutients {
                     mesCompetences.add(uneSousMatiere);
                 }
             }
+            lescompetences.put(rs.getInt(2),mesCompetences);
         }
-        return mesCompetences ;
+        return lescompetences ;
     }
-
-    public void CreeSoutient(int idDemande, int idCompetence, String dateDuSoutient, String dateUptdated, String description,int status) throws SQLException {
-        ps = unCnx.prepareStatement("INSERT INTO soutient (id_demande, id_competence, date_du_soutient, date_updated,description, status) "+
-                "VALUES (?,?,?,?,?,?)");
-
-        ps.setInt(1, idDemande);
-        ps.setInt(2, idCompetence);
-        ps.setString(3, dateDuSoutient);
-        ps.setString(4, dateUptdated);
-        ps.setString(5, description);
-        ps.setInt(6, status);
-        rs = ps.executeQuery();
-    }
-    public String getNiveau(int idUser) throws SQLException {
-        String niveau;
+    public int getNiveau(int idUser) throws SQLException {
+        int niveau;
         ps = unCnx.prepareStatement("SELECT user.niveau"
                 + " FROM user "
                 + " WHERE user.id = ? ");
@@ -157,7 +155,34 @@ public class ServiceSoutients {
         rs = ps.executeQuery();
 
         rs.next();
-        niveau = rs.getString(1);
+        niveau = rs.getInt(1);
         return niveau;
     }
+    public void CreeSoutient(int idDemande, int idCompetence, String dateDuSoutient, String dateUptdated, String description,int status) throws SQLException {
+        ps = unCnx.prepareStatement("INSERT INTO soutien (id_demande, id_competence, date_du_soutien, date_updated,description, status) "+
+                "VALUES (?,?,?,?,?,?)");
+
+        ps.setInt(1, idDemande);
+        ps.setInt(2, idCompetence);
+        ps.setString(3, dateDuSoutient);
+        ps.setString(4, dateUptdated);
+        ps.setString(5, description);
+        ps.setInt(6, 1);
+
+        ps.executeUpdate();
+
+        ps.close();
+        ps = unCnx.prepareStatement("UPDATE Demande set status = ? " +
+                "Where id= ? ");
+
+
+        ps.setInt(1, 2);
+        ps.setInt(2, idDemande);
+
+        ps.executeUpdate();
+
+        ps.close();
+
+    }
+
 }

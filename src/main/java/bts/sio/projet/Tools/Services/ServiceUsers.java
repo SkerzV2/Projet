@@ -28,7 +28,7 @@ public class ServiceUsers {
         rs = ps.executeQuery();
         User user = null;
         if (rs.next()) {
-            user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), email, password, rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
+            user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), email, password, rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7));
         }
         return user;
     }

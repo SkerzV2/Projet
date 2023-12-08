@@ -1,25 +1,16 @@
 package bts.sio.projet;
 
 import bts.sio.projet.Entities.Demande;
-import bts.sio.projet.Entities.Matiere;
+import bts.sio.projet.Entities.Soutient;
 import bts.sio.projet.Entities.User;
 import bts.sio.projet.Tools.ConnexionBDD;
-import bts.sio.projet.Tools.Services.ServiceDemandes;
-import bts.sio.projet.Tools.Services.ServiceMatieres;
 import bts.sio.projet.Tools.Services.ServiceSoutients;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.event.Event;
+import javafx.stage.Stage;
 
 
 import java.net.URL;
@@ -28,7 +19,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class CreeSoutientController implements Initializable {
-    private Demande laDemande;
+    private Soutient laDemande;
     ConnexionBDD maCnx;
     User user;
     ServiceSoutients serviceSoutients = new ServiceSoutients();
@@ -42,6 +33,8 @@ public class CreeSoutientController implements Initializable {
     private Button btnValiderSoutient;
     @javafx.fxml.FXML
     private Button btnAnnulerSoutient;
+    @javafx.fxml.FXML
+    private TextArea txtDescriptionSoutien;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -51,11 +44,11 @@ public class CreeSoutientController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }}
-    public void initDatas(Demande demandeSelectionnee) {
-        laDemande = demandeSelectionnee;
-        cboMatiereSoutient.getItems().add(laDemande.getDesignation());
+    public void initDatas(Soutient demandeSoutien) {
+        laDemande = demandeSoutien;
+        cboMatiereSoutient.getItems().add(laDemande.getMatiere());
         cboMatiereSoutient.getSelectionModel().selectFirst();
-        String[] sousMatieresArray = demandeSelectionnee.getSousMatiere().split("#");
+        String[] sousMatieresArray = demandeSoutien.getSousMatiere().split("#");
         ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
         for (String sousMatiere : sousMatieresArray) {
             if (!sousMatiere.isEmpty()) {
@@ -77,12 +70,43 @@ public class CreeSoutientController implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void btnValiderSoutientClicked(Event event) {
+    public void btnValiderSoutientClicked(Event event) throws SQLException {
         String dateNow = LocalDate.now().toString();
-        //serviceSoutients.CreeSoutient(laDemande.getIdMatiere());
+        String erreurs="";
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        if (txtDescriptionSoutien.getText().isEmpty()) {
+            erreurs += "La description est obligatoire";
+        }
+        if (dateSoutient.getValue() != null)
+        {
+            LocalDate now = LocalDate.now();
+            LocalDate date = dateSoutient.getValue();
+            LocalDate max = LocalDate.parse(laDemande.getDateFin());
+
+            if (now.isAfter(date))
+            {
+                erreurs += "La date du soutien ne peut pas être avant la date de debut\n";
+            }
+           if( date.isAfter(max)){
+               erreurs += "La date du soutien ne peut pas être après la date de fin\n";
+           }
+        }
+        if (!erreurs.isEmpty())
+        {
+            alert.setTitle("Erreurs de sélection");
+            alert.setHeaderText("");
+            alert.setContentText(erreurs);
+            alert.showAndWait();
+        }else {
+            serviceSoutients.CreeSoutient(laDemande.getIdDemande(), laDemande.getIdCompetence(), dateSoutient.getValue().toString(), dateNow, txtDescriptionSoutien.getText(), laDemande.getStatus());
+            Stage stage = (Stage) btnValiderSoutient.getScene().getWindow();
+            stage.close();
+        }
     }
 
     @javafx.fxml.FXML
     public void btnAnnulerSoutientClicked(Event event) {
+        Stage stage = (Stage) btnAnnulerSoutient.getScene().getWindow();
+        stage.close();
     }
 }

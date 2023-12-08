@@ -192,7 +192,7 @@ public class ModifierCompController implements Initializable
             idMatiere = matiereSelectionnee.getIdMatiere();
         }
 
-        /*MenuButton menu = mbSousMatiereModif;
+        /*=MenuButton menu = mbSousMatiereModif;
         String sousMatiere = menuController.recupererLesCasesCochees(mbSousMatiereModif);
         int idDemande = laCompetence.getIdCompetence();
 

@@ -25,6 +25,6 @@
         <Button fx:id="btnValiderSoutient" layoutX="152.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#btnValiderSoutientClicked" prefHeight="26.0" prefWidth="99.0" text="Valider" />
         <Button fx:id="btnAnnulerSoutient" layoutX="317.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerSoutientClicked" prefHeight="26.0" prefWidth="99.0" text="Annuler" />
       <Label layoutX="119.0" layoutY="253.0" text="Déscription" />
-      <TextArea layoutX="271.0" layoutY="243.0" prefHeight="75.0" prefWidth="222.0" />
+      <TextArea fx:id="txtDescriptionSoutien" layoutX="271.0" layoutY="243.0" prefHeight="75.0" prefWidth="222.0" />
     </children>
 </AnchorPane>
