@@ -13,8 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -65,8 +68,6 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private Button btnAnnulerDem;
     @javafx.fxml.FXML
-    private ComboBox cboMatiereDem;
-    @javafx.fxml.FXML
     private AnchorPane apEnregistrerComp;
     @javafx.fxml.FXML
     private ChoiceBox cbCompPrincipale;
@@ -74,8 +75,6 @@ public class MenuController implements Initializable {
     private Button btnValiderComp;
     @javafx.fxml.FXML
     private Button btnAnnulerComp;
-    @javafx.fxml.FXML
-    private MenuButton menuSousMatiere;
     @javafx.fxml.FXML
     private AnchorPane apVisualiserDemandes;
     @javafx.fxml.FXML
@@ -85,7 +84,7 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private AnchorPane apModifierDemande;
     @javafx.fxml.FXML
-    private TableView tvModifDemandes;
+    private TableView<Demande> tvModifDemandes;
     @javafx.fxml.FXML
     private TableColumn tcMatiere;
     @javafx.fxml.FXML
@@ -101,7 +100,7 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private AnchorPane apModifierComp;
     @javafx.fxml.FXML
-    private TableView tvModifComp;
+    private TableView<Competence> tvModifComp;
     @javafx.fxml.FXML
     private TableColumn tcMatiere1;
     @javafx.fxml.FXML
@@ -111,9 +110,7 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private Button BtnSupprimerDemande;
     @javafx.fxml.FXML
-    private Label lbDateNow;
-    @javafx.fxml.FXML
-    private TableView tvVisualiserAutresDemandes;
+    private TableView<Soutient> tvVisualiserAutresDemandes;
     @javafx.fxml.FXML
     private Button btnVoirLesDemande;
     @javafx.fxml.FXML
@@ -132,6 +129,44 @@ public class MenuController implements Initializable {
     private TableColumn tcDateFinSoutient;
     @javafx.fxml.FXML
     private TableColumn tcSousMatiereSoutient;
+    @javafx.fxml.FXML
+    private Button btnMenuDemande;
+    @javafx.fxml.FXML
+    private Button btnMenuSoutenir;
+    @javafx.fxml.FXML
+    private Button btnMenuStatistique;
+    @javafx.fxml.FXML
+    private Button btnMenuCompetence;
+    @javafx.fxml.FXML
+    private VBox vbxDemande;
+    @javafx.fxml.FXML
+    private VBox vbxCompetence;
+    @javafx.fxml.FXML
+    private VBox vbxSoutenir;
+    @javafx.fxml.FXML
+    private VBox vbxStatistique;
+    @javafx.fxml.FXML
+    private TableView<Matiere> tvSousMatiereModifierDemande;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereModifierDemande;
+    @javafx.fxml.FXML
+    private DatePicker dpModifierDemande;
+    @javafx.fxml.FXML
+    private Button BtnValiderModifier;
+    @javafx.fxml.FXML
+    private Button BtnAnnulerModifier;
+    @javafx.fxml.FXML
+    private AnchorPane apModificationDemande;
+    @javafx.fxml.FXML
+    private ComboBox cboMatiereModifierDemande;
+    @javafx.fxml.FXML
+    private TableView<Matiere> tvMatiereCreeDemande;
+    @javafx.fxml.FXML
+    private TableColumn tcMatiereCreeDemande;
+    @javafx.fxml.FXML
+    private TableView<Matiere> tvSousMatiereCreeDemande;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatieresCreeDemande;
 
     public void setUser(User user) {
         this.user = user;
@@ -143,17 +178,15 @@ public class MenuController implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            tvSousMatiereModifierDemande.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             apFaireDemande.toFront();
             maCnx = new ConnexionBDD();
             serviceMatieres = new ServiceMatieres();
             lesMatieres = serviceMatieres.GetAllMatiereObj();
-            String dateNow = LocalDate.now().toString();
-            lbDateNow.setText(dateNow);
 
-            for (Matiere uneMatiere : lesMatieres) {
-                cboMatiereDem.getItems().add(uneMatiere.getDesignation());
-                cbCompPrincipale.getItems().add(uneMatiere.getDesignation());
-            }
+            tvSousMatiereCreeDemande.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            tcMatiereCreeDemande.setCellValueFactory(new PropertyValueFactory<>("designation"));
+            tcSousMatieresCreeDemande.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
 
             root = new TreeItem("Mes demandes");
             rootComp = new TreeItem("Mes Compétences");
@@ -165,21 +198,6 @@ public class MenuController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        // Ajoutez un ChangeListener pour surveiller les changements de sélection dans le ComboBox de matières
-        cboMatiereDem.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue != null) {
-                    String matiereSelectionne = newValue;
-                    try {
-                        updateSousMatieres(matiereSelectionne);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        });
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -192,16 +210,21 @@ public class MenuController implements Initializable {
 
     // afficher l'anchor pane création demande
     @javafx.fxml.FXML
-    public void btnCreerDemandeClicked(Event event)
-    {
+    public void btnCreerDemandeClicked(Event event) throws SQLException {
+        tvMatiereCreeDemande.setItems(serviceMatieres.GetAllMatiereObj());
         apFaireDemande.toFront();
     }
-
+    @javafx.fxml.FXML
+    public void tvMatiereCreeDemandeClicked(Event event) throws SQLException {
+        ObservableList<Matiere> sousMatieres = serviceMatieres.GetAllSousMatiereOBJ(tvMatiereCreeDemande.getSelectionModel().getSelectedItem().getDesignation());
+        tvSousMatiereCreeDemande.setItems(sousMatieres);
+    }
     // button de valider pour la création d'une demande
     @javafx.fxml.FXML
     public void btnValiderDemClicked(Event event) throws SQLException
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        String dateNow = LocalDate.now().toString();
         String erreurs = "";
 
         if (datepFinDem.getValue() == null)
@@ -211,7 +234,7 @@ public class MenuController implements Initializable {
 
         if (datepFinDem.getValue() != null)
         {
-            LocalDate debut = LocalDate.parse(lbDateNow.getText());
+            LocalDate debut = LocalDate.parse(dateNow);
             LocalDate fin = datepFinDem.getValue();
 
             if (debut.isAfter(fin))
@@ -220,12 +243,12 @@ public class MenuController implements Initializable {
             }
         }
 
-        if (cboMatiereDem.getSelectionModel().isEmpty())
+        if (tvMatiereCreeDemande.getSelectionModel().isEmpty())
         {
             erreurs += "Veuillez sélectionner une matière\n";
         }
 
-        if (recupererLesCasesCochees(menuSousMatiere).isEmpty())
+        if (tvSousMatiereCreeDemande.getSelectionModel().getSelectedItems().isEmpty())
         {
             erreurs += "Veuillez sélectionner une ou plusieurs sous-matières\n";
         }
@@ -238,31 +261,19 @@ public class MenuController implements Initializable {
             alert.showAndWait();
         } else
         {
-            String dateDebutDemande = lbDateNow.getText();
+            ObservableList<Matiere> lesSousMatiere=tvSousMatiereCreeDemande.getSelectionModel().getSelectedItems();
             String dateFinDemande = datepFinDem.getValue().toString();
-            String nomMatiereSelectionnee = (String) cboMatiereDem.getSelectionModel().getSelectedItem();
+            String nomMatiereSelectionnee = tvMatiereCreeDemande.getSelectionModel().getSelectedItem().getDesignation();
+            String sousmatiere =getStringObservable(lesSousMatiere) ;
+            int idMatiere = tvMatiereCreeDemande.getSelectionModel().getSelectedItem().getIdMatiere();
 
-            Matiere matiereSelectionnee = null;
 
-                int idMatiere = 0;
-                for (Matiere uneMatiere : lesMatieres)
-                {
-                    if (uneMatiere.getDesignation().equals(nomMatiereSelectionnee))
-                    {
-                        matiereSelectionnee = uneMatiere;
-                        break;
-                    }
-                }
-                if (matiereSelectionnee != null)
-                {
-                    idMatiere = matiereSelectionnee.getIdMatiere();
-                }
-            MenuButton menu = menuSousMatiere;
-            String sous_matiere = recupererLesCasesCochees(menu);
-
-            Demande uneDemande = new Demande(dateDebutDemande, dateFinDemande, sous_matiere, user.getId(), idMatiere, matiereSelectionnee.getDesignation());
+            Demande uneDemande = new Demande(dateNow, dateFinDemande, sousmatiere, user.getId(), idMatiere, nomMatiereSelectionnee);
 
             serviceDemandes.creationDemande(uneDemande);
+            datepFinDem.setValue(null);
+            tvSousMatiereCreeDemande.getSelectionModel().getSelectedItems().clear();
+            tvMatiereCreeDemande.getSelectionModel().getSelectedItems().clear();
         }
     }
 
@@ -271,17 +282,8 @@ public class MenuController implements Initializable {
     public void btnAnnulerDemClicked(Event event)
     {
         datepFinDem.setValue(null);
-        cboMatiereDem.getSelectionModel().clearSelection();
-        menuSousMatiere.getItems().forEach(item ->
-        {
-            if (item instanceof CustomMenuItem)
-            {
-                CustomMenuItem customItem = (CustomMenuItem) item;
-                CheckBox checkBox = (CheckBox) customItem.getContent();
-                checkBox.setSelected(false);
-            }
-        });
-        menuSousMatiere.getItems().clear();
+       tvSousMatiereCreeDemande.getSelectionModel().getSelectedItems().clear();
+       tvMatiereCreeDemande.getSelectionModel().getSelectedItems().clear();
     }
 
     // Bouton voir ses demandes
@@ -295,20 +297,6 @@ public class MenuController implements Initializable {
     }
 
     // remplir les sous-matieres
-    private void updateSousMatieres(String matiereSelectionne) throws SQLException
-    {
-        // Insérez le code pour mettre à jour le menuSousMatiere en fonction de la matière sélectionnée.
-        // Vous pouvez utiliser la variable matiereSelectionne pour obtenir la matière sélectionnée.
-        ObservableList<String> sousMatieres = serviceMatieres.GetAllSousMatiere(matiereSelectionne);
-        menuSousMatiere.getItems().clear();
-
-        for (String sousMatiere : sousMatieres)
-        {
-            CustomMenuItem customMenuItem = new CustomMenuItem(new CheckBox(sousMatiere));
-            customMenuItem.setHideOnClick(false);
-            menuSousMatiere.getItems().add(customMenuItem);
-        }
-    }
 
     // afficher les demandes dans visualiser
     public void RemplirTreeViewSesDemandes()
@@ -356,8 +344,8 @@ public class MenuController implements Initializable {
 
     // permet charger la view de modifer une demande
     @javafx.fxml.FXML
-    public void btnModiferDemandeClicked(Event event) throws IOException {
-        Demande demandeSelectionnee = (Demande) tvModifDemandes.getSelectionModel().getSelectedItem();
+    public void btnModiferDemandeClicked(Event event) throws IOException, SQLException {
+        Demande demandeSelectionnee = tvModifDemandes.getSelectionModel().getSelectedItem();
 
         if(demandeSelectionnee == null)
         {
@@ -369,49 +357,69 @@ public class MenuController implements Initializable {
         }
         else
         {
-            if (demandeSelectionnee != null)
-            {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("modifierDemande-view.fxml"));
-                Parent root = fxmlLoader.load();
-                Scene scene = new Scene(root);
-                ModifierDemandeController modifController = fxmlLoader.getController();
-                modifController.initUser(user);
-                modifController.initDatas(demandeSelectionnee);
-                Stage stage = new Stage();
-                stage.setTitle("Modification d'une demande");
-                stage.setScene(scene);
-                stage.show();
+            apModificationDemande.toFront();
+            ObservableList<Matiere> sousMatieres = serviceMatieres.GetAllSousMatiereOBJ(demandeSelectionnee.getDesignation());
+            ObservableList<String> demandesousMatieres = getObservableSplit(demandeSelectionnee.getSousMatiere());
+            tvSousMatiereModifierDemande.setItems(sousMatieres);
+
+            for (Matiere sousMatiere : sousMatieres) {
+                for (String demandesousMatiere : demandesousMatieres) {
+                    if (sousMatiere.getSousMatiere().equals(demandesousMatiere)) {
+                        int index = sousMatieres.indexOf(sousMatiere);
+                        System.out.println(demandesousMatiere);
+                        tvSousMatiereModifierDemande.getSelectionModel().select(index);
+                    }
+                }
             }
+            dpModifierDemande.setValue(LocalDate.parse(demandeSelectionnee.getDateFin()));
+            cboMatiereModifierDemande.setValue(demandeSelectionnee.getDesignation());
+            cboMatiereModifierDemande.getSelectionModel().selectFirst();
+            tcSousMatiereModifierDemande.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+
+        }
+    }
+    @javafx.fxml.FXML
+    public void BtnValiderModificationClicked(Event event) throws SQLException {
+        String sousMatiere = getStringObservable(tvSousMatiereModifierDemande.getSelectionModel().getSelectedItems());
+        if (sousMatiere == null) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une Sous Matiere");
+            alert.setHeaderText("");
+            alert.showAndWait();
+
+        } else {
+            String dateUpdate = LocalDate.now().toString();
+            String dateFin = dpModifierDemande.getValue().toString();
+
+            int idDemande = tvModifDemandes.getSelectionModel().getSelectedItem().getIdDemande();
+
+            serviceDemandes.modifDemande(user.getId(), dateUpdate, dateFin, sousMatiere, idDemande);
+            apModifierDemande.toFront();
         }
     }
 
     // Je peux supprimer une demande uniquement si il y a pas de soutient en cours
     @javafx.fxml.FXML
-    public void BtnSupprimerDemandeClicked(Event event) throws IOException {
+    public void BtnSupprimerDemandeClicked(Event event) throws IOException, SQLException {
         Demande demandeSelectionnee = (Demande) tvModifDemandes.getSelectionModel().getSelectedItem();
 
-        if(demandeSelectionnee == null)
-        {
+        if (demandeSelectionnee == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une demande pour supprimer");
             alert.setHeaderText("");
             alert.showAndWait();
-        }
-        else
-        {
-            if (demandeSelectionnee != null)
-            {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("supprimerDemande-view.fxml"));
-                Parent root = fxmlLoader.load();
-                Scene scene = new Scene(root);
-                SupprimerDemandeController supprimerDemandeController = fxmlLoader.getController();
-                supprimerDemandeController.initUser(user);
-                supprimerDemandeController.initDatas(demandeSelectionnee);
-                Stage stage = new Stage();
-                stage.setTitle("Suppression d'une demande");
-                stage.setScene(scene);
-                stage.show();
+        } else {
+            if (demandeSelectionnee != null) {
+                serviceDemandes.supprimerDemande(demandeSelectionnee.getIdDemande());
+                lesDemandesTv = serviceDemandes.getAllDemandesTv(user.getId());
+                tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
+                tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+                tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
+                tcSousMatieres.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+                tvModifDemandes.setItems(lesDemandesTv);
             }
         }
     }
@@ -630,8 +638,26 @@ public class MenuController implements Initializable {
     //                                                                                                       //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public String getStringObservable(ObservableList<Matiere> leSousMatieres) {
+        String result = "";
+        for (Matiere uneSousMatiere : leSousMatieres) {
+            result += "#"+uneSousMatiere.getSousMatiere();
+        }
 
-
+        return result;
+    }
+    public ObservableList<String> getObservableSplit(String sousMatiere){
+        ObservableList<String> leSousMatieres = FXCollections.observableArrayList();
+        String[] splitSousMatiere = sousMatiere.split("#");
+        for (String uneSousMatiere : splitSousMatiere)
+        {
+            if (!uneSousMatiere.isEmpty())
+            {
+                leSousMatieres.add(uneSousMatiere);
+            }
+        }
+        return leSousMatieres;
+    }
     public String recupererLesCasesCochees(MenuButton menu) {
         String sousMatiere = "";
         ObservableList<MenuItem> items = menu.getItems();
@@ -647,5 +673,25 @@ public class MenuController implements Initializable {
             }
         }
         return sousMatiere;
+    }
+
+    @javafx.fxml.FXML
+    public void btnMenuDemandeClicked(Event event) {
+        vbxDemande.toFront();
+    }
+
+    @javafx.fxml.FXML
+    public void btnMenuCompetenceClicked(Event event) {
+        vbxCompetence.toFront();
+    }
+
+    @javafx.fxml.FXML
+    public void btnMenuSoutenirClicked(Event event) {
+        vbxSoutenir.toFront();
+    }
+
+    @javafx.fxml.FXML
+    public void btnMenuStatistiqueClicked(Event event) {
+        vbxStatistique.toFront();
     }
 }

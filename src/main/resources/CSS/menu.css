@@ -1,0 +1,74 @@
+.btnmenu1:hover {
+    -fx-border-color: white;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+
+.btnmenu2:hover {
+    -fx-border-color: white;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+
+.btnmenu3:hover {
+    -fx-border-color: white;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+
+.btnmenu4:hover {
+    -fx-border-color: white;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+
+
+
+.btn1{
+    -fx-background-color: #81253f;
+}
+.btn2{
+    -fx-background-color: #8f3d55;
+}
+.btn3{
+    -fx-background-color: #9d566a;
+}
+.btn1:hover{
+    -fx-border-width:1;
+    -fx-border-color: white;
+    -fx-border-radius: 30 30 30 30;
+    -fx-background-radius: 30 30 30 30;
+    -fx-background-color: #81253f;
+}
+.btn2:hover{
+    -fx-border-width:1;
+    -fx-border-color: white;
+    -fx-border-radius: 30 30 30 30;
+    -fx-background-radius: 30 30 30 30;
+    -fx-background-color: #8f3d55;
+}
+.btn3:hover{
+    -fx-border-width:1;
+    -fx-border-color: white;
+    -fx-border-radius: 30 30 30 30;
+    -fx-background-radius: 30 30 30 30;
+    -fx-background-color: #9d566a;
+}
+
+
+.btnsousmenu1:pressed {
+    -fx-rotate: 10;
+}
+.btnsousmenu2:pressed {
+    -fx-rotate: 10;
+}
+
+.btnsousmenu3:pressed {
+    -fx-rotate: 10;
+}
+
+.btnsousmenu4:pressed {
+    -fx-rotate: 10;
+}
+.menubg{
+    -fx-background-color: linear-gradient(#450819, #5c0a22);
+}
+.vbxbg{
+    -fx-background-color: linear-gradient(#5c0a22, #730d2a);
+}

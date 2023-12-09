@@ -75,4 +75,27 @@ public class ServiceMatieres {
         }
         return lesSousMatieres;
     }
+    public ObservableList<Matiere> GetAllSousMatiereOBJ(String designation) throws SQLException
+    {
+        ObservableList<Matiere> lesSousMatieres = FXCollections.observableArrayList();
+
+        ps = unCnx.prepareStatement("SELECT matiere.sous_matiere FROM matiere WHERE matiere.designation = ?");
+        ps.setString(1, designation);
+        rs = ps.executeQuery();
+
+        while (rs.next())
+        {
+            String sousMatiere = rs.getString("sous_matiere");
+            String[] splitSousMatiere = sousMatiere.split("#");
+            for (String uneSousMatiere : splitSousMatiere)
+            {
+                if (!uneSousMatiere.isEmpty())
+                {
+                    Matiere uneMatiere = new Matiere(uneSousMatiere);
+                    lesSousMatieres.add(uneMatiere);
+                }
+            }
+        }
+        return lesSousMatieres;
+    }
 }

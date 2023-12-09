@@ -215,17 +215,7 @@ public class ModifierDemandeController implements Initializable
             {
                 idMatiere = matiereSelectionnee.getIdMatiere();
             }
-            String dateDebut = lbDateNowModifier.getText();
-            String dateFin = datepFinModif.getValue().toString();
 
-            MenuButton menu = mbSousMatiereModif;
-            String sousMatiere = menuController.recupererLesCasesCochees(mbSousMatiereModif);
-            int idDemande = laDemande.getIdDemande();
-
-            serviceDemandes.modifDemande(user.getId() , idMatiere, dateDebut, dateFin, sousMatiere, idDemande);
-            //menuController.refreshTvDemande(initUser(user));
-            Stage stage = (Stage) btnValiderModif.getScene().getWindow();
-            stage.close();
         }
     }
 

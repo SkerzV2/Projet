@@ -132,20 +132,19 @@ public class ServiceDemandes {
         return lesDemandes;
     }
 
-    public void modifDemande(int idUser, int idMatiere, String dateDebut, String dateFin, String lesSousMatieres, int idDemande) throws SQLException {
+    public void modifDemande(int idUser, String dateDebut, String dateFin, String lesSousMatieres, int idDemande) throws SQLException {
         // Vous devez exécuter une requête UPDATE pour modifier la demande.
         ps = unCnx.prepareStatement("UPDATE demande "
-                + "SET id_matiere = ?, date_updated = ?, date_fin_demande = ?, sous_matiere = ? "
+                + "SET date_updated = ?, date_fin_demande = ?, sous_matiere = ? "
                 + "WHERE id_user = ? "
                 + "AND demande.id = ? ");
 
         // Remplacez les "?" dans la requête par les valeurs que vous avez.
-        ps.setInt(1, idMatiere);
-        ps.setString(2, dateDebut);
-        ps.setString(3, dateFin);
-        ps.setString(4, lesSousMatieres);
-        ps.setInt(5, idUser);
-        ps.setInt(6, idDemande);
+        ps.setString(1, dateDebut);
+        ps.setString(2, dateFin);
+        ps.setString(3, lesSousMatieres);
+        ps.setInt(4, idUser);
+        ps.setInt(5, idDemande);
 
         ps.executeUpdate();
     }

@@ -20,6 +20,9 @@ public class Matiere {
         this.designation = designation;
         this.sousMatiere = sousMatiere;
     }
+    public Matiere(String sousMatiere) {
+        this.sousMatiere = sousMatiere;
+    }
 
     // Fonction pour avoir les objet matières
 
