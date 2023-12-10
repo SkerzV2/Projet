@@ -47,9 +47,6 @@ public class ServiceSoutients {
 
         int parametreNiveau = leIntNiveau - 2;
         ps.setInt(2, parametreNiveau);
-        System.out.print(ps);
-
-
         rs = ps.executeQuery();
 
         ObservableList<Soutient> lesDemandes = FXCollections.observableArrayList();

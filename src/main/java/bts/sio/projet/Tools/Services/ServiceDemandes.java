@@ -25,15 +25,14 @@ public class ServiceDemandes {
     public void creationDemande(Demande uneDemande) throws SQLException {
         ps = unCnx.prepareStatement("INSERT INTO demande (demande.date_fin_demande, demande.date_updated, demande.sous_matiere, demande.id_user, demande.id_matiere, demande.status)\n" +
                 "        VALUES (?, ?, ?, ?, ?, ?);");
-        // Exécuter la requête
         ps.setString(1, uneDemande.getDateFin());
         ps.setString(2, uneDemande.getDateDebut());
         ps.setString(3, uneDemande.getSousMatiere());
         ps.setInt(4, uneDemande.getIdUser());
         ps.setInt(5, uneDemande.getIdMatiere());
         ps.setInt(6, 1);
-        // Parcourir la rs
         ps.executeUpdate();
+        ps.close();
     }
 
     public void modificationDemande(Demande demandeModifiee) throws SQLException {
@@ -53,6 +52,7 @@ public class ServiceDemandes {
 
         // Exécutez la requête de mise à jour
         ps.executeUpdate();
+        ps.close();
     }
 
 
@@ -72,11 +72,8 @@ public class ServiceDemandes {
         {
             String matiereDesignation = rs.getString("matiere.designation");
             String sousMatiere = rs.getString("demande.sous_matiere");
-            int idMatiere = rs.getInt("demande.id_matiere");
             String dateDebut = rs.getString("demande.date_updated");
             String dateFin = rs.getString("demande.date_fin_demande");
-
-            Matiere matiere = new Matiere(idMatiere, matiereDesignation, sousMatiere);
 
             if (!lesDemandes.containsKey(matiereDesignation))
             {
@@ -99,6 +96,8 @@ public class ServiceDemandes {
                 }
             }
         }
+        rs.close();
+        ps.close();
         return lesDemandes;
     }
 
@@ -129,6 +128,8 @@ public class ServiceDemandes {
 
             lesDemandes.add(uneDemande);
         }
+        rs.close();
+        ps.close();
         return lesDemandes;
     }
 
@@ -147,14 +148,28 @@ public class ServiceDemandes {
         ps.setInt(5, idDemande);
 
         ps.executeUpdate();
+        ps.close();
     }
-
-    public void supprimerDemande(int idDemande) throws SQLException {
-        PreparedStatement ps = unCnx.prepareStatement("DELETE FROM demande "
-                + "WHERE id = ? ");
+    public boolean supprimerDemande(int idDemande) throws SQLException {
+        ps = unCnx.prepareStatement("SELECT soutien.id FROM soutien\n" +
+                "WHERE soutien.id_demande = ?");
 
         ps.setInt(1, idDemande);
+        rs = ps.executeQuery();
 
-        ps.executeUpdate();
+        if (rs.next()) {
+            ps.close();
+            rs.close();
+            return true;
+        }else{
+             ps = unCnx.prepareStatement("DELETE FROM demande "
+                    + "WHERE id = ? ");
+
+            ps.setInt(1, idDemande);
+
+            ps.executeUpdate();
+            ps.close();
+        }
+        return false;
     }
 }

@@ -3,11 +3,9 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TreeView?>
@@ -27,7 +25,7 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <TableView fx:id="tvModifDemandes" layoutX="41.0" layoutY="66.0" prefHeight="290.0" prefWidth="626.0">
+            <TableView fx:id="tvModifDemandes" layoutX="41.0" layoutY="66.0" prefHeight="290.0" prefWidth="626.0" stylesheets="@../../../CSS/menu.css">
               <columns>
                   <TableColumn fx:id="tcMatiere" prefWidth="95.20001602172852" text="Matière" />
                 <TableColumn fx:id="tcDateDebut" prefWidth="95.20001602172852" text="Date de début" />
@@ -39,12 +37,12 @@
             <Button fx:id="BtnSupprimerDemande" layoutX="400.0" layoutY="377.0" mnemonicParsing="false" onMouseClicked="#BtnSupprimerDemandeClicked" prefHeight="26.0" prefWidth="118.0" text="Supprimer" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apModifierComp" layoutX="203.0" layoutY="56.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;">
+      <AnchorPane fx:id="apModifierComp" layoutX="203.0" layoutY="56.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
-            <TableView fx:id="tvModifComp" layoutX="41.0" layoutY="77.0" onMouseClicked="#tvModifCompClicked" prefHeight="326.0" prefWidth="622.0">
+            <TableView fx:id="tvModifComp" layoutX="41.0" layoutY="77.0" prefHeight="310.0" prefWidth="622.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcMatiere1" prefWidth="310.39996910095215" text="Matière" />
-                  <TableColumn fx:id="tcSousMatieres1" prefWidth="312.8000183105469" text="Sous-matière(s)" />
+                  <TableColumn fx:id="tcMatiereModifierCompetence" prefWidth="310.39996910095215" text="Matière" />
+                  <TableColumn fx:id="tcSousMatiereModifierCompetence" prefWidth="309.5999755859375" text="Sous-matière(s)" />
                </columns>
             </TableView>
             <Label layoutX="281.0" layoutY="26.0" text="Modifier ses compétences">
@@ -52,9 +50,11 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
+            <Button fx:id="BtnModifierLaCompetence" layoutX="106.0" layoutY="401.0" mnemonicParsing="false" onMouseClicked="#BtnModifierLaCompetenceClicked" prefHeight="26.0" prefWidth="134.0" text="Modifier" />
+            <Button fx:id="BtnSupprimerLaCompetence" layoutX="460.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#BtnSupprimerLaCompetenceClicked" prefHeight="27.0" prefWidth="118.0" text="Supprimer" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apFaireDemande" layoutX="203.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;">
+      <AnchorPane fx:id="apFaireDemande" layoutX="203.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <Label layoutX="24.0" layoutY="91.0" text="Date de fin :" AnchorPane.topAnchor="91.0" />
             <Label layoutX="298.0" layoutY="34.0" text="Faire une demande">
@@ -67,14 +67,14 @@
             <Button fx:id="btnAnnulerDem" layoutX="375.0" layoutY="383.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" prefHeight="26.0" prefWidth="155.0" text="Annuler" />
             <Button fx:id="btnValiderDem" layoutX="104.0" layoutY="383.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" prefHeight="26.0" prefWidth="155.0" text="Valider" />
             <Label layoutX="158.0" layoutY="129.0" prefHeight="18.0" prefWidth="65.0" text="Matière :" AnchorPane.topAnchor="129.0" />
-            <TableView fx:id="tvMatiereCreeDemande" layoutX="60.0" layoutY="156.0" onMouseClicked="#tvMatiereCreeDemandeClicked" prefHeight="200.0" prefWidth="242.0">
+            <TableView fx:id="tvMatiereCreeDemande" layoutX="60.0" layoutY="156.0" onMouseClicked="#tvMatiereCreeDemandeClicked" prefHeight="200.0" prefWidth="242.0" stylesheets="@../../../CSS/menu.css">
               <columns>
                 <TableColumn fx:id="tcMatiereCreeDemande" prefWidth="241.59998168945313" text="Matieres" />
               </columns>
             </TableView>
-            <TableView fx:id="tvSousMatiereCreeDemande" layoutX="394.0" layoutY="156.0" onMouseClicked="#tvSousMatiereCreeDemandeClicked" prefHeight="200.0" prefWidth="242.0">
+            <TableView fx:id="tvSousMatiereCreeDemande" layoutX="394.0" layoutY="156.0" prefHeight="200.0" prefWidth="242.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcSousMatieresCreeDemande" prefWidth="241.59998168945313" text="Sous Matieres" />
+                  <TableColumn fx:id="tcSousMatiereCreeDemande" prefWidth="241.59998168945313" text="Sous Matieres" />
                </columns>
             </TableView>
          </children>
@@ -135,7 +135,7 @@
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnEnregistrerComp" mnemonicParsing="false" onMouseClicked="#btnEnregistrerCompClicked" prefHeight="35.0" prefWidth="175.0" text="Enregistrer ses compétences" textFill="WHITE">
+                        <Button fx:id="btnCreeCompetence" mnemonicParsing="false" onMouseClicked="#btnCreeCompetenceClicked" prefHeight="35.0" prefWidth="175.0" text="Enregistrer ses compétences" textFill="WHITE">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -218,14 +218,14 @@
          <children>
             <ImageView fitHeight="106.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../image/czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS9XeEEzNC9NQUYyYndXeEEzNC8xL3AucG5n.png" />
+                  <Image url="@../../../../../../../../../Users/claud/Downloads/czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS9XeEEzNC9NQUYyYndXeEEzNC8xL3AucG5n.png" />
                </image>
             </ImageView>
             <Button fx:id="btnMenuDemande" mnemonicParsing="false" onMouseClicked="#btnMenuDemandeClicked" prefHeight="68.0" prefWidth="165.0" style="-fx-background-color: FF000000;" styleClass="btnmenu1" stylesheets="@../../../CSS/menu.css" text="Demande" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/demander-de-laide-removebg-preview-modified.png" />
+                        <Image url="@../../../../../../../../../Users/claud/Downloads/demander-de-laide-removebg-preview-modified.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -240,7 +240,7 @@
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/competences-removebg-preview-modified.png" />
+                        <Image url="@../../../../../../../../../Users/claud/Downloads/competences-removebg-preview-modified.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -255,7 +255,7 @@
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/soutien-removebg-preview-modified.png" />
+                        <Image url="@../../../../../../../../../Users/claud/Downloads/soutien-removebg-preview-modified.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -270,7 +270,7 @@
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/etude-de-marche-modified.png" />
+                        <Image url="@../../../../../../../../../Users/claud/Downloads/etude-de-marche-modified.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -289,9 +289,9 @@
             <Insets left="20.0" />
          </padding>
       </HBox>
-      <AnchorPane fx:id="apVoirLesDemande" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;" visible="false">
+      <AnchorPane fx:id="apVoirLesDemande" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
-            <TableView fx:id="tvVisualiserAutresDemandes" layoutX="14.0" layoutY="96.0" onMouseClicked="#tvVisualiserAutresDemandesClicked" prefHeight="282.0" prefWidth="679.0">
+            <TableView fx:id="tvVisualiserAutresDemandes" layoutX="14.0" layoutY="96.0" onMouseClicked="#tvVisualiserAutresDemandesClicked" prefHeight="282.0" prefWidth="679.0" stylesheets="@../../../CSS/menu.css">
                <columns>
                   <TableColumn fx:id="tcNom" prefWidth="88.80000114440918" text="Nom" />
                   <TableColumn fx:id="tcPrenom" prefWidth="89.60004425048828" text="Prenom" />
@@ -309,7 +309,7 @@
             <Button fx:id="btnCreeSoutient" layoutX="282.0" layoutY="401.0" mnemonicParsing="false" onMouseClicked="#btnCreeSoutientClicked" prefHeight="26.0" prefWidth="144.0" text="Crée le soutient" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apVisualiserDemandes" layoutX="203.0" layoutY="56.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;" visible="false">
+      <AnchorPane fx:id="apVisualiserDemandes" layoutX="203.0" layoutY="56.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <Label layoutX="283.0" layoutY="23.0" text="Visualiser mes demandes">
                <font>
@@ -319,7 +319,7 @@
             <TreeView fx:id="tvVisualiserDemandes" layoutX="65.0" layoutY="74.0" prefHeight="282.0" prefWidth="578.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apVisualiserComp" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;" visible="false">
+      <AnchorPane fx:id="apVisualiserComp" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <TreeView fx:id="tvVisualiserComp" layoutX="65.0" layoutY="80.0" prefHeight="310.0" prefWidth="578.0" />
             <Label layoutX="298.0" layoutY="26.0" text="Vos compétences">
@@ -329,42 +329,63 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apEnregistrerComp" layoutX="203.0" layoutY="59.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: D2D2D2;" visible="false">
+      <AnchorPane fx:id="apEnregistrerCompetence" layoutX="203.0" layoutY="59.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
-            <ChoiceBox fx:id="cbCompPrincipale" layoutX="444.0" layoutY="120.0" prefWidth="200.0" />
             <Label layoutX="275.0" layoutY="32.0" text="Enregistrer ses compétences">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="67.0" layoutY="119.0" text="Compétence principale">
+            <Label layoutX="114.0" layoutY="92.0" text="Compétence principale">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="212.0" text="Compétence secondaire">
+            <Label layoutX="402.0" layoutY="92.0" text="Compétence secondaire">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <Button fx:id="btnValiderComp" layoutX="373.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#btnValiderCompClicked" prefWidth="250.0" text="Valider" />
-            <Button fx:id="btnAnnulerComp" layoutX="81.0" layoutY="356.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerCompClicked" prefWidth="250.0" text="Annuler" />
-            <MenuButton fx:id="mbSousMatieres" layoutX="444.0" layoutY="213.0" mnemonicParsing="false" onMouseClicked="#mbSousMatieresClicked" prefHeight="26.0" prefWidth="200.0" />
+            <Button fx:id="btnAnnulerCreeComp" layoutX="81.0" layoutY="356.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerCreeCompClicked" prefWidth="250.0" text="Annuler" />
+            <TableView fx:id="tvMatiereCreeCompetence" layoutX="85.0" layoutY="143.0" onMouseClicked="#tvMatiereCreeCompetenceClicked" prefHeight="200.0" prefWidth="242.0" stylesheets="@../../../CSS/menu.css">
+               <columns>
+                  <TableColumn fx:id="tcMatiereCreeCompetence" prefWidth="241.59998168945313" text="Matières" />
+               </columns>
+            </TableView>
+            <TableView fx:id="tvSousMatiereCreeCompetence" layoutX="377.0" layoutY="143.0" prefHeight="200.0" prefWidth="242.0" stylesheets="@../../../CSS/menu.css">
+               <columns>
+                  <TableColumn fx:id="tcSousMatiereCreeCompetence" prefWidth="241.59998168945313" text="Sous Matieres" />
+               </columns>
+            </TableView>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="apModificationDemande" layoutX="203.0" layoutY="56.0" prefHeight="455.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
-            <TableView layoutX="354.0" layoutY="150.0" prefHeight="219.0" prefWidth="302.0">
+            <TableView fx:id="tvSousMatiereModifierDemande" layoutX="354.0" layoutY="150.0" prefHeight="219.0" prefWidth="302.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcSousMatiereModifierDemande" prefWidth="301.6000122070312" text="Sous Matieres" />
+                  <TableColumn fx:id="tcSousMatiereModifierDemande" prefWidth="300.0" text="Sous Matieres" />
                </columns>
             </TableView>
-            <DatePicker fx:id="dpModifierDemande" layoutX="90.0" layoutY="293.0" />
+            <DatePicker fx:id="dpModifierDemande" layoutX="90.0" layoutY="293.0" stylesheets="@../../../CSS/menu.css" />
             <Label layoutX="154.0" layoutY="150.0" prefHeight="20.0" prefWidth="47.0" text="Matière" />
-            <Button fx:id="BtnValiderModifier" layoutX="438.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#BtnValiderModificationClicked" prefHeight="35.0" prefWidth="134.0" text="Button" />
-            <Button fx:id="BtnAnnulerModifier" layoutX="110.0" layoutY="395.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" text="Button" />
+            <Button fx:id="BtnValiderModifier" layoutX="438.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#BtnValiderModificationClicked" prefHeight="35.0" prefWidth="134.0" text="Valider" />
+            <Button fx:id="BtnAnnulerModifier" layoutX="110.0" layoutY="395.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" text="Annuler" />
             <Label layoutX="127.0" layoutY="250.0" prefHeight="20.0" prefWidth="101.0" text="Date d'expiration" />
-            <ComboBox fx:id="cboMatiereModifierDemande" layoutX="102.0" layoutY="193.0" prefWidth="150.0" />
+            <ComboBox fx:id="cboMatiereModifierDemande" layoutX="102.0" layoutY="193.0" prefWidth="150.0" stylesheets="@../../../CSS/menu.css" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="apModificationCompetence" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
+         <children>
+            <ComboBox fx:id="cboMatiereModificationCompetence" layoutX="74.0" layoutY="168.0" prefWidth="150.0" />
+            <Label layoutX="129.0" layoutY="131.0" text="Matiere" />
+            <TableView fx:id="tvSousMatiereModificationCompetence" layoutX="425.0" layoutY="140.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../CSS/menu.css">
+              <columns>
+                <TableColumn fx:id="tcSousMatiereModificationCompetence" prefWidth="199.20001220703125" text="Sous Matières" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnAnnulerModificationCompetence" layoutX="110.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerModificationCompetenceClicked" prefHeight="35.0" prefWidth="118.0" text="Annuler" />
+            <Button fx:id="btnValiderModificationCompetence" layoutX="466.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#btnValiderModificationCompetenceCllicked" prefHeight="35.0" prefWidth="118.0" text="Valider" />
          </children>
       </AnchorPane>
    </children>

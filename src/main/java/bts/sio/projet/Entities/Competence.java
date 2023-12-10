@@ -2,37 +2,58 @@ package bts.sio.projet.Entities;
 
 public class Competence
 {
-    private String matierePrincipale;
-    private String matiereSecondaire;
+    private String designation;
+    private String sousMatiere;
     private int idUser;
+    private int idMatiere;
+    private int idCompetence;
 
-    public Competence( String matierePrincipale, String matiereSecondaire, int idUser)
+
+    public int getIdMatiere() {
+        return idMatiere;
+    }
+
+    public void setIdMatiere(int idMatiere) {
+        this.idMatiere = idMatiere;
+    }
+
+    public Competence(String designation, String sousMatiere, int idUser, int idMatiere)
     {
-        this.matierePrincipale = matierePrincipale;
-        this.matiereSecondaire = matiereSecondaire;
+        this.designation = designation;
+        this.sousMatiere = sousMatiere;
         this.idUser = idUser;
+        this.idMatiere = idMatiere;
+    }
+    public Competence(String designation, String sousMatiere, int idCompetence)
+    {
+        this.designation = designation;
+        this.sousMatiere = sousMatiere;
+        this.idCompetence = idCompetence;
     }
 
-
-    public String getMatierePrincipale()
-    {
-        return matierePrincipale;
+    public int getIdCompetence() {
+        return idCompetence;
     }
-    public String getMatiereSecondaire()
+
+    public String getDesignation()
     {
-        return matiereSecondaire;
+        return designation;
+    }
+    public String getSousMatiere()
+    {
+        return sousMatiere;
     }
     public int getIdUser()
     {
         return idUser;
     }
 
-    public void setMatierePrincipale(String matierePrincipale)
+    public void setMatiere(String designation)
     {
-        this.matierePrincipale = matierePrincipale;
+        this.designation = designation;
     }
-    public void setMatiereSecondaire(String matiereSecondaire)
+    public void setSousMatiere(String sousMatiere)
     {
-        this.matiereSecondaire = matiereSecondaire;
+        this.sousMatiere = sousMatiere;
     }
 }

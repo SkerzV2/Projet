@@ -72,3 +72,85 @@
 .vbxbg{
     -fx-background-color: linear-gradient(#5c0a22, #730d2a);
 }
+.table-row-cell:selected { -fx-background-color:  #81253f; }
+
+.table-view{
+    -fx-background-color:transparent;
+    -fx-border-color:linear-gradient(to bottom right, #5c0a22, #730d2a);
+    -fx-border-radius:8px;
+    -fx-padding:0px;
+}
+.table-view .table-column{
+    -fx-alignment:CENTER;
+}
+.table-view .column-header-background{
+    -fx-background-color:linear-gradient(to bottom right, #5c0a22, #730d2a);
+    -fx-background-insets: 0 0 0 0;
+    -f-background-radius:8px 8px 0px 0px;
+}
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size:40px;
+}
+.table-view .column-header .label{
+    -fx-text-fill:#fff;
+    -fx-font-family:"Arial";
+}
+* {
+	-fx-primary-color: #730d2a;
+	-fx-secondary-color: #8f3d55;
+	-fx-light-grey-color: #d1d1d1;
+
+	-fx-focus-color: -fx-secondary-color;
+}
+
+.date-picker .arrow-button {
+	-fx-background-color: -fx-primary-color;
+	-fx-background-radius: 0;
+}
+.date-picker .arrow-button:hover {
+	-fx-background-color: -fx-secondary-color;
+}
+.date-picker .arrow-button .arrow {
+	-fx-background-color: white;
+}
+.date-picker .cell {
+	-fx-background-color: white;
+}
+.date-picker .cell:hover {
+	-fx-background-color: -fx-light-grey-color;
+}
+.date-picker .cell:focused {
+	-fx-background-color: -fx-light-grey-color;
+}
+.date-picker .selected {
+	-fx-background-color: -fx-primary-color;
+	-fx-text-fill: white;
+}
+.date-picker .selected:focused {
+	-fx-background-color: -fx-primary-color;
+	-fx-text-fill: white;
+}
+.date-picker-popup  {
+	-fx-border-color: transparent;
+}
+.date-picker-popup .month-year-pane {
+	-fx-background-color: -fx-primary-color;
+}
+.date-picker-popup .month-year-pane .label {
+	-fx-text-fill: white;
+}
+.date-picker-popup .week-number-cell {
+	-fx-text-fill: -fx-secondary-color;
+}
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+	-fx-background-color: white;
+}
+.combo-box-popup .list-view {
+
+    -fx-background-color: #730d2a, #730d2a;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 8, 0.0, 0, 0);
+    -fx-font-weight: bold;
+}

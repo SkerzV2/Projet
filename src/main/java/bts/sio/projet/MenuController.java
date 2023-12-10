@@ -31,7 +31,7 @@ import java.util.TreeMap;
 public class MenuController implements Initializable {
     private ProjetController projetController;
     ConnexionBDD maCnx;
-    ObservableList<Matiere> lesMatieres = FXCollections.observableArrayList();
+    ObservableList<Matiere> lesMatieres;
     ServiceMatieres serviceMatieres = new ServiceMatieres();
     ServiceDemandes serviceDemandes = new ServiceDemandes();
     ServiceCompetences serviceCompetences = new ServiceCompetences();
@@ -52,8 +52,6 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private Button btnVoirDemande;
     @javafx.fxml.FXML
-    private Button btnEnregistrerComp;
-    @javafx.fxml.FXML
     private Button btnModifComp;
     @javafx.fxml.FXML
     private Button btnVoirComp;
@@ -68,19 +66,11 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private Button btnAnnulerDem;
     @javafx.fxml.FXML
-    private AnchorPane apEnregistrerComp;
-    @javafx.fxml.FXML
-    private ChoiceBox cbCompPrincipale;
-    @javafx.fxml.FXML
     private Button btnValiderComp;
-    @javafx.fxml.FXML
-    private Button btnAnnulerComp;
     @javafx.fxml.FXML
     private AnchorPane apVisualiserDemandes;
     @javafx.fxml.FXML
     private TreeView tvVisualiserDemandes;
-    @javafx.fxml.FXML
-    private MenuButton mbSousMatieres;
     @javafx.fxml.FXML
     private AnchorPane apModifierDemande;
     @javafx.fxml.FXML
@@ -101,10 +91,6 @@ public class MenuController implements Initializable {
     private AnchorPane apModifierComp;
     @javafx.fxml.FXML
     private TableView<Competence> tvModifComp;
-    @javafx.fxml.FXML
-    private TableColumn tcMatiere1;
-    @javafx.fxml.FXML
-    private TableColumn tcSousMatieres1;
     @javafx.fxml.FXML
     private Button btnModiferDemande;
     @javafx.fxml.FXML
@@ -146,8 +132,6 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private VBox vbxStatistique;
     @javafx.fxml.FXML
-    private TableView<Matiere> tvSousMatiereModifierDemande;
-    @javafx.fxml.FXML
     private TableColumn tcSousMatiereModifierDemande;
     @javafx.fxml.FXML
     private DatePicker dpModifierDemande;
@@ -160,13 +144,49 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private ComboBox cboMatiereModifierDemande;
     @javafx.fxml.FXML
+    private TableView tvSousMatiereModifierDemande;
+    @javafx.fxml.FXML
     private TableView<Matiere> tvMatiereCreeDemande;
     @javafx.fxml.FXML
     private TableColumn tcMatiereCreeDemande;
     @javafx.fxml.FXML
-    private TableView<Matiere> tvSousMatiereCreeDemande;
+    private TableView tvSousMatiereCreeDemande;
     @javafx.fxml.FXML
-    private TableColumn tcSousMatieresCreeDemande;
+    private TableColumn tcSousMatiereCreeDemande;
+    @javafx.fxml.FXML
+    private AnchorPane apEnregistrerCompetence;
+    @javafx.fxml.FXML
+    private TableView<Matiere> tvMatiereCreeCompetence;
+    @javafx.fxml.FXML
+    private TableColumn tcMatiereCreeCompetence;
+    @javafx.fxml.FXML
+    private TableView tvSousMatiereCreeCompetence;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereCreeCompetence;
+    @javafx.fxml.FXML
+    private Button btnCreeCompetence;
+    @javafx.fxml.FXML
+    private Button btnAnnulerCreeComp;
+    @javafx.fxml.FXML
+    private TableColumn tcMatiereModifierCompetence;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereModifierCompetence;
+    @javafx.fxml.FXML
+    private Button BtnModifierLaCompetence;
+    @javafx.fxml.FXML
+    private Button BtnSupprimerLaCompetence;
+    @javafx.fxml.FXML
+    private AnchorPane apModificationCompetence;
+    @javafx.fxml.FXML
+    private ComboBox cboMatiereModificationCompetence;
+    @javafx.fxml.FXML
+    private TableView tvSousMatiereModificationCompetence;
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereModificationCompetence;
+    @javafx.fxml.FXML
+    private Button btnAnnulerModificationCompetence;
+    @javafx.fxml.FXML
+    private Button btnValiderModificationCompetence;
 
     public void setUser(User user) {
         this.user = user;
@@ -178,16 +198,35 @@ public class MenuController implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            lesMatieres = FXCollections.observableArrayList();
+            lesMatieres.setAll(serviceMatieres.GetAllMatiereObj());
             tvSousMatiereModifierDemande.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             apFaireDemande.toFront();
             maCnx = new ConnexionBDD();
             serviceMatieres = new ServiceMatieres();
             lesMatieres = serviceMatieres.GetAllMatiereObj();
 
+            //Léo
+
+            tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
+            tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+            tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
+            tcSousMatieres.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+
             tvSousMatiereCreeDemande.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             tcMatiereCreeDemande.setCellValueFactory(new PropertyValueFactory<>("designation"));
-            tcSousMatieresCreeDemande.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+            tcSousMatiereCreeDemande.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
 
+            tvSousMatiereCreeCompetence.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            tcMatiereCreeCompetence.setCellValueFactory(new PropertyValueFactory<>("designation"));
+            tcSousMatiereCreeCompetence.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+
+            //Pierre
+            tcMatiereModifierCompetence.setCellValueFactory(new PropertyValueFactory<>("designation"));
+            tcSousMatiereModifierCompetence.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+
+            tvSousMatiereModificationCompetence.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            tcSousMatiereModificationCompetence.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
             root = new TreeItem("Mes demandes");
             rootComp = new TreeItem("Mes Compétences");
             tvVisualiserDemandes.setRoot(root);
@@ -210,8 +249,8 @@ public class MenuController implements Initializable {
 
     // afficher l'anchor pane création demande
     @javafx.fxml.FXML
-    public void btnCreerDemandeClicked(Event event) throws SQLException {
-        tvMatiereCreeDemande.setItems(serviceMatieres.GetAllMatiereObj());
+    public void btnCreerDemandeClicked(Event event){
+        tvMatiereCreeDemande.setItems(lesMatieres);
         apFaireDemande.toFront();
     }
     @javafx.fxml.FXML
@@ -221,8 +260,7 @@ public class MenuController implements Initializable {
     }
     // button de valider pour la création d'une demande
     @javafx.fxml.FXML
-    public void btnValiderDemClicked(Event event) throws SQLException
-    {
+    public void btnValiderDemClicked(Event event) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         String dateNow = LocalDate.now().toString();
         String erreurs = "";
@@ -272,18 +310,19 @@ public class MenuController implements Initializable {
 
             serviceDemandes.creationDemande(uneDemande);
             datepFinDem.setValue(null);
-            tvSousMatiereCreeDemande.getSelectionModel().getSelectedItems().clear();
-            tvMatiereCreeDemande.getSelectionModel().getSelectedItems().clear();
+            tvSousMatiereCreeDemande.setItems(null);
+            tvMatiereCreeDemande.setItems(null);
+            tvMatiereCreeDemande.setItems(lesMatieres);
         }
     }
 
     // Bouton annuler une demande
     @javafx.fxml.FXML
-    public void btnAnnulerDemClicked(Event event)
-    {
+    public void btnAnnulerDemClicked(Event event){
         datepFinDem.setValue(null);
-       tvSousMatiereCreeDemande.getSelectionModel().getSelectedItems().clear();
-       tvMatiereCreeDemande.getSelectionModel().getSelectedItems().clear();
+        tvSousMatiereCreeDemande.setItems(null);
+        tvMatiereCreeDemande.setItems(null);
+        tvMatiereCreeDemande.setItems(lesMatieres);
     }
 
     // Bouton voir ses demandes
@@ -332,13 +371,9 @@ public class MenuController implements Initializable {
 
     // Bouton modifier une demande
     @javafx.fxml.FXML
-    public void btnModifDemandeClicked(Event event) throws SQLException, IOException {
+    public void btnModifDemandeClicked(Event event) throws SQLException {
         apModifierDemande.toFront();
         lesDemandesTv = serviceDemandes.getAllDemandesTv(user.getId());
-        tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
-        tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
-        tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
-        tcSousMatieres.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
         tvModifDemandes.setItems(lesDemandesTv);
     }
 
@@ -359,14 +394,13 @@ public class MenuController implements Initializable {
         {
             apModificationDemande.toFront();
             ObservableList<Matiere> sousMatieres = serviceMatieres.GetAllSousMatiereOBJ(demandeSelectionnee.getDesignation());
-            ObservableList<String> demandesousMatieres = getObservableSplit(demandeSelectionnee.getSousMatiere());
+            ObservableList<String> demandeSousMatieres = getObservableSplit(demandeSelectionnee.getSousMatiere());
             tvSousMatiereModifierDemande.setItems(sousMatieres);
 
-            for (Matiere sousMatiere : sousMatieres) {
-                for (String demandesousMatiere : demandesousMatieres) {
-                    if (sousMatiere.getSousMatiere().equals(demandesousMatiere)) {
-                        int index = sousMatieres.indexOf(sousMatiere);
-                        System.out.println(demandesousMatiere);
+            for (String sousMatiere : demandeSousMatieres) {
+                for (String demandesousMatiere : demandeSousMatieres) {
+                    if (sousMatiere.equals(demandesousMatiere)) {
+                        int index = demandeSousMatieres.indexOf(sousMatiere);
                         tvSousMatiereModifierDemande.getSelectionModel().select(index);
                     }
                 }
@@ -402,24 +436,29 @@ public class MenuController implements Initializable {
 
     // Je peux supprimer une demande uniquement si il y a pas de soutient en cours
     @javafx.fxml.FXML
-    public void BtnSupprimerDemandeClicked(Event event) throws IOException, SQLException {
+    public void BtnSupprimerDemandeClicked(Event event) throws SQLException {
         Demande demandeSelectionnee = (Demande) tvModifDemandes.getSelectionModel().getSelectedItem();
-
-        if (demandeSelectionnee == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (demandeSelectionnee == null) {
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une demande pour supprimer");
             alert.setHeaderText("");
             alert.showAndWait();
         } else {
             if (demandeSelectionnee != null) {
-                serviceDemandes.supprimerDemande(demandeSelectionnee.getIdDemande());
                 lesDemandesTv = serviceDemandes.getAllDemandesTv(user.getId());
                 tcDateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
                 tcDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
                 tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
                 tcSousMatieres.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
                 tvModifDemandes.setItems(lesDemandesTv);
+                boolean retour=serviceDemandes.supprimerDemande(demandeSelectionnee.getIdDemande());
+                if (retour==true){
+                    alert.setTitle("Erreur de suppréssion");
+                    alert.setContentText("Vous avez déja un soutien en cours ");
+                    alert.setHeaderText("");
+                    alert.showAndWait();
+                }
             }
         }
     }
@@ -451,28 +490,68 @@ public class MenuController implements Initializable {
     //                                                                                                        //
     //                                                                                                       //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @javafx.fxml.FXML
-    public void btnEnregistrerCompClicked(Event event)
+    public void btnCreeCompetenceClicked(Event event) {
+        tvSousMatiereCreeCompetence.setItems(null);
+        tvMatiereCreeCompetence.setItems(null);
+        tvMatiereCreeCompetence.setItems(lesMatieres);
+        apEnregistrerCompetence.toFront();
+    }
+    @javafx.fxml.FXML
+    public void tvMatiereCreeCompetenceClicked(Event event) throws SQLException {
+        tvSousMatiereCreeCompetence.setItems(serviceMatieres.GetAllSousMatiereOBJ(tvMatiereCreeCompetence.getSelectionModel().getSelectedItem().getDesignation()));
+    }
+    @javafx.fxml.FXML
+    public void btnAnnulerCreeCompClicked(Event event)
     {
-        apEnregistrerComp.toFront();
+        tvSousMatiereCreeCompetence.setItems(null);
+        tvMatiereCreeCompetence.setItems(null);
+        tvMatiereCreeCompetence.setItems(lesMatieres);
+        apEnregistrerCompetence.toFront();
     }
 
     @javafx.fxml.FXML
-    public void mbSousMatieresClicked(Event event) throws SQLException
-    {
-        if (cbCompPrincipale.getSelectionModel().getSelectedItem() == null) {
+    public void btnValiderCompClicked(Event event) throws SQLException {
+        apEnregistrerCompetence.toFront();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (tvMatiereCreeCompetence.getSelectionModel().getSelectedItems().isEmpty()) {
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une compétence principale");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        } else if (tvSousMatiereCreeCompetence.getSelectionModel().getSelectedItems().isEmpty()) {
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une compétence secondaire");
+            alert.setHeaderText("");
+            alert.showAndWait();
         } else {
-            String matiere = cbCompPrincipale.getSelectionModel().getSelectedItem().toString();
-            ObservableList<String> sousMatieres = serviceMatieres.GetAllSousMatiere(matiere);
-            mbSousMatieres.getItems().clear();
-
-            for (String sousMatiere : sousMatieres) {
-                CustomMenuItem customMenuItem = new CustomMenuItem(new CheckBox(sousMatiere));
-                customMenuItem.setHideOnClick(false);
-                mbSousMatieres.getItems().add(customMenuItem);
+            String matiere = getStringObservable(tvMatiereCreeCompetence.getSelectionModel().getSelectedItems());
+            String sousMatiere = getStringObservable(tvSousMatiereCreeCompetence.getSelectionModel().getSelectedItems());
+            int idMatiere= tvMatiereCreeCompetence.getSelectionModel().getSelectedItem().getIdMatiere();
+            // Créer la compétence
+            Competence uneCompetence = new Competence(matiere, sousMatiere, user.getId(),idMatiere);
+            boolean retour=serviceCompetences.creationCompetence(uneCompetence);
+            if (retour==true){
+                alert.setTitle("Erreur d'enregistrement");
+                alert.setContentText("Vous avez déja une compétence pour cette matière \n" +
+                        "veuillez vous rediriger vers modifier compétences ");
+                alert.setHeaderText("");
+                alert.showAndWait();
+            }else{
+                tvMatiereCreeCompetence.setItems(null);
+                tvSousMatiereCreeCompetence.setItems(null);
+                tvMatiereCreeCompetence.setItems(lesMatieres);
+                apEnregistrerCompetence.toFront();
             }
+
         }
+
     }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @javafx.fxml.FXML
     public void btnVoirCompClicked(Event event) throws SQLException {
@@ -508,69 +587,43 @@ public class MenuController implements Initializable {
         tvVisualiserComp.setRoot(rootComp);
     }
 
-    @javafx.fxml.FXML
-    public void btnValiderCompClicked(Event event) throws SQLException {
-        apEnregistrerComp.toFront();
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if (cbCompPrincipale.getValue() == null) {
-            alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une compétence principale");
-            alert.setHeaderText("");
-            alert.showAndWait();
-        } else if (mbSousMatieres.getItems().isEmpty()) {
-            alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une compétence secondaire");
-            alert.setHeaderText("");
-            alert.showAndWait();
-        } else {
-            String matiere = cbCompPrincipale.getValue().toString();
-            String sousMatiere = mbSousMatieres.getItems().toString();
-
-
-            Matiere matiereSelectionnee = null;
-
-            int idMatiere = 0;
-            for (Matiere uneMatiere : lesMatieres) {
-                if (uneMatiere.getDesignation().equals(matiere)) {
-                    matiereSelectionnee = uneMatiere;
-                    break;
-                }
-            }
-            if (matiereSelectionnee != null) {
-                idMatiere = matiereSelectionnee.getIdMatiere();
-            }
-            MenuButton menu = mbSousMatieres;
-            String sous_matiere = recupererLesCasesCochees(menu);
-
-
-            // Créer la compétence
-            Competence uneCompetence = new Competence(matiere, sous_matiere, user.getId());
-
-            serviceCompetences.creationCompetence(uneCompetence, idMatiere);
-
-        }
-
-    }
 
     @javafx.fxml.FXML
-    public void btnAnnulerCompClicked(Event event)
-    {
-        apEnregistrerComp.toFront();
-    }
-
-    @javafx.fxml.FXML
-    public void btnModifCompClicked(Event event)
-    {
+    public void btnModifCompClicked(Event event) throws SQLException {
+        tvModifComp.setItems(serviceCompetences.getAllCompetenceObj(user.getId()));
         apModifierComp.toFront();
     }
-
     @javafx.fxml.FXML
-    public void tvModifCompClicked(Event event)
-    {
+    public void BtnModifierLaCompetenceClicked(Event event) throws SQLException {
+        ObservableList<Matiere> sousMatieres = serviceMatieres.GetAllSousMatiereOBJ(tvModifComp.getSelectionModel().getSelectedItem().getDesignation());
+        ObservableList<String> demandeSousMatieres = getObservableSplit(tvModifComp.getSelectionModel().getSelectedItem().getSousMatiere());
+        tvSousMatiereModificationCompetence.setItems(sousMatieres);
 
+        for (String sousMatiere : demandeSousMatieres) {
+            for (String demandesousMatiere : demandeSousMatieres) {
+                if (sousMatiere.equals(demandesousMatiere)) {
+                    int index = demandeSousMatieres.indexOf(sousMatiere);
+                    tvSousMatiereModificationCompetence.getSelectionModel().select(index);
+                }
+            }
+        }
+        cboMatiereModificationCompetence.setValue(tvModifComp.getSelectionModel().getSelectedItem().getDesignation());
+        apModificationCompetence.toFront();
+    }
+    @javafx.fxml.FXML
+    public void BtnSupprimerLaCompetenceClicked(Event event) throws SQLException {
+        serviceCompetences.supprimerCompetence(tvModifComp.getSelectionModel().getSelectedItem().getIdCompetence());
     }
 
+    @javafx.fxml.FXML
+    public void btnAnnulerModificationCompetenceClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void btnValiderModificationCompetenceCllicked(Event event) {
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                                           //
@@ -584,7 +637,6 @@ public class MenuController implements Initializable {
     public void btnVoirLesDemandeClicked(Event event) throws SQLException {
         apVoirLesDemande.toFront();
         lesAutresDemandesTv = serviceSoutients.getAllDemandesTv(user.getId());
-        System.out.print(lesAutresDemandesTv);
         tcDateDebutSoutient.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         tcDateFinSoutient.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
         tcMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("matiere"));
