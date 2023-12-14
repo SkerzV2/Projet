@@ -101,6 +101,29 @@ public class ServiceDemandes {
         return lesDemandes;
     }
 
+    public ObservableList<Demande> getAllSousMatieresDemande(int idDemande) throws SQLException {
+        ObservableList<Demande> sousMatieres = FXCollections.observableArrayList();
+        ps = unCnx.prepareStatement("SELECT demande.sous_matiere "
+                + "FROM demande "
+                + "JOIN matiere ON demande.id_matiere = matiere.id "
+                + "WHERE demande.id = ?");
+
+        // Exécuter la requête
+        ps.setInt(1, idDemande);
+        rs = ps.executeQuery();
+        rs.next();
+        String sousMatiere = rs.getString(1);
+        String[] splitSousMatiere = sousMatiere.split("#");
+        for (String uneSousMatiere : splitSousMatiere)
+        {
+            if (!uneSousMatiere.isEmpty())
+            {
+                Demande uneDemande=new Demande(uneSousMatiere);
+                sousMatieres.add(uneDemande);
+            }
+        }
+        return sousMatieres;
+    }
 
     public ObservableList<Demande> getAllDemandesTv(int idUser) throws SQLException
     {

@@ -79,6 +79,17 @@ public class ServiceCompetences
         }
         return lesCompetences;
     }
+    public void updateCompetence(int idCompetence,String lesSousMatieres) throws SQLException {
+        ps = unCnx.prepareStatement("UPDATE competence "
+                + "SET sous_matiere = ? "
+                + "WHERE competence.id = ? ");
+
+        ps.setString(1, lesSousMatieres);
+        ps.setInt(2, idCompetence);
+
+        ps.executeUpdate();
+        ps.close();
+    }
     public void supprimerCompetence(int idCompetence) throws SQLException {
         ps = unCnx.prepareStatement("DELETE FROM competence "
                 + "WHERE id = ? ");

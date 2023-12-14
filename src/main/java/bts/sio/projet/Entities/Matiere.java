@@ -24,8 +24,6 @@ public class Matiere {
         this.sousMatiere = sousMatiere;
     }
 
-    // Fonction pour avoir les objet matières
-
     public void setId(int idMatiere) {this.idMatiere = idMatiere;}
 
     public String getDesignation() {return designation;}

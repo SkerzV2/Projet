@@ -40,8 +40,8 @@ public class ServiceSoutients {
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
                 + "JOIN user ON user.id = demande.id_user "
                 + "WHERE demande.id_user != ? "
-                + "AND user.niveau <= ?" +
-                " AND demande.status = 1");
+                + "AND user.niveau <= ? "
+                +"AND demande.status = 0");
 
         ps.setInt(1, idUser);
 
@@ -173,7 +173,7 @@ public class ServiceSoutients {
                 "Where id= ? ");
 
 
-        ps.setInt(1, 2);
+        ps.setInt(1, 1);
         ps.setInt(2, idDemande);
 
         ps.executeUpdate();

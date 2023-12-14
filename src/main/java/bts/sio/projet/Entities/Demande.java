@@ -89,4 +89,8 @@ public class Demande {
     public int getIdDemande() {
         return idDemande;
     }
+    public Demande(String sousMatiere) {
+        this.sousMatiere = sousMatiere;
+    }
 }
+

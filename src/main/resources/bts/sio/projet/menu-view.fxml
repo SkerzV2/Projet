@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,6 +19,23 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bts.sio.projet.MenuController">
    <children>
+      <AnchorPane fx:id="apCreeSoutient" layoutX="203.0" layoutY="56.0" prefHeight="455.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
+         <children>
+            <ComboBox fx:id="cboCreeSoutien" layoutX="79.0" layoutY="124.0" prefWidth="150.0" />
+            <DatePicker fx:id="dpCreeSoutien" layoutX="67.0" layoutY="200.0" />
+            <TableView fx:id="tvCreeSoutien" layoutX="441.0" layoutY="157.0" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="tcSousMatiereCreeSoutien" prefWidth="199.20001220703125" text="Sous matieres de la demande" />
+              </columns>
+            </TableView>
+            <TextArea fx:id="txtCreeSoutien" layoutX="67.0" layoutY="276.0" prefHeight="104.0" prefWidth="267.0" />
+            <Label layoutX="121.0" layoutY="88.0" prefHeight="26.0" prefWidth="66.0" text="Matiere" />
+            <Label layoutX="103.0" layoutY="166.0" prefHeight="26.0" prefWidth="102.0" text="Date du soutien" />
+            <Label layoutX="121.0" layoutY="244.0" prefHeight="26.0" prefWidth="66.0" text="Descritpion" />
+            <Button fx:id="btnAnnulerCreeSoutien" layoutX="133.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerCreeSoutienClicked" prefHeight="26.0" prefWidth="108.0" text="Annuler" />
+            <Button fx:id="btnValiderCreeSoutien" layoutX="487.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#btnValiderCreeSoutienClicked" prefHeight="26.0" prefWidth="108.0" text="Valider" />
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="apModifierDemande" layoutX="203.0" layoutY="56.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <Label layoutX="286.0" layoutY="25.0" text="Modifier mes demandes">
@@ -167,7 +185,7 @@
                         <Insets top="15.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="vbxSoutenir" alignment="TOP_CENTER" layoutY="-18.0" prefHeight="455.0" prefWidth="200.0" spacing="15.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css" visible="false">
+                  <VBox fx:id="vbxSoutenir" alignment="TOP_CENTER" layoutY="-18.0" prefHeight="455.0" prefWidth="200.0" spacing="15.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css">
                      <children>
                         <Label alignment="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Voir les demandes">
                            <font>
@@ -177,17 +195,21 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Label>
-                        <Button fx:id="btnVoirLesDemande" mnemonicParsing="false" onMouseClicked="#btnVoirLesDemandeClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Visualiser les demandes">
+                        <Button fx:id="btnVoirLesDemande" mnemonicParsing="false" onMouseClicked="#btnVoirLesDemandeClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Visualiser les demandes">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
+                           <styleClass>
+                              <String fx:value="btn1" />
+                              <String fx:value="btnsousmenu1" />
+                           </styleClass>
                         </Button>
                      </children>
                      <padding>
                         <Insets top="15.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="vbxStatistique" alignment="TOP_CENTER" layoutX="-2.0" layoutY="-16.0" prefHeight="455.0" prefWidth="202.0" spacing="10.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css" visible="false">
+                  <VBox fx:id="vbxStatistique" alignment="TOP_CENTER" layoutX="-2.0" layoutY="-16.0" prefHeight="455.0" prefWidth="202.0" spacing="10.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css">
                      <children>
                         <Label alignment="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Voir les statistiques">
                            <VBox.margin>
@@ -197,10 +219,14 @@
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnVoirStats" mnemonicParsing="false" onMouseClicked="#btnVoirStatsClicked" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: FAE6BB;" text="Quelques statistiques">
+                        <Button fx:id="btnVoirStats" mnemonicParsing="false" onMouseClicked="#btnVoirStatsClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Quelques statistiques">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
+                           <styleClass>
+                              <String fx:value="btn1" />
+                              <String fx:value="btnmenu1" />
+                           </styleClass>
                         </Button>
                      </children>
                      <padding>
@@ -291,7 +317,7 @@
       </HBox>
       <AnchorPane fx:id="apVoirLesDemande" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
-            <TableView fx:id="tvVisualiserAutresDemandes" layoutX="14.0" layoutY="96.0" onMouseClicked="#tvVisualiserAutresDemandesClicked" prefHeight="282.0" prefWidth="679.0" stylesheets="@../../../CSS/menu.css">
+            <TableView fx:id="tvVisualiserAutresDemandes" layoutX="14.0" layoutY="96.0" prefHeight="282.0" prefWidth="679.0" stylesheets="@../../../CSS/menu.css">
                <columns>
                   <TableColumn fx:id="tcNom" prefWidth="88.80000114440918" text="Nom" />
                   <TableColumn fx:id="tcPrenom" prefWidth="89.60004425048828" text="Prenom" />
@@ -306,7 +332,7 @@
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="btnCreeSoutient" layoutX="282.0" layoutY="401.0" mnemonicParsing="false" onMouseClicked="#btnCreeSoutientClicked" prefHeight="26.0" prefWidth="144.0" text="Crée le soutient" />
+            <Button fx:id="btnSoutien" layoutX="282.0" layoutY="401.0" mnemonicParsing="false" onMouseClicked="#btnSoutienClicked" prefHeight="26.0" prefWidth="144.0" text="Crée le soutient" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="apVisualiserDemandes" layoutX="203.0" layoutY="56.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
