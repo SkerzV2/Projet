@@ -22,124 +22,196 @@ import java.util.TreeMap;
 
 public class MenuController implements Initializable {
     ConnexionBDD maCnx;
-    ObservableList<Matiere> lesMatieres;
     ServiceMatieres serviceMatieres;
     ServiceDemandes serviceDemandes;
     ServiceCompetences serviceCompetences;
     ServiceSoutients serviceSoutients;
-    User user;
-    Matiere matiere;
     HashMap<String, TreeMap<String, ObservableList<String>>> lesDemandes;
     TreeMap<String, ObservableList<String>> lesCompetences;
+    ObservableList<Matiere> lesMatieres;
+    User user;
     ObservableList lesDemandesTv;
-    ObservableList<Soutient> lesAutresDemandesTv;
     TreeItem root;
     TreeItem rootComp;
 
+    // AnchorPane ------------------------------------------------------------------------------------------------------
+
     @javafx.fxml.FXML
     private AnchorPane apFaireDemande;
-    @javafx.fxml.FXML
-    private DatePicker datepFinDem;
+
     @javafx.fxml.FXML
     private AnchorPane apVisualiserDemandes;
-    @javafx.fxml.FXML
-    private TreeView tvVisualiserDemandes;
-    @javafx.fxml.FXML
-    private AnchorPane apModifierDemande;
-    @javafx.fxml.FXML
-    private TableView<Demande> tvModifDemandes;
-    @javafx.fxml.FXML
-    private TableColumn tcMatiere;
-    @javafx.fxml.FXML
-    private TableColumn tcDateDebut;
-    @javafx.fxml.FXML
-    private TableColumn tcDateFin;
-    @javafx.fxml.FXML
-    private TableColumn tcSousMatieres;
+
     @javafx.fxml.FXML
     private AnchorPane apVisualiserComp;
+
     @javafx.fxml.FXML
-    private TreeView tvVisualiserComp;
-    @javafx.fxml.FXML
-    private AnchorPane apModifierComp;
-    @javafx.fxml.FXML
-    private TableView<Competence> tvModifComp;
-    @javafx.fxml.FXML
-    private TableView<Soutient> tvVisualiserAutresDemandes;
+    private AnchorPane apModifierDemande;
+
     @javafx.fxml.FXML
     private AnchorPane apVoirLesDemande;
-    @javafx.fxml.FXML
-    private TableColumn tcNom;
-    @javafx.fxml.FXML
-    private TableColumn tcPrenom;
-    @javafx.fxml.FXML
-    private TableColumn tcMatiereSoutient;
-    @javafx.fxml.FXML
-    private TableColumn tcDateDebutSoutient;
-    @javafx.fxml.FXML
-    private TableColumn tcDateFinSoutient;
-    @javafx.fxml.FXML
-    private TableColumn tcSousMatiereSoutient;
-    @javafx.fxml.FXML
-    private VBox vbxDemande;
-    @javafx.fxml.FXML
-    private VBox vbxCompetence;
-    @javafx.fxml.FXML
-    private VBox vbxSoutenir;
-    @javafx.fxml.FXML
-    private VBox vbxStatistique;
-    @javafx.fxml.FXML
-    private TableColumn tcSousMatiereModifierDemande;
-    @javafx.fxml.FXML
-    private DatePicker dpModifierDemande;
+
     @javafx.fxml.FXML
     private AnchorPane apModificationDemande;
-    @javafx.fxml.FXML
-    private ComboBox cboMatiereModifierDemande;
-    @javafx.fxml.FXML
-    private TableView tvSousMatiereModifierDemande;
-    @javafx.fxml.FXML
-    private TableView<Matiere> tvMatiereCreeDemande;
-    @javafx.fxml.FXML
-    private TableColumn tcMatiereCreeDemande;
-    @javafx.fxml.FXML
-    private TableView tvSousMatiereCreeDemande;
-    @javafx.fxml.FXML
-    private TableColumn tcSousMatiereCreeDemande;
+
     @javafx.fxml.FXML
     private AnchorPane apEnregistrerCompetence;
-    @javafx.fxml.FXML
-    private TableView<Matiere> tvMatiereCreeCompetence;
-    @javafx.fxml.FXML
-    private TableColumn tcMatiereCreeCompetence;
-    @javafx.fxml.FXML
-    private TableView tvSousMatiereCreeCompetence;
-    @javafx.fxml.FXML
-    private TableColumn tcSousMatiereCreeCompetence;
-    @javafx.fxml.FXML
-    private TableColumn tcMatiereModifierCompetence;
-    @javafx.fxml.FXML
-    private TableColumn tcSousMatiereModifierCompetence;
-    @javafx.fxml.FXML
-    private AnchorPane apModificationCompetence;
-    @javafx.fxml.FXML
-    private ComboBox cboMatiereModificationCompetence;
-    @javafx.fxml.FXML
-    private TableView tvSousMatiereModificationCompetence;
-    @javafx.fxml.FXML
-    private TableColumn tcSousMatiereModificationCompetence;
-    @javafx.fxml.FXML
-    private ComboBox cboCreeSoutien;
-    @javafx.fxml.FXML
-    private DatePicker dpCreeSoutien;
-    @javafx.fxml.FXML
-    private TableView<Demande>tvCreeSoutien;
-    @javafx.fxml.FXML
-    private TableColumn tcSousMatiereCreeSoutien;
-    @javafx.fxml.FXML
-    private TextArea txtCreeSoutien;
+
     @javafx.fxml.FXML
     private AnchorPane apCreeSoutient;
+
+    @javafx.fxml.FXML
+    private AnchorPane apModificationCompetence;
+
+    @javafx.fxml.FXML
+    private AnchorPane apModifierComp;
+
+    // Vbox ------------------------------------------------------------------------------------------------------------
+
+    @javafx.fxml.FXML
+    private VBox vbxDemande;
+
+    @javafx.fxml.FXML
+    private VBox vbxCompetence;
+
+    @javafx.fxml.FXML
+    private VBox vbxSoutenir;
+
+    @javafx.fxml.FXML
+    private VBox vbxStatistique;
+
+    // Crée Demande ----------------------------------------------------------------------------------------------------
+
+    @javafx.fxml.FXML
+    private DatePicker datepFinDem;
+
+    @javafx.fxml.FXML
+    private TableView<Matiere> tvMatiereCreeDemande;
+
+    @javafx.fxml.FXML
+    private TableColumn tcMatiereCreeDemande;
+
+    @javafx.fxml.FXML
+    private TableView tvSousMatiereCreeDemande;
+
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereCreeDemande;
+
+
+    // Modifier Demande ------------------------------------------------------------------------------------------------
+
+    @javafx.fxml.FXML
+    private TableView<Demande> tvModifDemandes;
+
+    @javafx.fxml.FXML
+    private TableColumn tcMatiere;
+
+    @javafx.fxml.FXML
+    private TableColumn tcDateDebut;
+
+    @javafx.fxml.FXML
+    private TableColumn tcDateFin;
+
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatieres;
+
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereModifierDemande;
+
+    @javafx.fxml.FXML
+    private DatePicker dpModifierDemande;
+
+    @javafx.fxml.FXML
+    private ComboBox cboMatiereModifierDemande;
+
+    @javafx.fxml.FXML
+    private TableView tvSousMatiereModifierDemande;
+
+    // Visualiser Demande ----------------------------------------------------------------------------------------------
+
+    @javafx.fxml.FXML
+    private TreeView tvVisualiserDemandes;
+
+    // Crée Compétence -------------------------------------------------------------------------------------------------
+    @javafx.fxml.FXML
+    private TableColumn tcMatiereCreeCompetence;
+
+    @javafx.fxml.FXML
+    private TableView tvSousMatiereCreeCompetence;
+
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereCreeCompetence;
+
+    @javafx.fxml.FXML
+    private TableView<Matiere> tvMatiereCreeCompetence;
+
+    // Visualiser Compétence -------------------------------------------------------------------------------------------
+
+    @javafx.fxml.FXML
+    private TreeView tvVisualiserComp;
+
+    // Modifier Compétence ---------------------------------------------------------------------------------------------
+
+    @javafx.fxml.FXML
+    private TableColumn tcMatiereModifierCompetence;
+
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereModifierCompetence;
+
+    @javafx.fxml.FXML
+    private ComboBox cboMatiereModificationCompetence;
+
+    @javafx.fxml.FXML
+    private TableView tvSousMatiereModificationCompetence;
+
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereModificationCompetence;
+
+    @javafx.fxml.FXML
+    private TableView<Competence> tvModifComp;
+
+    //Crée Soutient ----------------------------------------------------------------------------------------------------
+
+    @javafx.fxml.FXML
+    private ComboBox cboCreeSoutien;
+
+    @javafx.fxml.FXML
+    private DatePicker dpCreeSoutien;
+
+    @javafx.fxml.FXML
+    private TableView<Demande>tvCreeSoutien;
+
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereCreeSoutien;
+
+    @javafx.fxml.FXML
+    private TextArea txtCreeSoutien;
+
+    @javafx.fxml.FXML
+    private TableView<Soutient> tvVisualiserAutresDemandes;
+
+    @javafx.fxml.FXML
+    private TableColumn tcNom;
+
+    @javafx.fxml.FXML
+    private TableColumn tcPrenom;
+
+    @javafx.fxml.FXML
+    private TableColumn tcMatiereSoutient;
+
+    @javafx.fxml.FXML
+    private TableColumn tcDateDebutSoutient;
+
+    @javafx.fxml.FXML
+    private TableColumn tcDateFinSoutient;
+
+    @javafx.fxml.FXML
+    private TableColumn tcSousMatiereSoutient;
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     public void setUser(User user) {
         this.user = user;
