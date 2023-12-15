@@ -24,7 +24,6 @@ public class ProjetController implements Initializable
 {
     ConnexionBDD maCnx;
     ServiceUsers serviceUsers = new ServiceUsers();
-
     User user;
 
     MenuController menuController;

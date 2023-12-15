@@ -14,7 +14,6 @@ public class ServiceUsers {
     private ResultSet rs;
 
     public ServiceUsers() {
-
         uneCnx = ConnexionBDD.getCnx();
     }
 

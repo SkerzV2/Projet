@@ -56,9 +56,9 @@ public class ServiceDemandes {
     }
 
 
-    public HashMap<String, TreeMap<String, ObservableList<String>>> getAllDemandes(int idUser) throws SQLException
+    public ObservableList<Demande> getAllDemandes(int idUser) throws SQLException
     {
-        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
+        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , demande.status "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
                 + "WHERE demande.id_user = ?");
@@ -66,36 +66,20 @@ public class ServiceDemandes {
         ps.setInt(1, idUser);
         rs = ps.executeQuery();
 
-        HashMap<String, TreeMap<String, ObservableList<String>>> lesDemandes = new HashMap<>();
+        ObservableList<Demande> lesDemandes = FXCollections.observableArrayList();
 
-        while (rs.next())
-        {
-            String matiereDesignation = rs.getString("matiere.designation");
+        while (rs.next()) {
+            int idMatiere = rs.getInt("demande.id_matiere");
             String sousMatiere = rs.getString("demande.sous_matiere");
             String dateDebut = rs.getString("demande.date_updated");
             String dateFin = rs.getString("demande.date_fin_demande");
+            int status = rs.getInt("demande.status");
+            String designationMatiere = rs.getString("matiere.designation");
 
-            if (!lesDemandes.containsKey(matiereDesignation))
-            {
-                ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
-                lesSousMatieres.add(sousMatiere);
-                TreeMap<String, ObservableList<String>> lesDates = new TreeMap<>();
-                lesDates.put(dateDebut + " au " + dateFin, lesSousMatieres);
-                lesDemandes.put(matiereDesignation, lesDates);
-            } else
-            {
-                TreeMap<String, ObservableList<String>> lesDates = lesDemandes.get(matiereDesignation);
-                if (!lesDates.containsKey(dateDebut))
-                {
-                    ObservableList<String> lesSousMatieres = FXCollections.observableArrayList();
-                    lesSousMatieres.add(sousMatiere);
-                    lesDates.put(dateDebut + " au " + dateFin, lesSousMatieres);
-                } else
-                {
-                    lesDates.get(dateDebut + " au " + dateFin).add(sousMatiere);
-                }
-            }
+            Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere, idUser, idMatiere, status, designationMatiere);
+            lesDemandes.add(uneDemande);
         }
+
         rs.close();
         ps.close();
         return lesDemandes;

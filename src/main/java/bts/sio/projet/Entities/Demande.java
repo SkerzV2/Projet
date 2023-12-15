@@ -12,7 +12,7 @@ public class Demande {
     private int idMatiere;
     private String designation;
     private int idDemande;
-    private int idCompetence;
+    private int status;
 
 //constructeur modifier les demande
     public Demande(String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere, String designation, int idDemande) {
@@ -27,7 +27,7 @@ public class Demande {
     }
 //constructeur visualiser les demande
 
-    public Demande(String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere, String designation) {
+    public Demande(String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere, int status, String designation) {
 
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -35,7 +35,9 @@ public class Demande {
         this.idUser = idUser;
         this.idMatiere = idMatiere;
         this.designation = designation;
+        this.status = status;
     }
+
 
     public String getNiveau() {
         return niveau;
@@ -91,6 +93,14 @@ public class Demande {
     }
     public Demande(String sousMatiere) {
         this.sousMatiere = sousMatiere;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
 
