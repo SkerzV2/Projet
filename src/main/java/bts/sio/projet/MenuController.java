@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
@@ -272,6 +271,8 @@ public class MenuController implements Initializable {
     private TableColumn tcStatusDemandeVisualiser;
     @javafx.fxml.FXML
     private Button BtnVoirHistoriqueDemande;
+    @javafx.fxml.FXML
+    private Button BtnVoirDemandeEnCours;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -355,8 +356,8 @@ public class MenuController implements Initializable {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                           CREATION D UNE DEMANDE                                                                          //
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                           CREATION D UNE DEMANDE                                                                         //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // afficher l'anchor pane création demande
     @javafx.fxml.FXML
@@ -448,21 +449,22 @@ public class MenuController implements Initializable {
     public void btnVoirDemandeClicked(Event event) throws SQLException
     {
         apVisualiserDemandes.toFront();
-        lesDemandes = serviceDemandes.getAllDemandes(user.getId());
-
-        for(Demande uneDemande : lesDemandes)
-        {
-            if(uneDemande.getStatus()==1 || uneDemande.getStatus()==2){
-                ObservableList<Demande> demandesEnAttente = FXCollections.observableArrayList();
-                demandesEnAttente.add(uneDemande);
-                tvVisualiserMesDemandes.setItems(demandesEnAttente);
-            }
-        }
+        BtnVoirDemandeEnCours.setVisible(false);
+        BtnVoirHistoriqueDemande.setVisible(true);
+        lesDemandes = serviceDemandes.getAllDemandesEnCours(user.getId());
     }
 
     @javafx.fxml.FXML
-    public void BtnVoirHistoriqueDemandeClicked(Event event) {
-
+    public void BtnVoirHistoriqueDemandeClicked(Event event) throws SQLException {
+        BtnVoirDemandeEnCours.setVisible(true);
+        BtnVoirHistoriqueDemande.setVisible(false);
+        refreshTv(tvVisualiserMesDemandes,serviceDemandes.getAllDemandesEncienne(user.getId()));
+    }
+    @javafx.fxml.FXML
+    public void BtnVoirDemandeEnCoursClicked(Event event) throws SQLException {
+        BtnVoirDemandeEnCours.setVisible(false);
+        BtnVoirHistoriqueDemande.setVisible(true);
+        refreshTv(tvVisualiserMesDemandes,serviceDemandes.getAllDemandesEnCours(user.getId()));
     }
 
 

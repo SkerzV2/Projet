@@ -56,12 +56,42 @@ public class ServiceDemandes {
     }
 
 
-    public ObservableList<Demande> getAllDemandes(int idUser) throws SQLException
+    public ObservableList<Demande> getAllDemandesEncienne(int idUser) throws SQLException
     {
         ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , demande.status "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
-                + "WHERE demande.id_user = ?");
+                + "WHERE demande.id_user = ?" +
+                " And demande.status = 2 or demande.status = 0");
+
+        ps.setInt(1, idUser);
+        rs = ps.executeQuery();
+
+        ObservableList<Demande> lesDemandes = FXCollections.observableArrayList();
+
+        while (rs.next()) {
+            int idMatiere = rs.getInt("demande.id_matiere");
+            String sousMatiere = rs.getString("demande.sous_matiere");
+            String dateDebut = rs.getString("demande.date_updated");
+            String dateFin = rs.getString("demande.date_fin_demande");
+            int status = rs.getInt("demande.status");
+            String designationMatiere = rs.getString("matiere.designation");
+
+            Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere, idUser, idMatiere, status, designationMatiere);
+            lesDemandes.add(uneDemande);
+        }
+
+        rs.close();
+        ps.close();
+        return lesDemandes;
+    }
+    public ObservableList<Demande> getAllDemandesEnCours(int idUser) throws SQLException
+    {
+        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , demande.status "
+                + "FROM demande "
+                + "JOIN matiere ON demande.id_matiere = matiere.id "
+                + "WHERE demande.id_user = ?"
+                +" And demande.status = 1");
 
         ps.setInt(1, idUser);
         rs = ps.executeQuery();

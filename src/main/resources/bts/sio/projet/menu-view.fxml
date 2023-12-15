@@ -342,7 +342,7 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <TableView fx:id="tvVisualiserMesDemandes" layoutX="54.0" layoutY="88.0" prefHeight="338.0" prefWidth="600.0">
+            <TableView fx:id="tvVisualiserMesDemandes" layoutX="54.0" layoutY="88.0" prefHeight="338.0" prefWidth="600.0" stylesheets="@../../../CSS/menu.css">
               <columns>
                 <TableColumn fx:id="tcDateDebutDemVisualiser" prefWidth="88.79998779296875" text="Date de début" />
                   <TableColumn fx:id="tcDateFinDemandeVisualiser" prefWidth="88.79998779296875" text="Date de fin" />
@@ -352,6 +352,7 @@
               </columns>
             </TableView>
             <Button fx:id="BtnVoirHistoriqueDemande" layoutX="559.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#BtnVoirHistoriqueDemandeClicked" text="Voir historique" />
+            <Button fx:id="BtnVoirDemandeEnCours" layoutX="560.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#BtnVoirDemandeEnCoursClicked" prefHeight="26.0" prefWidth="94.0" text="Voir en cours" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="apVisualiserComp" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;" visible="false">

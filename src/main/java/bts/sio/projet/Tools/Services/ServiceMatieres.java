@@ -75,6 +75,7 @@ public class ServiceMatieres {
         }
         return lesSousMatieres;
     }
+
     public ObservableList<Matiere> GetAllSousMatiereOBJ(String designation) throws SQLException
     {
         ObservableList<Matiere> lesSousMatieres = FXCollections.observableArrayList();
