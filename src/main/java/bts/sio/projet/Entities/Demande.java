@@ -2,7 +2,7 @@ package bts.sio.projet.Entities;
 
 public class Demande {
 
-    private String niveau;
+    private int niveau;
     private String prenom;
     private String nom;
     private String dateDebut;
@@ -39,7 +39,7 @@ public class Demande {
     }
 
 
-    public String getNiveau() {
+    public int getNiveau() {
         return niveau;
     }
 
@@ -52,7 +52,7 @@ public class Demande {
     }
 
 //constructeur pour s'inscrire a un soutient
-    public Demande(String dateDebut, String dateFin, String sousMatiere, int idMatiere, String designation, int idDemande, int idUser, String nom, String prenom, String niveau,int idCompetence) {
+    public Demande(String dateDebut, String dateFin, String sousMatiere, int idMatiere, String designation, int idDemande, int idUser, String nom, String prenom, int niveau) {
         this.idDemande=idDemande;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;

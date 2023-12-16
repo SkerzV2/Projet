@@ -2,6 +2,7 @@ package bts.sio.projet.Tools.Services;
 
 import bts.sio.projet.Entities.Demande;
 import bts.sio.projet.Entities.Matiere;
+import bts.sio.projet.Entities.Soutient;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -17,6 +19,9 @@ public class ServiceDemandes {
     private Connection unCnx;
     private PreparedStatement ps;
     private ResultSet rs;
+    HashMap<Integer, ArrayList<String>> mesCompetences;
+    ServiceUsers serviceUsers=new ServiceUsers();
+    ServiceCompetences serviceCompetences=new ServiceCompetences();
     public ServiceDemandes()
     {
         unCnx = ConnexionBDD.getCnx();
@@ -208,5 +213,63 @@ public class ServiceDemandes {
             ps.close();
         }
         return false;
+    }
+
+    public ObservableList<Demande> getlesAutresDemandesTv(int idUser) throws SQLException {
+        mesCompetences = serviceCompetences.getMesCompetences(idUser);
+        int leIntNiveau = serviceUsers.getNiveau(idUser);
+        /*
+        ArrayList<String> mesCompetences = getMesCompetences(idUser);
+        int leIntNiveau = getIntNiveau(idUser);
+        String niveauCondition = getRequetNiveauCondition(leIntNiveau);
+        if (leIntNiveau >= 2) {
+
+     */
+        ps = unCnx.prepareStatement("SELECT user.id, user.nom, user.prenom, user.niveau, demande.id, demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
+                + "FROM demande "
+                + "JOIN matiere ON demande.id_matiere = matiere.id "
+                + "JOIN user ON user.id = demande.id_user "
+                + "WHERE demande.id_user != ? "
+                + "AND user.niveau <= ? "
+                +"AND demande.status = 0");
+
+        ps.setInt(1, idUser);
+
+        int parametreNiveau = leIntNiveau - 2;
+        ps.setInt(2, parametreNiveau);
+        rs = ps.executeQuery();
+
+        ObservableList<Demande> lesDemandes = FXCollections.observableArrayList();
+
+        while (rs.next()) {
+            String matiereDesignation = rs.getString("matiere.designation");
+            String sousMatiere = rs.getString("demande.sous_matiere");
+            int idMatiere = rs.getInt("demande.id_matiere");
+            String dateDebut = rs.getString("demande.date_updated");
+            String dateFin = rs.getString("demande.date_fin_demande");
+            int idDemande = rs.getInt("demande.id");
+            int idUserdem = rs.getInt("user.id");
+            String nomUser = rs.getString("user.nom");
+            String prenomUser = rs.getString("user.prenom");
+            int niveauUser = rs.getInt("user.niveau");
+            String[] splitSousMatiereDem = sousMatiere.split("#");
+            String sousMatiereDem = "";
+            for (String uneSousMatiere : splitSousMatiereDem) {
+                if (!uneSousMatiere.isEmpty()) {
+                    for (int idComp : mesCompetences.keySet()) {
+                        for (String competence : mesCompetences.get(idComp)) {
+                            if (uneSousMatiere.equals(competence)) {
+                                sousMatiereDem += "#" + uneSousMatiere;
+                            }
+                        }
+                    }
+                }
+            }
+            if (!sousMatiereDem.equals("")) {
+                Demande unedemande = new Demande(dateDebut, dateFin, sousMatiere, idMatiere,matiereDesignation ,idDemande , idUser, nomUser,prenomUser,niveauUser);
+                lesDemandes.add(unedemande);
+            }
+        }
+        return lesDemandes;
     }
 }

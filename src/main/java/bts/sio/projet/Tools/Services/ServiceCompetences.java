@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TreeMap;
 
 public class ServiceCompetences
@@ -17,6 +19,8 @@ public class ServiceCompetences
     private Connection unCnx;
     private PreparedStatement ps;
     private ResultSet rs;
+    private HashMap<Integer, ArrayList<String>> lescompetences;
+
     public ServiceCompetences()
     {
         unCnx = ConnexionBDD.getCnx();
@@ -98,5 +102,38 @@ public class ServiceCompetences
 
         ps.executeUpdate();
         ps.close();
+    }
+    public HashMap<Integer, ArrayList<String>> getMesCompetences(int idUser) throws SQLException {
+        lescompetences = new HashMap<>();
+        ArrayList<String> mesCompetences = new ArrayList<>();
+        ps = unCnx.prepareStatement("SELECT competence.sous_matiere ,competence.id "
+                + "FROM competence "
+                + "WHERE competence.id_user = ?");
+
+        ps.setInt(1, idUser);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            String competences = rs.getString("sous_matiere");
+            String[] splitSousMatiere = competences.split("#");
+            for (String uneSousMatiere : splitSousMatiere) {
+                if (!uneSousMatiere.isEmpty()) {
+                    mesCompetences.add(uneSousMatiere);
+                }
+            }
+            lescompetences.put(rs.getInt(2),mesCompetences);
+        }
+        return lescompetences ;
+    }
+    public int getUneCompetenceUser(int idUser,String nomMatiere) throws SQLException {
+        ps = unCnx.prepareStatement("SELECT competence.id "
+                + "FROM competence " +
+                "JOIN matiere on matiere.id = competence.id_matiere "
+                + "WHERE competence.id_user = ? " +
+                "AND matiere.designation = ? ");
+        ps.setInt(1, idUser);
+        ps.setString(2, nomMatiere);
+        rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt(1);
     }
 }

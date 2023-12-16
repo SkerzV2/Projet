@@ -28,19 +28,6 @@ public class Soutient {
         this.status = status;
     }
 
-    public Soutient(String nom, String prenom, String matiere, int idDemande, int idCompetence, String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere) {
-        this.idDemande = idDemande;
-        this.idCompetence = idCompetence;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.sousMatiere = sousMatiere;
-        this.idUser = idUser;
-        this.idMatiere = idMatiere;
-        this.prenom = prenom;
-        this.nom = nom;
-        this.matiere = matiere;
-    }
-
     public String getNom() {
         return nom;
     }
