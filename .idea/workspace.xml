@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="css modifier refonte integrale.">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceDemandes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceDemandes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceMatieres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceMatieres.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceSoutients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceSoutients.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

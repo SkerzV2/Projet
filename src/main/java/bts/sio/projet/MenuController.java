@@ -7,6 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -16,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
@@ -32,6 +36,7 @@ public class MenuController implements Initializable {
     ObservableList lesDemandesTv;
     TreeItem root;
     TreeItem rootComp;
+    XYChart.Series<String,Integer> serieGraphVisualiserSesSoutients;
 
     // AnchorPane ------------------------------------------------------------------------------------------------------
 
@@ -273,6 +278,10 @@ public class MenuController implements Initializable {
     private Button BtnVoirHistoriqueDemande;
     @javafx.fxml.FXML
     private Button BtnVoirDemandeEnCours;
+    @javafx.fxml.FXML
+    private AnchorPane apStatsMesDemandes;
+    @javafx.fxml.FXML
+    private BarChart bcVoirSoutientRealiser;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -814,6 +823,21 @@ public class MenuController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnVoirStatsClicked(Event event) {
+        apStatsMesDemandes.toFront();
+        bcVoirSoutientRealiser.getData().clear();
+
+        HashMap<String, ArrayList<Integer>> donnees = serviceSoutients.getDatasGraphiqueSoutientRealiser(user.getId());
+        for (String matiere : donnees.keySet()) {
+            serieGraphVisualiserSesSoutients = new XYChart.Series<>();
+            serieGraphVisualiserSesSoutients.setName(matiere);
+            ArrayList<Integer> valeurs = donnees.get(matiere);
+
+            for (int i = 0; i < valeurs.size(); i++) {
+                serieGraphVisualiserSesSoutients.getData().add(new XYChart.Data<>(valeurs.get(i).toString(), valeurs.get(i)));
+            }
+
+            bcVoirSoutientRealiser.getData().add(serieGraphVisualiserSesSoutients);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
