@@ -182,4 +182,38 @@ public class ServiceSoutients {
 
     }
 
+    public HashMap<String, ArrayList<Integer>> getDatasGraphiqueSoutientRealiser(int idUser){
+        HashMap<String, ArrayList<Integer>> datas = new HashMap<>();
+        try {
+            ps = unCnx.prepareStatement("SELECT m.id, m.designation AS nom_matiere, COUNT(s.id) AS nombre_de_soutiens "
+                    + "FROM matiere m "
+                    + "LEFT JOIN competence c ON m.id = c.id_matiere "
+                    + "LEFT JOIN soutien s ON c.id = s.id_competence "
+                    + "LEFT JOIN user u ON c.id_user = u.id "
+                    + "WHERE u.id = ? "
+                    + "GROUP BY m.id, m.designation;");
+
+            ps.setInt(1, idUser);
+
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                if(!datas.containsKey(rs.getString(1)))
+                {
+                    ArrayList<Integer> values = new ArrayList<>();
+                    values.add(rs.getInt(3));
+                    datas.put(rs.getString(2),values);
+                }
+                else{
+                    datas.get(rs.getString(2)).add(rs.getInt(3));
+                }
+
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return datas;
+    }
+
 }
