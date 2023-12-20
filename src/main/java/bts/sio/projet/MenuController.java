@@ -36,8 +36,7 @@ public class MenuController implements Initializable {
     ObservableList lesDemandesTv;
     TreeItem root;
     TreeItem rootComp;
-    XYChart.Series<String,Integer> serieGraphVisualiserMesSoutien;
-    XYChart.Series<String,Integer> serieGraphVisualiserMesDemandeSansSoutien;
+    XYChart.Series<String,Integer> serieGraphVisualiserSesSoutients;
 
     // AnchorPane ------------------------------------------------------------------------------------------------------
 
@@ -190,7 +189,7 @@ public class MenuController implements Initializable {
     private TextArea txtCreeSoutien;
 
     @javafx.fxml.FXML
-    private TableView<Demande> tvVisualiserAutresDemandes;
+    private TableView<Soutient> tvVisualiserAutresDemandes;
 
     @javafx.fxml.FXML
     private TableColumn tcNom;
@@ -240,6 +239,8 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private Button btnVoirLesDemande;
     @javafx.fxml.FXML
+    private Button btnVoirStats;
+    @javafx.fxml.FXML
     private Button btnMenuDemande;
     @javafx.fxml.FXML
     private Button btnMenuCompetence;
@@ -281,12 +282,6 @@ public class MenuController implements Initializable {
     private AnchorPane apStatsMesDemandes;
     @javafx.fxml.FXML
     private BarChart bcVoirSoutientRealiser;
-    @javafx.fxml.FXML
-    private Button btnStatsNbSoutienRealise;
-    @javafx.fxml.FXML
-    private Button btnStatsDemandeSansSoutien;
-    @javafx.fxml.FXML
-    private BarChart bcVoirDemandeSansSoutien;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -343,7 +338,7 @@ public class MenuController implements Initializable {
             //Claude
             tcDateDebutSoutient.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
             tcDateFinSoutient.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
-            tcMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("designation"));
+            tcMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("matiere"));
             tcSousMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
             tcNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             tcPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
@@ -463,21 +458,21 @@ public class MenuController implements Initializable {
     public void btnVoirDemandeClicked(Event event) throws SQLException
     {
         apVisualiserDemandes.toFront();
-        BtnVoirDemandeEnCours.setStyle("-fx-background-color: #8a84fd");
-        BtnVoirHistoriqueDemande.setStyle("-fx-background-color: #29fd0d");
+        BtnVoirDemandeEnCours.setVisible(false);
+        BtnVoirHistoriqueDemande.setVisible(true);
         lesDemandes = serviceDemandes.getAllDemandesEnCours(user.getId());
     }
 
     @javafx.fxml.FXML
     public void BtnVoirHistoriqueDemandeClicked(Event event) throws SQLException {
-        BtnVoirDemandeEnCours.setStyle("-fx-background-color: #29fd0d");
-        BtnVoirHistoriqueDemande.setStyle("-fx-background-color: #8a84fd");
+        BtnVoirDemandeEnCours.setVisible(true);
+        BtnVoirHistoriqueDemande.setVisible(false);
         refreshTv(tvVisualiserMesDemandes,serviceDemandes.getAllDemandesEncienne(user.getId()));
     }
     @javafx.fxml.FXML
     public void BtnVoirDemandeEnCoursClicked(Event event) throws SQLException {
-        BtnVoirDemandeEnCours.setStyle("-fx-background-color: #8a84fd");
-        BtnVoirHistoriqueDemande.setStyle("-fx-background-color: #29fd0d");
+        BtnVoirDemandeEnCours.setVisible(false);
+        BtnVoirHistoriqueDemande.setVisible(true);
         refreshTv(tvVisualiserMesDemandes,serviceDemandes.getAllDemandesEnCours(user.getId()));
     }
 
@@ -750,13 +745,13 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     public void btnVoirLesDemandeClicked(Event event) throws SQLException {
         apVoirLesDemande.toFront();
-        ObservableList<Demande> lesAutresDemandesTv = serviceDemandes.getlesAutresDemandesTv(user.getId());
+        ObservableList<Soutient> lesAutresDemandesTv = serviceSoutients.getAllDemandesTv(user.getId());
         refreshTv(tvVisualiserAutresDemandes,lesAutresDemandesTv);
     }
 
     @javafx.fxml.FXML
     public void btnSoutienClicked(Event event) throws IOException, SQLException {
-        Demande demandeSelectionnee = tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
+        Soutient demandeSelectionnee = tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
 
         if(demandeSelectionnee == null)
         {
@@ -770,14 +765,14 @@ public class MenuController implements Initializable {
         {
             apCreeSoutient.toFront();
             tvCreeSoutien.setItems(serviceDemandes.getAllSousMatieresDemande(demandeSelectionnee.getIdDemande()));
-            cboCreeSoutien.setValue(demandeSelectionnee.getDesignation());
+            cboCreeSoutien.setValue(demandeSelectionnee.getMatiere());
             cboCreeSoutien.getSelectionModel().selectFirst();
         }
     }
 
     @javafx.fxml.FXML
     public void btnValiderCreeSoutienClicked(Event event) throws SQLException {
-        Demande laDemandeSoutient= tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
+        Soutient laDemandeSoutient= tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
         String dateNow = LocalDate.now().toString();
         String erreurs="";
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -805,12 +800,11 @@ public class MenuController implements Initializable {
             alert.setContentText(erreurs);
             alert.showAndWait();
         }else {
-            int idCompetence = serviceCompetences.getUneCompetenceUser(user.getId(), laDemandeSoutient.getDesignation());
-            serviceSoutients.CreeSoutient(laDemandeSoutient.getIdDemande(), idCompetence, dpCreeSoutien.getValue().toString(), dateNow, txtCreeSoutien.getText(), laDemandeSoutient.getStatus());
+            serviceSoutients.CreeSoutient(laDemandeSoutient.getIdDemande(), laDemandeSoutient.getIdCompetence(), dpCreeSoutien.getValue().toString(), dateNow, txtCreeSoutien.getText(), laDemandeSoutient.getStatus());
             apVoirLesDemande.toFront();
             dpCreeSoutien.setValue(null);
             tvCreeSoutien.setItems(null);
-            ObservableList<Demande> lesAutresDemandesTv = serviceDemandes.getlesAutresDemandesTv(user.getId());
+            ObservableList<Soutient> lesAutresDemandesTv = serviceSoutients.getAllDemandesTv(user.getId());
             refreshTv(tvVisualiserAutresDemandes,lesAutresDemandesTv);
         }
     }
@@ -819,7 +813,7 @@ public class MenuController implements Initializable {
         apVoirLesDemande.toFront();
         dpCreeSoutien.setValue(null);
         tvCreeSoutien.setItems(null);
-        ObservableList<Demande> lesAutresDemandesTv = serviceDemandes.getlesAutresDemandesTv(user.getId());
+        ObservableList<Soutient> lesAutresDemandesTv = serviceSoutients.getAllDemandesTv(user.getId());
         refreshTv(tvVisualiserAutresDemandes,lesAutresDemandesTv);
     }
 
@@ -827,64 +821,24 @@ public class MenuController implements Initializable {
 //                                           VOIR STATISTIQUES                                                                               //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void btnStatsNbSoutienRealiseClicked(Event event) {
+    @javafx.fxml.FXML
+    public void btnVoirStatsClicked(Event event) {
         apStatsMesDemandes.toFront();
-        bcVoirSoutientRealiser.setVisible(true);
-        bcVoirDemandeSansSoutien.setVisible(false);
         bcVoirSoutientRealiser.getData().clear();
 
-        HashMap<String, ArrayList<Integer>> donnees = serviceSoutients.getDatasGraphiqueSoutienRealiser(user.getId());
-
+        HashMap<String, ArrayList<Integer>> donnees = serviceSoutients.getDatasGraphiqueSoutientRealiser(user.getId());
         for (String matiere : donnees.keySet()) {
-            XYChart.Series<String, Integer> serieGraphVisualiserMesSoutien = new XYChart.Series<>();
-            serieGraphVisualiserMesSoutien.setName(matiere);
-
+            serieGraphVisualiserSesSoutients = new XYChart.Series<>();
+            serieGraphVisualiserSesSoutients.setName(matiere);
             ArrayList<Integer> valeurs = donnees.get(matiere);
 
             for (int i = 0; i < valeurs.size(); i++) {
-                serieGraphVisualiserMesSoutien.getData().add(new XYChart.Data<>(Integer.toString(i + 1), valeurs.get(i)));
-            }
-            bcVoirSoutientRealiser.getData().add(serieGraphVisualiserMesSoutien);
-        }
-
-        int totalSoutienRealiser = donnees.values().stream().flatMapToInt(list -> list.stream().mapToInt(Integer::intValue)).sum();
-        XYChart.Series<String, Integer> serieTotal = new XYChart.Series<>();
-        serieTotal.setName("Total");
-        serieTotal.getData().add(new XYChart.Data<>("Total", totalSoutienRealiser));
-
-        bcVoirSoutientRealiser.getData().add(serieTotal);
-    }
-
-
-
-    public void btnStatsDemandeSansSoutienClicked(Event event) {
-        apStatsMesDemandes.toFront();
-        bcVoirSoutientRealiser.setVisible(false);
-        bcVoirDemandeSansSoutien.setVisible(true);
-        bcVoirDemandeSansSoutien.getData().clear();
-
-        HashMap<String, ArrayList<Integer>> donnees = serviceSoutients.getDatasGraphiqueSoutientNonRealiser(user.getId());
-
-        for (String matiere : donnees.keySet()) {
-            XYChart.Series<String, Integer> serieGraphVisualiserMesDemandeSansSoutien = new XYChart.Series<>();
-            serieGraphVisualiserMesDemandeSansSoutien.setName(matiere);
-
-            ArrayList<Integer> valeurs = donnees.get(matiere);
-
-            for (int i = 0; i < valeurs.size(); i++) {
-                serieGraphVisualiserMesDemandeSansSoutien.getData().add(new XYChart.Data<>(Integer.toString(i + 1), valeurs.get(i)));
+                serieGraphVisualiserSesSoutients.getData().add(new XYChart.Data<>(valeurs.get(i).toString(), valeurs.get(i)));
             }
 
-            bcVoirDemandeSansSoutien.getData().add(serieGraphVisualiserMesDemandeSansSoutien);
+            bcVoirSoutientRealiser.getData().add(serieGraphVisualiserSesSoutients);
         }
-        int totalDemandeSansSoutien = donnees.values().stream().flatMapToInt(list -> list.stream().mapToInt(Integer::intValue)).sum();
-        XYChart.Series<String, Integer> serieTotal = new XYChart.Series<>();
-        serieTotal.setName("Total");
-        serieTotal.getData().add(new XYChart.Data<>("Total", totalDemandeSansSoutien));
-
-        bcVoirDemandeSansSoutien.getData().add(serieTotal);
     }
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                                           //
@@ -938,5 +892,4 @@ public class MenuController implements Initializable {
         tv.setItems(null);
         tv.setItems(o);
     }
-
 }
