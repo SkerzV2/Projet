@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="css modifier refonte integrale.">
+    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="le graphique voir les stats sur ses soutiens marche et ses demandes sans soutiens">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceDemandes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceDemandes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceSoutients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Tools/Services/ServiceSoutients.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/menu-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/modifierCompetence-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/modifierDemande-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/supprimerDemande-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,20 +61,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Sio2/buftteau/Projet/src/main/resources/image&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/leozo/IdeaProjects/TP7 correction",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Sio2\buftteau\Projet\src\main\resources\image" />
@@ -298,7 +302,23 @@
       <option name="project" value="LOCAL" />
       <updated>1702214251552</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="le graphique voir les stats sur ses soutients marche">
+      <option name="closed" value="true" />
+      <created>1702752089574</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1702752089574</updated>
+    </task>
+    <task id="LOCAL-00027" summary="le graphique voir les stats sur ses soutiens marche et ses demandes sans soutiens">
+      <option name="closed" value="true" />
+      <created>1702764232751</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1702764232751</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -333,7 +353,9 @@
     <MESSAGE value="Crée un soutien marche!" />
     <MESSAGE value="css modifier refonte de modifier demande et refonte d'ajouter demande." />
     <MESSAGE value="css modifier refonte integrale." />
-    <option name="LAST_COMMIT_MESSAGE" value="css modifier refonte integrale." />
+    <MESSAGE value="le graphique voir les stats sur ses soutients marche" />
+    <MESSAGE value="le graphique voir les stats sur ses soutiens marche et ses demandes sans soutiens" />
+    <option name="LAST_COMMIT_MESSAGE" value="le graphique voir les stats sur ses soutiens marche et ses demandes sans soutiens" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

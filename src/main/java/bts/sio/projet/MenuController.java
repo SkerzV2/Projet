@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,7 +37,8 @@ public class MenuController implements Initializable {
     ObservableList lesDemandesTv;
     TreeItem root;
     TreeItem rootComp;
-    XYChart.Series<String,Integer> serieGraphVisualiserSesSoutients;
+    XYChart.Series<String,Integer> serieGraphVisualiserMesSoutien;
+    XYChart.Series<String,Integer> serieGraphVisualiserMesDemandeSansSoutien;
 
     // AnchorPane ------------------------------------------------------------------------------------------------------
 
@@ -189,7 +191,7 @@ public class MenuController implements Initializable {
     private TextArea txtCreeSoutien;
 
     @javafx.fxml.FXML
-    private TableView<Soutient> tvVisualiserAutresDemandes;
+    private TableView<Demande> tvVisualiserAutresDemandes;
 
     @javafx.fxml.FXML
     private TableColumn tcNom;
@@ -239,8 +241,6 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     private Button btnVoirLesDemande;
     @javafx.fxml.FXML
-    private Button btnVoirStats;
-    @javafx.fxml.FXML
     private Button btnMenuDemande;
     @javafx.fxml.FXML
     private Button btnMenuCompetence;
@@ -282,6 +282,16 @@ public class MenuController implements Initializable {
     private AnchorPane apStatsMesDemandes;
     @javafx.fxml.FXML
     private BarChart bcVoirSoutientRealiser;
+    @javafx.fxml.FXML
+    private Button btnStatsNbSoutienRealise;
+    @javafx.fxml.FXML
+    private Button btnStatsDemandeSansSoutien;
+    @javafx.fxml.FXML
+    private BarChart bcVoirDemandeSansSoutien;
+    @javafx.fxml.FXML
+    private Button btnStatsSoutienParMatiere;
+    @javafx.fxml.FXML
+    private PieChart pcVoirStatsSoutienParMatiere;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -338,7 +348,7 @@ public class MenuController implements Initializable {
             //Claude
             tcDateDebutSoutient.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
             tcDateFinSoutient.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
-            tcMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("matiere"));
+            tcMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("designation"));
             tcSousMatiereSoutient.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
             tcNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             tcPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
@@ -458,21 +468,21 @@ public class MenuController implements Initializable {
     public void btnVoirDemandeClicked(Event event) throws SQLException
     {
         apVisualiserDemandes.toFront();
-        BtnVoirDemandeEnCours.setVisible(false);
-        BtnVoirHistoriqueDemande.setVisible(true);
+        BtnVoirDemandeEnCours.setStyle("-fx-background-color: #9d566a");
+        BtnVoirHistoriqueDemande.setStyle("-fx-background-color: #81253f");
         lesDemandes = serviceDemandes.getAllDemandesEnCours(user.getId());
     }
 
     @javafx.fxml.FXML
     public void BtnVoirHistoriqueDemandeClicked(Event event) throws SQLException {
-        BtnVoirDemandeEnCours.setVisible(true);
-        BtnVoirHistoriqueDemande.setVisible(false);
+        BtnVoirDemandeEnCours.setStyle("-fx-background-color: #81253f");
+        BtnVoirHistoriqueDemande.setStyle("-fx-background-color: #9d566a");
         refreshTv(tvVisualiserMesDemandes,serviceDemandes.getAllDemandesEncienne(user.getId()));
     }
     @javafx.fxml.FXML
     public void BtnVoirDemandeEnCoursClicked(Event event) throws SQLException {
-        BtnVoirDemandeEnCours.setVisible(false);
-        BtnVoirHistoriqueDemande.setVisible(true);
+        BtnVoirDemandeEnCours.setStyle("-fx-background-color: #9d566a");
+        BtnVoirHistoriqueDemande.setStyle("-fx-background-color: #81253f");
         refreshTv(tvVisualiserMesDemandes,serviceDemandes.getAllDemandesEnCours(user.getId()));
     }
 
@@ -745,13 +755,13 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     public void btnVoirLesDemandeClicked(Event event) throws SQLException {
         apVoirLesDemande.toFront();
-        ObservableList<Soutient> lesAutresDemandesTv = serviceSoutients.getAllDemandesTv(user.getId());
+        ObservableList<Demande> lesAutresDemandesTv = serviceDemandes.getlesAutresDemandesTv(user.getId());
         refreshTv(tvVisualiserAutresDemandes,lesAutresDemandesTv);
     }
 
     @javafx.fxml.FXML
     public void btnSoutienClicked(Event event) throws IOException, SQLException {
-        Soutient demandeSelectionnee = tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
+        Demande demandeSelectionnee = tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
 
         if(demandeSelectionnee == null)
         {
@@ -765,14 +775,14 @@ public class MenuController implements Initializable {
         {
             apCreeSoutient.toFront();
             tvCreeSoutien.setItems(serviceDemandes.getAllSousMatieresDemande(demandeSelectionnee.getIdDemande()));
-            cboCreeSoutien.setValue(demandeSelectionnee.getMatiere());
+            cboCreeSoutien.setValue(demandeSelectionnee.getDesignation());
             cboCreeSoutien.getSelectionModel().selectFirst();
         }
     }
 
     @javafx.fxml.FXML
     public void btnValiderCreeSoutienClicked(Event event) throws SQLException {
-        Soutient laDemandeSoutient= tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
+        Demande laDemandeSoutient= tvVisualiserAutresDemandes.getSelectionModel().getSelectedItem();
         String dateNow = LocalDate.now().toString();
         String erreurs="";
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -800,11 +810,12 @@ public class MenuController implements Initializable {
             alert.setContentText(erreurs);
             alert.showAndWait();
         }else {
-            serviceSoutients.CreeSoutient(laDemandeSoutient.getIdDemande(), laDemandeSoutient.getIdCompetence(), dpCreeSoutien.getValue().toString(), dateNow, txtCreeSoutien.getText(), laDemandeSoutient.getStatus());
+            int idCompetence = serviceCompetences.getUneCompetenceUser(user.getId(), laDemandeSoutient.getDesignation());
+            serviceSoutients.CreeSoutient(laDemandeSoutient.getIdDemande(), idCompetence, dpCreeSoutien.getValue().toString(), dateNow, txtCreeSoutien.getText(), laDemandeSoutient.getStatus());
             apVoirLesDemande.toFront();
             dpCreeSoutien.setValue(null);
             tvCreeSoutien.setItems(null);
-            ObservableList<Soutient> lesAutresDemandesTv = serviceSoutients.getAllDemandesTv(user.getId());
+            ObservableList<Demande> lesAutresDemandesTv = serviceDemandes.getlesAutresDemandesTv(user.getId());
             refreshTv(tvVisualiserAutresDemandes,lesAutresDemandesTv);
         }
     }
@@ -813,7 +824,7 @@ public class MenuController implements Initializable {
         apVoirLesDemande.toFront();
         dpCreeSoutien.setValue(null);
         tvCreeSoutien.setItems(null);
-        ObservableList<Soutient> lesAutresDemandesTv = serviceSoutients.getAllDemandesTv(user.getId());
+        ObservableList<Demande> lesAutresDemandesTv = serviceDemandes.getlesAutresDemandesTv(user.getId());
         refreshTv(tvVisualiserAutresDemandes,lesAutresDemandesTv);
     }
 
@@ -821,24 +832,88 @@ public class MenuController implements Initializable {
 //                                           VOIR STATISTIQUES                                                                               //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @javafx.fxml.FXML
-    public void btnVoirStatsClicked(Event event) {
+    public void btnStatsNbSoutienRealiseClicked(Event event) {
         apStatsMesDemandes.toFront();
+        bcVoirSoutientRealiser.setVisible(true);
+        bcVoirDemandeSansSoutien.setVisible(false);
+        pcVoirStatsSoutienParMatiere.setVisible(false);
         bcVoirSoutientRealiser.getData().clear();
 
-        HashMap<String, ArrayList<Integer>> donnees = serviceSoutients.getDatasGraphiqueSoutientRealiser(user.getId());
+        HashMap<String, ArrayList<Integer>> donnees = serviceSoutients.getDatasGraphiqueSoutienRealiser(user.getId());
+
         for (String matiere : donnees.keySet()) {
-            serieGraphVisualiserSesSoutients = new XYChart.Series<>();
-            serieGraphVisualiserSesSoutients.setName(matiere);
+            XYChart.Series<String, Integer> serieGraphVisualiserMesSoutien = new XYChart.Series<>();
+            serieGraphVisualiserMesSoutien.setName(matiere);
+
             ArrayList<Integer> valeurs = donnees.get(matiere);
 
             for (int i = 0; i < valeurs.size(); i++) {
-                serieGraphVisualiserSesSoutients.getData().add(new XYChart.Data<>(valeurs.get(i).toString(), valeurs.get(i)));
+                serieGraphVisualiserMesSoutien.getData().add(new XYChart.Data<>(Integer.toString(i + 1), valeurs.get(i)));
             }
+            bcVoirSoutientRealiser.getData().add(serieGraphVisualiserMesSoutien);
+        }
 
-            bcVoirSoutientRealiser.getData().add(serieGraphVisualiserSesSoutients);
+        int totalSoutienRealiser = donnees.values().stream().flatMapToInt(list -> list.stream().mapToInt(Integer::intValue)).sum();
+        XYChart.Series<String, Integer> serieTotal = new XYChart.Series<>();
+        serieTotal.setName("Total");
+        serieTotal.getData().add(new XYChart.Data<>("Total", totalSoutienRealiser));
+
+        bcVoirSoutientRealiser.getData().add(serieTotal);
+    }
+
+    @javafx.fxml.FXML
+    public void btnStatsSoutienParMatiereClicked(Event event) {
+        apStatsMesDemandes.toFront();
+        bcVoirSoutientRealiser.setVisible(false);
+        bcVoirDemandeSansSoutien.setVisible(false);
+        pcVoirStatsSoutienParMatiere.setVisible(true);
+        pcVoirStatsSoutienParMatiere.getData().clear();
+
+        ObservableList<PieChart.Data> datasGraph2 =FXCollections.observableArrayList();
+        HashMap<String,Integer> datasGraphique2 =  serviceSoutients.getDatasGraphiqueSoutienParMatiere(user.getId());
+
+        for (String valeur : datasGraphique2.keySet())
+        {
+            datasGraph2.add(new PieChart.Data(valeur,datasGraphique2.get(valeur) ));
+        }
+        pcVoirStatsSoutienParMatiere.setData(datasGraph2);
+
+        for (PieChart.Data entry : pcVoirStatsSoutienParMatiere.getData()) {
+            Tooltip t = new Tooltip(entry.getPieValue()+ " : "+entry.getName());
+            t.setStyle("-fx-background-color:#3D9ADA");
+            Tooltip.install(entry.getNode(), t);
         }
     }
+
+    public void btnStatsDemandeSansSoutienClicked(Event event) {
+        apStatsMesDemandes.toFront();
+        bcVoirSoutientRealiser.setVisible(false);
+        bcVoirDemandeSansSoutien.setVisible(true);
+        pcVoirStatsSoutienParMatiere.setVisible(false);
+        bcVoirDemandeSansSoutien.getData().clear();
+
+        HashMap<String, ArrayList<Integer>> donnees = serviceSoutients.getDatasGraphiqueSoutientNonRealiser(user.getId());
+
+        for (String matiere : donnees.keySet()) {
+            XYChart.Series<String, Integer> serieGraphVisualiserMesDemandeSansSoutien = new XYChart.Series<>();
+            serieGraphVisualiserMesDemandeSansSoutien.setName(matiere);
+
+            ArrayList<Integer> valeurs = donnees.get(matiere);
+
+            for (int i = 0; i < valeurs.size(); i++) {
+                serieGraphVisualiserMesDemandeSansSoutien.getData().add(new XYChart.Data<>(Integer.toString(i + 1), valeurs.get(i)));
+            }
+
+            bcVoirDemandeSansSoutien.getData().add(serieGraphVisualiserMesDemandeSansSoutien);
+        }
+        int totalDemandeSansSoutien = donnees.values().stream().flatMapToInt(list -> list.stream().mapToInt(Integer::intValue)).sum();
+        XYChart.Series<String, Integer> serieTotal = new XYChart.Series<>();
+        serieTotal.setName("Total");
+        serieTotal.getData().add(new XYChart.Data<>("Total", totalDemandeSansSoutien));
+
+        bcVoirDemandeSansSoutien.getData().add(serieTotal);
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                                           //

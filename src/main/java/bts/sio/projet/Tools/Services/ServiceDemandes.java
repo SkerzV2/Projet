@@ -40,27 +40,6 @@ public class ServiceDemandes {
         ps.close();
     }
 
-    public void modificationDemande(Demande demandeModifiee) throws SQLException {
-        String sql = "UPDATE demande "
-                + "SET demande.date_updated = ?, demande.date_fin_demande = ?,  demande.sous_matiere = ?, demande.id_user = ?, demande.id_matiere = ? "
-                +" WHERE id_demande = ?";
-
-        ps = unCnx.prepareStatement(sql);
-
-        // Remplacez les paramètres de la requête par les valeurs de demandeModifiee
-        ps.setString(1, demandeModifiee.getDateDebut());
-        ps.setString(2, demandeModifiee.getDateFin());
-        ps.setString(3, demandeModifiee.getSousMatiere());
-        ps.setInt(4, demandeModifiee.getIdUser());
-        ps.setInt(5, demandeModifiee.getIdMatiere());
-        ps.setObject(6, demandeModifiee);
-
-        // Exécutez la requête de mise à jour
-        ps.executeUpdate();
-        ps.close();
-    }
-
-
     public ObservableList<Demande> getAllDemandesEncienne(int idUser) throws SQLException
     {
         ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , demande.status "
