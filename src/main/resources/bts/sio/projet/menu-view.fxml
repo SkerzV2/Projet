@@ -40,7 +40,7 @@
             <Button fx:id="btnValiderCreeSoutien" layoutX="487.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#btnValiderCreeSoutienClicked" prefHeight="26.0" prefWidth="108.0" text="Valider" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apModifierDemande" layoutX="203.0" layoutY="56.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;" visible="false">
+      <AnchorPane fx:id="apModifierDemande" layoutX="203.0" layoutY="56.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <Label layoutX="286.0" layoutY="25.0" text="Modifier mes demandes">
                <font>
@@ -59,7 +59,7 @@
             <Button fx:id="BtnSupprimerDemande" layoutX="400.0" layoutY="377.0" mnemonicParsing="false" onMouseClicked="#BtnSupprimerDemandeClicked" prefHeight="26.0" prefWidth="118.0" text="Supprimer" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apModifierComp" layoutX="203.0" layoutY="56.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;" visible="false">
+      <AnchorPane fx:id="apModifierComp" layoutX="203.0" layoutY="56.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <TableView fx:id="tvModifComp" layoutX="41.0" layoutY="77.0" prefHeight="310.0" prefWidth="622.0" stylesheets="@../../../CSS/menu.css">
                <columns>
@@ -371,7 +371,7 @@
             <Button fx:id="BtnVoirDemandeEnCours" layoutX="54.0" layoutY="47.0" mnemonicParsing="false" onMouseClicked="#BtnVoirDemandeEnCoursClicked" prefHeight="26.0" prefWidth="94.0" text="Voir en cours" textFill="WHITE" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apVisualiserComp" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;" visible="false">
+      <AnchorPane fx:id="apVisualiserComp" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <TreeView fx:id="tvVisualiserComp" layoutX="65.0" layoutY="80.0" prefHeight="310.0" prefWidth="578.0" />
             <Label layoutX="298.0" layoutY="26.0" text="Vos compétences">
@@ -381,7 +381,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apEnregistrerCompetence" layoutX="203.0" layoutY="59.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;" visible="false">
+      <AnchorPane fx:id="apEnregistrerCompetence" layoutX="203.0" layoutY="59.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <Label layoutX="275.0" layoutY="32.0" text="Enregistrer ses compétences">
                <font>
@@ -412,7 +412,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apModificationDemande" layoutX="203.0" layoutY="56.0" prefHeight="455.0" prefWidth="707.0" style="-fx-background-color: ffffff;" visible="false">
+      <AnchorPane fx:id="apModificationDemande" layoutX="203.0" layoutY="56.0" prefHeight="455.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <TableView fx:id="tvSousMatiereModifierDemande" layoutX="354.0" layoutY="150.0" prefHeight="219.0" prefWidth="302.0" stylesheets="@../../../CSS/menu.css">
                <columns>
@@ -427,7 +427,7 @@
             <ComboBox fx:id="cboMatiereModifierDemande" layoutX="102.0" layoutY="193.0" prefWidth="150.0" stylesheets="@../../../CSS/menu.css" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apModificationCompetence" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;" visible="false">
+      <AnchorPane fx:id="apModificationCompetence" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
             <ComboBox fx:id="cboMatiereModificationCompetence" layoutX="74.0" layoutY="168.0" prefWidth="150.0" />
             <Label layoutX="129.0" layoutY="131.0" text="Matiere" />
@@ -442,7 +442,7 @@
       </AnchorPane>
       <AnchorPane fx:id="apStatsMesDemandes" layoutX="203.0" layoutY="59.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
-            <BarChart fx:id="bcVoirSoutientRealiser" layoutX="54.0" layoutY="68.0" prefHeight="360.0" prefWidth="600.0" title="Nombre de soutien réalisé par matière" visible="false">
+            <BarChart fx:id="bcVoirSoutientRealiser" layoutX="54.0" layoutY="68.0" prefHeight="360.0" prefWidth="600.0" title="Nombre de soutien réalisé par matière">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -450,7 +450,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
-            <BarChart fx:id="bcVoirDemandeSansSoutien" layoutX="54.0" layoutY="68.0" prefHeight="360.0" prefWidth="600.0" title="Nombre de demande resté sans soutien" visible="false">
+            <BarChart fx:id="bcVoirDemandeSansSoutien" layoutX="54.0" layoutY="68.0" prefHeight="360.0" prefWidth="600.0" title="Nombre de demande resté sans soutien">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>

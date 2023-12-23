@@ -42,9 +42,10 @@ public class ServiceDemandes {
 
     public ObservableList<Demande> getAllDemandesEncienne(int idUser) throws SQLException
     {
-        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , demande.status "
+        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , status.libelle "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
+                + "JOIN status ON status.id = demande.status "
                 + "WHERE demande.id_user = ?" +
                 " And demande.status = 2 or demande.status = 0");
 
@@ -58,7 +59,7 @@ public class ServiceDemandes {
             String sousMatiere = rs.getString("demande.sous_matiere");
             String dateDebut = rs.getString("demande.date_updated");
             String dateFin = rs.getString("demande.date_fin_demande");
-            int status = rs.getInt("demande.status");
+            String status = rs.getString("status.libelle");
             String designationMatiere = rs.getString("matiere.designation");
 
             Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere, idUser, idMatiere, status, designationMatiere);
@@ -71,9 +72,10 @@ public class ServiceDemandes {
     }
     public ObservableList<Demande> getAllDemandesEnCours(int idUser) throws SQLException
     {
-        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , demande.status "
+        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , status.libelle "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
+                + "JOIN status ON demande.status = status.id "
                 + "WHERE demande.id_user = ?"
                 +" And demande.status = 1");
 
@@ -87,7 +89,7 @@ public class ServiceDemandes {
             String sousMatiere = rs.getString("demande.sous_matiere");
             String dateDebut = rs.getString("demande.date_updated");
             String dateFin = rs.getString("demande.date_fin_demande");
-            int status = rs.getInt("demande.status");
+            String  status = rs.getString("status.libelle");
             String designationMatiere = rs.getString("matiere.designation");
 
             Demande uneDemande = new Demande(dateDebut, dateFin, sousMatiere, idUser, idMatiere, status, designationMatiere);

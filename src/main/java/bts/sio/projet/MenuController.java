@@ -312,6 +312,8 @@ public class MenuController implements Initializable {
             serviceDemandes = new ServiceDemandes();
             serviceCompetences = new ServiceCompetences();
             serviceSoutients = new ServiceSoutients();
+            vbxDemande.toFront();
+            apFaireDemande.toFront();
             lesMatieres = FXCollections.observableArrayList();
             lesMatieres.setAll(serviceMatieres.GetAllMatiereObj());
             tvSousMatiereModifierDemande.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -332,7 +334,7 @@ public class MenuController implements Initializable {
             tcDateFinDemandeVisualiser.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
             tcMatiereDemandeVisualiser.setCellValueFactory(new PropertyValueFactory<>("designation"));
             tcSousMatiereDemandeVisualiser.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
-            tcStatusDemandeVisualiser.setCellValueFactory(new PropertyValueFactory<>("status"));
+            tcStatusDemandeVisualiser.setCellValueFactory(new PropertyValueFactory<>("libelleStatus"));
 
             //Pierre
             tvSousMatiereCreeCompetence.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -440,7 +442,7 @@ public class MenuController implements Initializable {
             int idMatiere = tvMatiereCreeDemande.getSelectionModel().getSelectedItem().getIdMatiere();
 
 
-            Demande uneDemande = new Demande(dateNow, dateFinDemande, sousmatiere, user.getId(), idMatiere, 1, nomMatiereSelectionnee);
+            Demande uneDemande = new Demande(dateNow, dateFinDemande, sousmatiere, user.getId(), idMatiere, "En cours", nomMatiereSelectionnee);
 
             serviceDemandes.creationDemande(uneDemande);
             datepFinDem.setValue(null);
@@ -471,6 +473,7 @@ public class MenuController implements Initializable {
         BtnVoirDemandeEnCours.setStyle("-fx-background-color: #9d566a");
         BtnVoirHistoriqueDemande.setStyle("-fx-background-color: #81253f");
         lesDemandes = serviceDemandes.getAllDemandesEnCours(user.getId());
+        tvVisualiserMesDemandes.setItems(lesDemandes);
     }
 
     @javafx.fxml.FXML
@@ -755,6 +758,7 @@ public class MenuController implements Initializable {
     @javafx.fxml.FXML
     public void btnVoirLesDemandeClicked(Event event) throws SQLException {
         apVoirLesDemande.toFront();
+
         ObservableList<Demande> lesAutresDemandesTv = serviceDemandes.getlesAutresDemandesTv(user.getId());
         refreshTv(tvVisualiserAutresDemandes,lesAutresDemandesTv);
     }
@@ -832,6 +836,7 @@ public class MenuController implements Initializable {
 //                                           VOIR STATISTIQUES                                                                               //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    @javafx.fxml.FXML
     public void btnStatsNbSoutienRealiseClicked(Event event) {
         apStatsMesDemandes.toFront();
         bcVoirSoutientRealiser.setVisible(true);
@@ -885,6 +890,7 @@ public class MenuController implements Initializable {
         }
     }
 
+    @javafx.fxml.FXML
     public void btnStatsDemandeSansSoutienClicked(Event event) {
         apStatsMesDemandes.toFront();
         bcVoirSoutientRealiser.setVisible(false);

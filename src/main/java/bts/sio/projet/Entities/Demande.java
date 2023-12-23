@@ -13,6 +13,7 @@ public class Demande {
     private String designation;
     private int idDemande;
     private int status;
+    private String libelleStatus;
 
 //constructeur modifier les demande
     public Demande(String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere, String designation, int idDemande) {
@@ -27,7 +28,7 @@ public class Demande {
     }
 //constructeur visualiser les demande
 
-    public Demande(String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere, int status, String designation) {
+    public Demande(String dateDebut, String dateFin, String sousMatiere, int idUser, int idMatiere, String libelleStatus, String designation) {
 
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -35,7 +36,7 @@ public class Demande {
         this.idUser = idUser;
         this.idMatiere = idMatiere;
         this.designation = designation;
-        this.status = status;
+        this.libelleStatus = libelleStatus;
     }
 
 
@@ -99,8 +100,8 @@ public class Demande {
         return status;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public String getLibelleStatus() {
+        return libelleStatus;
     }
 }
 
