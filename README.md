@@ -1,39 +1,22 @@
 # Project JavaFX - gestion soutient
 
-## Integrate with your tools
+## Our tools
 
-- [ ] [Set up project integrations](https://gitlab.com/ormex/google-earth-engine/-/settings/integrations)
+- [ ] [project integrations](https://www.jetbrains.com/fr-fr/idea/)
 
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
 ***
 
 
 ## Name
-Projet - Gestion des Soutients
+Project - Gestion des Soutients
 
 ## Description
-Ce projet a pour but de mettre en relation différents étudiants afin de mettre en place des soutients (gestion des demandes et de la créaton de soutient en fonction de compétences)
+This project aims to connect different students in order to set up support (management of requests and the creation of support based on skills).
+Students can give classes only if they are 2 years older than the one who need supports. 
 
 ## Visuals
 //images
-
 
 ## Installation
 No installation needed, just upload the folder in the text editor you want.
