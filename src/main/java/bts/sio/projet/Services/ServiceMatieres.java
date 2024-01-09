@@ -1,4 +1,4 @@
-package bts.sio.projet.Tools.Services;
+package bts.sio.projet.Services;
 
 import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Tools.ConnexionBDD;
@@ -98,5 +98,12 @@ public class ServiceMatieres {
             }
         }
         return lesSousMatieres;
+    }
+    public void CreeMatiere(Matiere laMatiere) throws SQLException {
+        ps = unCnx.prepareStatement("INSERT INTO Matiere ( matiere.designation, matiere.sous_matiere)" +
+                "VALUES (?,?)");
+        ps.setString(1, laMatiere.getDesignation());
+        ps.setString(2, laMatiere.getSousMatiere());
+        ps.executeUpdate();
     }
 }

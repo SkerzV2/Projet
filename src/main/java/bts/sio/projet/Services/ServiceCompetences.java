@@ -1,7 +1,6 @@
-package bts.sio.projet.Tools.Services;
+package bts.sio.projet.Services;
 
 import bts.sio.projet.Entities.Competence;
-import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

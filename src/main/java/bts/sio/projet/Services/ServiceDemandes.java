@@ -1,8 +1,6 @@
-package bts.sio.projet.Tools.Services;
+package bts.sio.projet.Services;
 
 import bts.sio.projet.Entities.Demande;
-import bts.sio.projet.Entities.Matiere;
-import bts.sio.projet.Entities.Soutient;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeMap;
 
 public class ServiceDemandes {
     private Connection unCnx;
@@ -199,13 +196,6 @@ public class ServiceDemandes {
     public ObservableList<Demande> getlesAutresDemandesTv(int idUser) throws SQLException {
         mesCompetences = serviceCompetences.getMesCompetences(idUser);
         int leIntNiveau = serviceUsers.getNiveau(idUser);
-        /*
-        ArrayList<String> mesCompetences = getMesCompetences(idUser);
-        int leIntNiveau = getIntNiveau(idUser);
-        String niveauCondition = getRequetNiveauCondition(leIntNiveau);
-        if (leIntNiveau >= 2) {
-
-     */
         ps = unCnx.prepareStatement("SELECT user.id, user.nom, user.prenom, user.niveau, demande.id, demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
@@ -229,7 +219,6 @@ public class ServiceDemandes {
             String dateDebut = rs.getString("demande.date_updated");
             String dateFin = rs.getString("demande.date_fin_demande");
             int idDemande = rs.getInt("demande.id");
-            int idUserdem = rs.getInt("user.id");
             String nomUser = rs.getString("user.nom");
             String prenomUser = rs.getString("user.prenom");
             int niveauUser = rs.getInt("user.niveau");

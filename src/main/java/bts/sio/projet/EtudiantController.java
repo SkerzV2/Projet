@@ -1,7 +1,10 @@
 package bts.sio.projet;
 
 import bts.sio.projet.Entities.*;
-import bts.sio.projet.Tools.Services.*;
+import bts.sio.projet.Services.ServiceCompetences;
+import bts.sio.projet.Services.ServiceDemandes;
+import bts.sio.projet.Services.ServiceMatieres;
+import bts.sio.projet.Services.ServiceSoutients;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +27,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
-public class MenuController implements Initializable {
+public class EtudiantController implements Initializable {
     ConnexionBDD maCnx;
     ServiceMatieres serviceMatieres;
     ServiceDemandes serviceDemandes;
@@ -300,9 +303,6 @@ public class MenuController implements Initializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public void setProjetController(ProjetController projetController) {
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {

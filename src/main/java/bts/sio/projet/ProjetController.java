@@ -11,7 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import bts.sio.projet.Entities.*;
-import bts.sio.projet.Tools.Services.ServiceUsers;
+import bts.sio.projet.Services.ServiceUsers;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +26,9 @@ public class ProjetController implements Initializable
     ServiceUsers serviceUsers = new ServiceUsers();
     User user;
 
-    MenuController menuController;
+    EtudiantController etudiantController;
+    AdminController adminController;
+
 
     @javafx.fxml.FXML
     private Button btnConnexion;
@@ -66,20 +68,34 @@ public class ProjetController implements Initializable
             alert.setContentText(erreurs);
             alert.setHeaderText("");
             alert.showAndWait();
-        } else {
-            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            primaryStage.close();
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu-view.fxml"));
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            menuController = fxmlLoader.getController();
-            menuController.setUser(user); // Transmettez l'objet User à MenuController
-            menuController.setProjetController(this);
-            Stage newStage = new Stage();
-            newStage.setTitle("Menu");
-            newStage.setScene(scene);
-            newStage.show();
+        }
+        else {
+            if(user.getRole().equals("Etudiant")) {
+                Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                primaryStage.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("etudiant-view.fxml"));
+                Parent root = fxmlLoader.load();
+                Scene scene = new Scene(root);
+                etudiantController = fxmlLoader.getController();
+                etudiantController.setUser(user); // Transmettez l'objet User à MenuController
+                Stage newStage = new Stage();
+                newStage.setTitle("Menu");
+                newStage.setScene(scene);
+                newStage.show();
+            }
+            else{
+                Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                primaryStage.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("admin-view.fxml"));
+                Parent root = fxmlLoader.load();
+                Scene scene = new Scene(root);
+                adminController = fxmlLoader.getController();
+                adminController.setUser(user); // Transmettez l'objet User à MenuController
+                Stage newStage = new Stage();
+                newStage.setTitle("Menu");
+                newStage.setScene(scene);
+                newStage.show();
+            }
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

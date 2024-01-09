@@ -1,4 +1,4 @@
-package bts.sio.projet.Tools.Services;
+package bts.sio.projet.Services;
 
 import bts.sio.projet.Tools.ConnexionBDD;
 import bts.sio.projet.Entities.User;
