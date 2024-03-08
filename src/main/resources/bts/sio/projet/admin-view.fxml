@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bts.sio.projet.AdminController">
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="710.0">
@@ -27,17 +26,19 @@
                               <Font name="System Bold Italic" size="14.0" />
                           </font>
                       </Label>
-                  <TextField fx:id="txtCreeMatiereNomMatiere" layoutX="109.0" layoutY="159.0" />
+                  <TextField fx:id="txtCreeMatiereNomMatiere" layoutX="109.0" layoutY="168.0" />
                   <TableView fx:id="tvCreeMatiereSousMatiere" layoutX="421.0" layoutY="132.0" prefHeight="182.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="tcCreeMatiereSousMatiere" prefWidth="199.1999969482422" text="Les Sous Matières" />
                     </columns>
                   </TableView>
-                  <TextField fx:id="txtCreeMatiereSousMatiere" layoutX="109.0" layoutY="239.0" />
-                  <Button fx:id="btnCreeMatiereAjouterSousMatiere" layoutX="203.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#btnCreeMatiereAjouterSousMatiereClicked" text="Ajouter" />
+                  <TextField fx:id="txtCreeMatiereSousMatiere" layoutX="109.0" layoutY="250.0" />
+                  <Button fx:id="btnCreeMatiereAjouterSousMatiere" layoutX="203.0" layoutY="292.0" mnemonicParsing="false" onMouseClicked="#btnCreeMatiereAjouterSousMatiereClicked" text="Ajouter" />
                   <Button fx:id="btnCreeMatiereCreer" layoutX="405.0" layoutY="386.0" mnemonicParsing="false" onMouseClicked="#btnCreeMatiereCreerClicked" prefHeight="26.0" prefWidth="208.0" text="Crée" />
                   <Button fx:id="btnCreeMatiereAnnuler" layoutX="80.0" layoutY="386.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="208.0" text="Annuler" />
                   <Button fx:id="btnCreeMatiereSupprSousMatiere" layoutX="549.0" layoutY="318.0" mnemonicParsing="false" onMouseClicked="#btnCreeMatiereSupprSousMatiereClicked" text="Supprimer" />
+                  <Label layoutX="109.0" layoutY="142.0" prefHeight="18.0" prefWidth="63.0" text="Matière" />
+                  <Label layoutX="109.0" layoutY="218.0" prefHeight="18.0" prefWidth="103.0" text="Sous-matières" />
                   </children>
               </AnchorPane>
           </children>

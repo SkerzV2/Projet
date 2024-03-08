@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -75,19 +72,51 @@ public class AdminController implements Initializable {
     }
     @javafx.fxml.FXML
     public void btnCreeMatiereCreerClicked(Event event) throws SQLException {
-        apCreeMatiere.toFront();
-        Matiere uneMatiere = new Matiere(0,txtCreeMatiereNomMatiere.getText(),getStringObservable(tvCreeMatiereSousMatiere.getItems()));
-        serviceMatieres.CreeMatiere(uneMatiere);
+        if(txtCreeMatiereNomMatiere.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("Veuillez saisir une matière");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }else{
+            //on doit mettre un "#" devant chaque sous_matiere
+            /*ObservableList<String> listesSousMatieres = tvCreeMatiereSousMatiere.getItems();
+            for (int i = 0; i < listesSousMatieres.size(); i++) {
+                listesSousMatieres.set(i, "#" + listesSousMatieres.get(i));
+            }
+            System.out.println(listesSousMatieres);*/
+            apCreeMatiere.toFront();
+            Matiere uneMatiere = new Matiere(0,txtCreeMatiereNomMatiere.getText(),getStringObservable(tvCreeMatiereSousMatiere.getItems()));
+            serviceMatieres.CreeMatiere(uneMatiere);
+        }
     }
+
     @javafx.fxml.FXML
     public void btnCreeMatiereAjouterSousMatiereClicked(Event event) {
-        Matiere uneMatiere = new Matiere(txtCreeMatiereSousMatiere.getText());
-        tvCreeMatiereSousMatiere.getItems().add(uneMatiere);
+        if(txtCreeMatiereSousMatiere.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("Veuillez saisir une sous-matière");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }else{
+            Matiere uneMatiere = new Matiere(txtCreeMatiereSousMatiere.getText());
+            tvCreeMatiereSousMatiere.getItems().add(uneMatiere);
+            txtCreeMatiereSousMatiere.setText(null);
+        }
     }
 
     @javafx.fxml.FXML
     public void btnCreeMatiereSupprSousMatiereClicked(Event event) {
-        tvCreeMatiereSousMatiere.getItems().remove(tvCreeMatiereSousMatiere.getSelectionModel().getSelectedItem());
+        if(tvCreeMatiereSousMatiere.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une sous-matière");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }else{
+            tvCreeMatiereSousMatiere.getItems().remove(tvCreeMatiereSousMatiere.getSelectionModel().getSelectedItem());
+        }
     }
 
     @javafx.fxml.FXML
