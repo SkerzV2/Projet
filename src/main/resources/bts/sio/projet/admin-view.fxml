@@ -20,7 +20,7 @@
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="710.0">
           <children>
-              <AnchorPane fx:id="apCreeMatiere" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;" visible="false">
+              <AnchorPane fx:id="apCreeMatiere" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
                   <children>
                       <Label layoutX="298.0" layoutY="39.0" text="Crée une Matière">
                           <font>
@@ -65,6 +65,20 @@
                   <ComboBox fx:id="cbModifMatiereSelectionnerMatiere" layoutX="78.0" layoutY="132.0" onMouseClicked="#cbModifMatiereSelectionnerMatiereClicked" prefHeight="26.0" prefWidth="247.0" promptText="Liste des matières" />
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="apCreeSalle" prefHeight="455.0" prefWidth="711.0" style="-fx-background-color: ffff;">
+               <children>
+                  <Label layoutX="309.0" layoutY="46.0" text="Crée une Salle">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cboCreeSalleEtage" layoutX="281.0" layoutY="145.0" prefWidth="150.0" />
+                  <TextField fx:id="txtCreeSalleId" layoutX="281.0" layoutY="234.0" />
+                  <Button fx:id="btnCreeSalle" layoutX="309.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnCreeSalleClicked" prefHeight="26.0" prefWidth="94.0" text="Crée" />
+                  <Label layoutX="281.0" layoutY="112.0" text="Selectioner un Etage" />
+                  <Label layoutX="281.0" layoutY="200.0" text="Identifiant de la salle" />
+               </children>
+            </AnchorPane>
           </children>
       </AnchorPane>
    </center>
@@ -101,6 +115,12 @@
                                         <String fx:value="btnsousmenu1" />
                                     </styleClass>
                                 </Button>
+                        <Button fx:id="btnMenuCreeSalle" mnemonicParsing="false" onMouseClicked="#btnMenuCreerSalleClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Crée une Salle" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="btnsousmenu1" />
+                              <String fx:value="btn1" />
+                           </styleClass>
+                        </Button>
                             </children>
                             <padding>
                                 <Insets top="15.0" />

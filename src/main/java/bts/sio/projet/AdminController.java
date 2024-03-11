@@ -1,6 +1,7 @@
 package bts.sio.projet;
 
 import bts.sio.projet.Entities.Matiere;
+import bts.sio.projet.Entities.Salle;
 import bts.sio.projet.Entities.User;
 import bts.sio.projet.Services.*;
 import javafx.collections.FXCollections;
@@ -22,6 +23,7 @@ public class AdminController implements Initializable {
     ServiceDemandes serviceDemandes;
     ServiceCompetences serviceCompetences;
     ServiceSoutients serviceSoutients;
+    ServiceSalle serviceSalle;
     private User user;
     @javafx.fxml.FXML
     private AnchorPane apCreeMatiere;
@@ -75,6 +77,16 @@ public class AdminController implements Initializable {
     private TextField txtModifMatiereNomMatiere;
     @javafx.fxml.FXML
     private ComboBox cbModifMatiereSelectionnerMatiere;
+    @javafx.fxml.FXML
+    private AnchorPane apCreeSalle;
+    @javafx.fxml.FXML
+    private ComboBox cboCreeSalleEtage;
+    @javafx.fxml.FXML
+    private TextField txtCreeSalleId;
+    @javafx.fxml.FXML
+    private Button btnCreeSalle;
+    @javafx.fxml.FXML
+    private Button btnMenuCreeSalle;
 
     public void setUser(User user) {
         this.user = user;
@@ -87,9 +99,23 @@ public class AdminController implements Initializable {
         serviceSoutients = new ServiceSoutients();
         serviceMatieres = new ServiceMatieres();
         serviceUsers = new ServiceUsers();
+        serviceSalle = new ServiceSalle();
         apCreeMatiere.toFront();
+
         tcCreeMatiereSousMatiere.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+        ObservableList<String> lesEtages = FXCollections.observableArrayList();
+        lesEtages.add("Etage 1");
+        lesEtages.add("Etage 2");
+        lesEtages.add("Etage 3");
+        lesEtages.add("Etage 4");
+        cboCreeSalleEtage.setItems(lesEtages);
+        cboCreeSalleEtage.getSelectionModel().selectFirst();
+
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ //                                           CREATION D UNE MATIERE                                                                          //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @javafx.fxml.FXML
     public void btnCreeMatiereCreerClicked(Event event) throws SQLException {
         if(txtCreeMatiereNomMatiere.getText().isEmpty()){
@@ -134,17 +160,32 @@ public class AdminController implements Initializable {
             tvCreeMatiereSousMatiere.getItems().remove(tvCreeMatiereSousMatiere.getSelectionModel().getSelectedItem());
         }
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                           CREATION D UNE SALLE                                                                             //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @javafx.fxml.FXML
+    public void btnCreeSalleClicked(Event event) throws SQLException {
+        String etageString =cboCreeSalleEtage.getSelectionModel().getSelectedItem().toString();
+        String numeroEtage = etageString.replace("Etage ", "").trim();
+        String code_salle = "Salle "+ txtCreeSalleId.getText();
+        int etage =Integer.parseInt(numeroEtage);
+        int idSalle = Integer.parseInt(txtCreeSalleId.getText());
+        Salle uneSalle = new Salle(idSalle,code_salle,etage);
+        serviceSalle.CreeSalle(uneSalle);
 
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                           MODIFICATION D UNE SALLE                                                                         //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @javafx.fxml.FXML
+    public void btnMenuMatiereClicked(Event event) {
+    }
     @javafx.fxml.FXML
     public void btnModifierMatiereClicked(Event event)
     {
 
     }
-
-    @javafx.fxml.FXML
-    public void btnMenuMatiereClicked(Event event) {
-    }
-
     @javafx.fxml.FXML
     public void btnMenuSalleClicked(Event event) {
     }
@@ -178,7 +219,7 @@ public class AdminController implements Initializable {
     }
     @javafx.fxml.FXML
     public void btnCreerMatiereClicked(Event event) throws SQLException {
-
+        apCreeMatiere.toFront();
     }
 
     @javafx.fxml.FXML
@@ -203,5 +244,10 @@ public class AdminController implements Initializable {
 
     @javafx.fxml.FXML
     public void cbModifMatiereSelectionnerMatiereClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void btnMenuCreerSalleClicked(Event event) {
+        apCreeSalle.toFront();
     }
 }
