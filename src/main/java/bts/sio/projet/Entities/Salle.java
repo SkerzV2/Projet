@@ -5,10 +5,18 @@ public class Salle {
     private String codeSalle;
     private int etage;
 
+    private int nvId;
+
     public Salle(int id, String codeSalle, int etage) {
         this.id = id;
         this.codeSalle = codeSalle;
         this.etage = etage;
+    }
+    public Salle(int id, String codeSalle, int etage,int nvId) {
+        this.id = id;
+        this.codeSalle = codeSalle;
+        this.etage = etage;
+        this.nvId = nvId;
     }
 
     public int getId() {
@@ -33,5 +41,9 @@ public class Salle {
 
     public void setEtage(int etage) {
         this.etage = etage;
+    }
+
+    public int getNvId() {
+        return nvId;
     }
 }

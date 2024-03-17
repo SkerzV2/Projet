@@ -3,6 +3,8 @@ package bts.sio.projet.Services;
 import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.Salle;
 import bts.sio.projet.Tools.ConnexionBDD;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +26,30 @@ public class ServiceSalle {
         ps.setString(2, laSalle.getCodeSalle());
         ps.setInt(3, laSalle.getEtage());
 
+        ps.executeUpdate();
+    }
+    public ObservableList<String> GetAllSalle() throws SQLException
+    {
+        ObservableList<String> lesSalles = FXCollections.observableArrayList();
+
+        ps = unCnx.prepareStatement("SELECT salle.code_salle \n"
+                +"FROM `salle`\n");
+
+        rs = ps.executeQuery();
+        while(rs.next())
+        {
+            lesSalles.add(rs.getString("code_salle"));
+        }
+        return lesSalles;
+    }
+    public void ModifierSalle(Salle laSalle) throws SQLException {
+        ps = unCnx.prepareStatement("UPDATE salle SET salle.id = ?, salle.code_salle = ?, salle.etage = ? "+
+                " WHERE salle.id = ? ");
+        ps.setInt(1, laSalle.getNvId());
+        ps.setString(2, laSalle.getCodeSalle());
+        ps.setInt(3, laSalle.getEtage());
+        ps.setInt(4, laSalle.getId());
+        System.out.println(ps);
         ps.executeUpdate();
     }
 }

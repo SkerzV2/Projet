@@ -4,6 +4,8 @@ import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.Salle;
 import bts.sio.projet.Entities.User;
 import bts.sio.projet.Services.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -31,8 +33,6 @@ public class AdminController implements Initializable {
     private VBox vbxDemande;
     @javafx.fxml.FXML
     private Button btnCreerMatiere;
-    @javafx.fxml.FXML
-    private Button btnModifierMatiere;
     @javafx.fxml.FXML
     private Button btnMenuMatiere;
     @javafx.fxml.FXML
@@ -87,6 +87,22 @@ public class AdminController implements Initializable {
     private Button btnCreeSalle;
     @javafx.fxml.FXML
     private Button btnMenuCreeSalle;
+    @javafx.fxml.FXML
+    private Button btnMenuModifierMatiere;
+    @javafx.fxml.FXML
+    private AnchorPane appModifierSalle;
+    @javafx.fxml.FXML
+    private ComboBox cboModifierSalleEtage;
+    @javafx.fxml.FXML
+    private TextField txtModifierSalleIdSalle;
+    @javafx.fxml.FXML
+    private Button btnModifierSalleModifier;
+    @javafx.fxml.FXML
+    private ComboBox cboModifierSalleNomSalle;
+    @javafx.fxml.FXML
+    private Button btnModifierSalleAnnuler;
+    @javafx.fxml.FXML
+    private Button btnMenuModifierSalle;
 
     public void setUser(User user) {
         this.user = user;
@@ -109,13 +125,46 @@ public class AdminController implements Initializable {
         lesEtages.add("Etage 3");
         lesEtages.add("Etage 4");
         cboCreeSalleEtage.setItems(lesEtages);
+        cboModifierSalleEtage.setItems(lesEtages);
         cboCreeSalleEtage.getSelectionModel().selectFirst();
 
+        tcModifMatiereSousMatiere.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
+
+        cbModifMatiereSelectionnerMatiere.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue != null) {
+                    String matiereSelectionne = newValue;
+                    try {
+                        tvModifMatiereSousMatiere.setItems(serviceMatieres.GetAllSousMatiereOBJ(matiereSelectionne));
+                        txtModifMatiereNomMatiere.setText(cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem().toString());} catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+        cboModifierSalleNomSalle.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue != null) {
+                    String matiereSelectionne = newValue;
+                    try {
+                        cboModifierSalleNomSalle.setItems(serviceSalle.GetAllSalle());
+                        txtModifierSalleIdSalle.setText(cboModifierSalleNomSalle.getSelectionModel().getSelectedItem().toString().replace("Salle ", "").trim());
+                        cboModifierSalleEtage.setValue("Etage "+cboModifierSalleNomSalle.getSelectionModel().getSelectedItem().toString().replace("Salle ", "").trim().charAt(0));
+                        } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  //                                           CREATION D UNE MATIERE                                                                          //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @javafx.fxml.FXML
+    public void btnCreerMatiereClicked(Event event) throws SQLException {
+        apCreeMatiere.toFront();
+    }
     @javafx.fxml.FXML
     public void btnCreeMatiereCreerClicked(Event event) throws SQLException {
         if(txtCreeMatiereNomMatiere.getText().isEmpty()){
@@ -160,8 +209,63 @@ public class AdminController implements Initializable {
             tvCreeMatiereSousMatiere.getItems().remove(tvCreeMatiereSousMatiere.getSelectionModel().getSelectedItem());
         }
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                           CREATION D UNE SALLE                                                                             //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                           MODIFICATION MATIERE                                                                             //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @javafx.fxml.FXML
+    public void btnMenuModifierMatiereClicked(Event event) throws SQLException {
+        cbModifMatiereSelectionnerMatiere.setItems(serviceMatieres.GetAllMatiere());
+        apModifMatiere.toFront();
+    }
+
+    @javafx.fxml.FXML
+    public void btnModifMatiereAjouterSousMatiereClicked(Event event) {
+        if(txtModifMatiereSousMatiere.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("Veuillez saisir une sous-matière");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }else{
+            Matiere uneMatiere = new Matiere(txtModifMatiereSousMatiere.getText());
+            tvModifMatiereSousMatiere.getItems().add(uneMatiere);
+            txtModifMatiereSousMatiere.setText(null);
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void btnModifMatiereModifierClicked(Event event) throws SQLException {
+        Matiere matiere = new Matiere(cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem().toString(),getStringObservable(tvModifMatiereSousMatiere.getItems()),txtModifMatiereNomMatiere.getText());
+        serviceMatieres.ModifierMatiere(matiere);
+        cbModifMatiereSelectionnerMatiere.setValue("");
+        txtModifMatiereSousMatiere.setText("");
+        txtModifMatiereNomMatiere.setText("");
+        tvModifMatiereSousMatiere.getItems().clear();
+    }
+
+    @javafx.fxml.FXML
+    public void btnModifMatiereAnnulerClicked(Event event) {
+        cbModifMatiereSelectionnerMatiere.setValue("");
+        txtModifMatiereSousMatiere.setText("");
+        txtModifMatiereNomMatiere.setText("");
+        tvModifMatiereSousMatiere.getItems().clear();
+    }
+
+    @javafx.fxml.FXML
+    public void btnModifMatiereSupprSousMatiereClicked(Event event) {
+        if(tvModifMatiereSousMatiere.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une sous-matière");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }else{
+            tvModifMatiereSousMatiere.getItems().remove(tvModifMatiereSousMatiere.getSelectionModel().getSelectedItem());
+        }
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                           CREATION SALLE                                                                                   //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @javafx.fxml.FXML
     public void btnCreeSalleClicked(Event event) throws SQLException {
@@ -172,20 +276,39 @@ public class AdminController implements Initializable {
         int idSalle = Integer.parseInt(txtCreeSalleId.getText());
         Salle uneSalle = new Salle(idSalle,code_salle,etage);
         serviceSalle.CreeSalle(uneSalle);
-
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                           MODIFICATION D UNE SALLE                                                                         //
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                           MODIFICATION SALLE                                                                               //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @javafx.fxml.FXML
     public void btnMenuMatiereClicked(Event event) {
     }
-    @javafx.fxml.FXML
-    public void btnModifierMatiereClicked(Event event)
-    {
 
+    @javafx.fxml.FXML
+    public void btnModifierSalleCreeClicked(Event event) throws SQLException {
+        String etageString = cboModifierSalleEtage.getSelectionModel().getSelectedItem().toString();
+        String numeroEtage = etageString.replace("Etage ", "").trim();
+        String code_salle = "Salle "+ txtModifierSalleIdSalle.getText();
+        int etage =Integer.parseInt(numeroEtage);
+        int encienIdSalle = Integer.parseInt(cboModifierSalleNomSalle.getSelectionModel().getSelectedItem().toString().replace("Salle","").trim());
+        int idSalle = Integer.parseInt(txtModifierSalleIdSalle.getText());
+        Salle uneSalle = new Salle(encienIdSalle,code_salle,etage,idSalle);
+        serviceSalle.ModifierSalle(uneSalle);
     }
+
+    @javafx.fxml.FXML
+    public void btnModifierSalleAnnulerClicked(Event event) {
+        txtModifierSalleIdSalle.setText("");
+        cboModifierSalleEtage.setValue("");
+        cboModifierSalleNomSalle.setValue("");
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////                                           MODIFICATION SALLE                                                                              //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @javafx.fxml.FXML
     public void btnMenuSalleClicked(Event event) {
     }
@@ -217,37 +340,16 @@ public class AdminController implements Initializable {
         }
         return leSousMatieres;
     }
-    @javafx.fxml.FXML
-    public void btnCreerMatiereClicked(Event event) throws SQLException {
-        apCreeMatiere.toFront();
-    }
 
-    @javafx.fxml.FXML
-    public void tvModifMatiereSousMatiereClicked(Event event) {
-    }
-
-    @javafx.fxml.FXML
-    public void btnModifMatiereAjouterSousMatiereClicked(Event event) {
-    }
-
-    @javafx.fxml.FXML
-    public void btnModifMatiereModifierClicked(Event event) {
-    }
-
-    @javafx.fxml.FXML
-    public void btnModifMatiereAnnulerClicked(Event event) {
-    }
-
-    @javafx.fxml.FXML
-    public void btnModifMatiereSupprSousMatiereClicked(Event event) {
-    }
-
-    @javafx.fxml.FXML
-    public void cbModifMatiereSelectionnerMatiereClicked(Event event) {
-    }
 
     @javafx.fxml.FXML
     public void btnMenuCreerSalleClicked(Event event) {
         apCreeSalle.toFront();
+    }
+
+    @javafx.fxml.FXML
+    public void btnMenuModifierSalleClicked(Event event) throws SQLException {
+        appModifierSalle.toFront();
+        cboModifierSalleNomSalle.setItems(serviceSalle.GetAllSalle());
     }
 }
