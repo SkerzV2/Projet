@@ -744,8 +744,8 @@ public class EtudiantController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnAnnulerModificationCompetenceClicked(Event event) throws SQLException {
-      /*tvModifComp.setItems(null);
-        refreshTv(tvModifComp,serviceCompetences.getAllCompetenceObj(user.getId()));*/
+      tvModifComp.setItems(null);
+        refreshTv(tvModifComp,serviceCompetences.getAllCompetenceObj(user.getId()));
     }
 
     @javafx.fxml.FXML

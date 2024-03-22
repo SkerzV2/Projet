@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="le graphique voir les stats sur ses soutients marche">
+    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="toutes les fautes et erreurs sont régler">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/EtudiantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/EtudiantController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/admin-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/admin-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +30,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -344,7 +346,8 @@
     <MESSAGE value="css modifier refonte de modifier demande et refonte d'ajouter demande." />
     <MESSAGE value="css modifier refonte integrale." />
     <MESSAGE value="le graphique voir les stats sur ses soutients marche" />
-    <option name="LAST_COMMIT_MESSAGE" value="le graphique voir les stats sur ses soutients marche" />
+    <MESSAGE value="toutes les fautes et erreurs sont régler" />
+    <option name="LAST_COMMIT_MESSAGE" value="toutes les fautes et erreurs sont régler" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
