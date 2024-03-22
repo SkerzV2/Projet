@@ -511,7 +511,7 @@ public class EtudiantController implements Initializable {
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de sélection");
-            alert.setContentText("Veuillez sélectionner une demande pour supprimer");
+            alert.setContentText("Veuillez sélectionner une demande pour modifier");
             alert.setHeaderText("");
             alert.showAndWait();
         }
@@ -534,7 +534,6 @@ public class EtudiantController implements Initializable {
             cboMatiereModifierDemande.setValue(demandeSelectionnee.getDesignation());
             cboMatiereModifierDemande.getSelectionModel().selectFirst();
             tcSousMatiereModifierDemande.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
-
         }
     }
     @javafx.fxml.FXML
@@ -555,6 +554,8 @@ public class EtudiantController implements Initializable {
             int idDemande = tvModifDemandes.getSelectionModel().getSelectedItem().getIdDemande();
 
             serviceDemandes.modifDemande(user.getId(), dateUpdate, dateFin, sousMatiere, idDemande);
+            lesDemandesTv = serviceDemandes.getAllDemandesTv(user.getId());
+            tvModifDemandes.setItems(lesDemandesTv);
             apModifierDemande.toFront();
         }
     }
@@ -577,7 +578,7 @@ public class EtudiantController implements Initializable {
                 tcMatiere.setCellValueFactory(new PropertyValueFactory<>("designation"));
                 tcSousMatieres.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
                 tvModifDemandes.setItems(lesDemandesTv);
-                boolean retour=serviceDemandes.supprimerDemande(demandeSelectionnee.getIdDemande());
+                boolean retour = serviceDemandes.supprimerDemande(demandeSelectionnee.getIdDemande());
                 if (retour==true){
                     alert.setTitle("Erreur de suppréssion");
                     alert.setContentText("Vous avez déja un soutien en cours ");
@@ -710,19 +711,30 @@ public class EtudiantController implements Initializable {
     }
     @javafx.fxml.FXML
     public void BtnModifierLaCompetenceClicked(Event event) throws SQLException {
-        ObservableList<Matiere> sousMatieres = serviceMatieres.GetAllSousMatiereOBJ(tvModifComp.getSelectionModel().getSelectedItem().getDesignation());
-        ObservableList<String> demandeSousMatieres = getObservableSplit(tvModifComp.getSelectionModel().getSelectedItem().getSousMatiere());
-        refreshTv(tvSousMatiereModificationCompetence,sousMatieres);
-        for (String sousMatiere : demandeSousMatieres) {
-            for (String demandesousMatiere : demandeSousMatieres) {
-                if (sousMatiere.equals(demandesousMatiere)) {
-                    int index = demandeSousMatieres.indexOf(sousMatiere);
-                    tvSousMatiereModificationCompetence.getSelectionModel().select(index);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (tvModifComp.getSelectionModel().getSelectedItems().isEmpty())
+        {
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une compétence pour modifier");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else
+        {
+            ObservableList<Matiere> sousMatieres = serviceMatieres.GetAllSousMatiereOBJ(tvModifComp.getSelectionModel().getSelectedItem().getDesignation());
+            ObservableList<String> demandeSousMatieres = getObservableSplit(tvModifComp.getSelectionModel().getSelectedItem().getSousMatiere());
+            refreshTv(tvSousMatiereModificationCompetence,sousMatieres);
+            for (String sousMatiere : demandeSousMatieres) {
+                for (String demandesousMatiere : demandeSousMatieres) {
+                    if (sousMatiere.equals(demandesousMatiere)) {
+                        int index = demandeSousMatieres.indexOf(sousMatiere);
+                        tvSousMatiereModificationCompetence.getSelectionModel().select(index);
+                    }
                 }
             }
+            cboMatiereModificationCompetence.setValue(tvModifComp.getSelectionModel().getSelectedItem().getDesignation());
+            apModificationCompetence.toFront();
         }
-        cboMatiereModificationCompetence.setValue(tvModifComp.getSelectionModel().getSelectedItem().getDesignation());
-        apModificationCompetence.toFront();
     }
     @javafx.fxml.FXML
     public void BtnSupprimerLaCompetenceClicked(Event event) throws SQLException {
@@ -732,8 +744,8 @@ public class EtudiantController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnAnnulerModificationCompetenceClicked(Event event) throws SQLException {
-        tvModifComp.setItems(null);
-        refreshTv(tvModifComp,serviceCompetences.getAllCompetenceObj(user.getId()));
+      /*tvModifComp.setItems(null);
+        refreshTv(tvModifComp,serviceCompetences.getAllCompetenceObj(user.getId()));*/
     }
 
     @javafx.fxml.FXML
@@ -741,6 +753,8 @@ public class EtudiantController implements Initializable {
         Competence laCompetence =tvModifComp.getSelectionModel().getSelectedItem();
         String lesSousMatieres=getStringObservable(tvSousMatiereModificationCompetence.getSelectionModel().getSelectedItems());
         serviceCompetences.updateCompetence(laCompetence.getIdCompetence(),lesSousMatieres);
+        refreshTv(tvModifComp,serviceCompetences.getAllCompetenceObj(user.getId()));
+        apModifierComp.toFront();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

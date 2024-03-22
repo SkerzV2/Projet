@@ -146,6 +146,7 @@ public class AdminController implements Initializable {
 
         return result;
     }
+
     public ObservableList<String> getObservableSplit(String sousMatiere){
         ObservableList<String> leSousMatieres = FXCollections.observableArrayList();
         String[] splitSousMatiere = sousMatiere.split("#");

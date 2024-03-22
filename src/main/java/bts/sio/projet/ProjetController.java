@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import bts.sio.projet.Entities.*;
 import bts.sio.projet.Services.ServiceUsers;
@@ -35,7 +36,7 @@ public class ProjetController implements Initializable
     @javafx.fxml.FXML
     private TextField txtEmail;
     @javafx.fxml.FXML
-    private TextField txtPassword;
+    private PasswordField PwTxtPassword;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -54,11 +55,11 @@ public class ProjetController implements Initializable
         if (txtEmail.getText().equals("")){
             erreurs = "Veuillez remplir le champ mail!";
         }
-        if (txtPassword.getText().equals("")){
+        if (PwTxtPassword.getText().equals("")){
             erreurs += "\nVeuillez remplir le champ mot de passe!";
         }
         serviceUsers = new ServiceUsers();
-        user = serviceUsers.GetConnectionUser(txtEmail.getText(), txtPassword.getText());
+        user = serviceUsers.GetConnectionUser(txtEmail.getText(), PwTxtPassword.getText());
         if (user == null) {
             if (erreurs.equals("")){
                 erreurs="Mail ou mot de passe invalide!";

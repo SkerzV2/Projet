@@ -29,11 +29,11 @@
             <DatePicker fx:id="dpCreeSoutien" layoutX="67.0" layoutY="200.0" />
             <TableView fx:id="tvCreeSoutien" layoutX="441.0" layoutY="157.0" prefHeight="200.0" prefWidth="200.0">
                <columns>
-                  <TableColumn fx:id="tcSousMatiereCreeSoutien" prefWidth="199.20001220703125" text="Sous matieres de la demande" />
+                  <TableColumn fx:id="tcSousMatiereCreeSoutien" prefWidth="199.20001220703125" text="Sous-matières de la demande" />
                </columns>
             </TableView>
             <TextArea fx:id="txtCreeSoutien" layoutX="67.0" layoutY="276.0" prefHeight="104.0" prefWidth="267.0" />
-            <Label layoutX="121.0" layoutY="88.0" prefHeight="26.0" prefWidth="66.0" text="Matiere" />
+            <Label layoutX="121.0" layoutY="88.0" prefHeight="26.0" prefWidth="66.0" text="Matière" />
             <Label layoutX="103.0" layoutY="166.0" prefHeight="26.0" prefWidth="102.0" text="Date du soutien" />
             <Label layoutX="121.0" layoutY="244.0" prefHeight="26.0" prefWidth="66.0" text="Descritpion" />
             <Button fx:id="btnAnnulerCreeSoutien" layoutX="133.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerCreeSoutienClicked" prefHeight="26.0" prefWidth="108.0" text="Annuler" />
@@ -84,19 +84,19 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="477.0" layoutY="129.0" text="Sous-matière :" AnchorPane.bottomAnchor="305.4" />
+            <Label layoutX="477.0" layoutY="129.0" text="Sous-matière(s) :" AnchorPane.bottomAnchor="305.4" />
             <DatePicker fx:id="datepFinDem" layoutX="102.0" layoutY="86.0" prefHeight="27.0" prefWidth="160.0" AnchorPane.bottomAnchor="339.0" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="86.0" />
             <Button fx:id="btnAnnulerDem" layoutX="375.0" layoutY="383.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerDemClicked" prefHeight="26.0" prefWidth="155.0" text="Annuler" />
             <Button fx:id="btnValiderDem" layoutX="104.0" layoutY="383.0" mnemonicParsing="false" onMouseClicked="#btnValiderDemClicked" prefHeight="26.0" prefWidth="155.0" text="Valider" />
             <Label layoutX="158.0" layoutY="129.0" prefHeight="18.0" prefWidth="65.0" text="Matière :" AnchorPane.topAnchor="129.0" />
             <TableView fx:id="tvMatiereCreeDemande" layoutX="60.0" layoutY="156.0" onMouseClicked="#tvMatiereCreeDemandeClicked" prefHeight="200.0" prefWidth="242.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcMatiereCreeDemande" prefWidth="241.59998168945313" text="Matieres" />
+                  <TableColumn fx:id="tcMatiereCreeDemande" prefWidth="241.59998168945313" text="Matière" />
                </columns>
             </TableView>
             <TableView fx:id="tvSousMatiereCreeDemande" layoutX="394.0" layoutY="156.0" prefHeight="200.0" prefWidth="242.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcSousMatiereCreeDemande" prefWidth="241.59998168945313" text="Sous Matieres" />
+                  <TableColumn fx:id="tcSousMatiereCreeDemande" prefWidth="241.59998168945313" text="Sous-Matière(s)" />
                </columns>
             </TableView>
          </children>
@@ -223,7 +223,7 @@
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnStatsNbSoutienRealise" mnemonicParsing="false" onMouseClicked="#btnStatsNbSoutienRealiseClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de soutien réalisé" textFill="WHITE">
+                        <Button fx:id="btnStatsNbSoutienRealise" mnemonicParsing="false" onMouseClicked="#btnStatsNbSoutienRealiseClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de soutiens réalisés" textFill="WHITE">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -238,7 +238,7 @@
                               <String fx:value="btnsousmenu2" />
                            </styleClass>
                         </Button>
-                        <Button fx:id="btnStatsDemandeSansSoutien" mnemonicParsing="false" onMouseClicked="#btnStatsDemandeSansSoutienClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Demande resté sans soutien" textFill="WHITE">
+                        <Button fx:id="btnStatsDemandeSansSoutien" mnemonicParsing="false" onMouseClicked="#btnStatsDemandeSansSoutienClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Demande restée sans soutien" textFill="WHITE">
                            <styleClass>
                               <String fx:value="btn3" />
                               <String fx:value="btnsousmenu2" />
@@ -340,7 +340,7 @@
                   <TableColumn fx:id="tcMatiereSoutient" prefWidth="91.20001220703125" text="Matière" />
                   <TableColumn fx:id="tcDateDebutSoutient" prefWidth="96.0" text="Date de Debut" />
                   <TableColumn fx:id="tcDateFinSoutient" prefWidth="88.7999267578125" text="Date de fin" />
-                  <TableColumn fx:id="tcSousMatiereSoutient" prefWidth="224.80001831054688" text="Sous matière" />
+                  <TableColumn fx:id="tcSousMatiereSoutient" prefWidth="224.80001831054688" text="Sous-matière(s)" />
                </columns>
             </TableView>
             <Label layoutX="275.0" layoutY="39.0" text="Visualiser les demandes">
@@ -364,7 +364,7 @@
                   <TableColumn fx:id="tcDateFinDemandeVisualiser" prefWidth="88.79998779296875" text="Date de fin" />
                   <TableColumn fx:id="tcMatiereDemandeVisualiser" prefWidth="88.79998779296875" text="Matière" />
                   <TableColumn fx:id="tcSousMatiereDemandeVisualiser" prefWidth="227.99993896484375" text="Sous-matière(s)" />
-                  <TableColumn fx:id="tcStatusDemandeVisualiser" minWidth="3.199951171875" prefWidth="104.79998779296875" text="Status" />
+                  <TableColumn fx:id="tcStatusDemandeVisualiser" minWidth="3.199951171875" prefWidth="104.79998779296875" text="Statut" />
               </columns>
             </TableView>
             <Button fx:id="BtnVoirHistoriqueDemande" layoutX="559.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#BtnVoirHistoriqueDemandeClicked" text="Voir historique" textFill="WHITE" />
@@ -402,12 +402,12 @@
             <Button fx:id="btnAnnulerCreeComp" layoutX="81.0" layoutY="356.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerCreeCompClicked" prefWidth="250.0" text="Annuler" />
             <TableView fx:id="tvMatiereCreeCompetence" layoutX="85.0" layoutY="143.0" onMouseClicked="#tvMatiereCreeCompetenceClicked" prefHeight="200.0" prefWidth="242.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcMatiereCreeCompetence" prefWidth="241.59998168945313" text="Matières" />
+                  <TableColumn fx:id="tcMatiereCreeCompetence" prefWidth="241.59998168945313" text="Matière" />
                </columns>
             </TableView>
             <TableView fx:id="tvSousMatiereCreeCompetence" layoutX="377.0" layoutY="143.0" prefHeight="200.0" prefWidth="242.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcSousMatiereCreeCompetence" prefWidth="241.59998168945313" text="Sous Matieres" />
+                  <TableColumn fx:id="tcSousMatiereCreeCompetence" prefWidth="241.59998168945313" text="Sous-Matiere(s)" />
                </columns>
             </TableView>
          </children>
@@ -416,7 +416,7 @@
          <children>
             <TableView fx:id="tvSousMatiereModifierDemande" layoutX="354.0" layoutY="150.0" prefHeight="219.0" prefWidth="302.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcSousMatiereModifierDemande" prefWidth="300.0" text="Sous Matieres" />
+                  <TableColumn fx:id="tcSousMatiereModifierDemande" prefWidth="300.0" text="Sous-Matiere(s)" />
                </columns>
             </TableView>
             <DatePicker fx:id="dpModifierDemande" layoutX="90.0" layoutY="293.0" stylesheets="@../../../CSS/menu.css" />
@@ -429,20 +429,20 @@
       </AnchorPane>
       <AnchorPane fx:id="apModificationCompetence" layoutX="203.0" layoutY="57.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
-            <ComboBox fx:id="cboMatiereModificationCompetence" layoutX="74.0" layoutY="168.0" prefWidth="150.0" />
-            <Label layoutX="129.0" layoutY="131.0" text="Matiere" />
-            <TableView fx:id="tvSousMatiereModificationCompetence" layoutX="425.0" layoutY="140.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../CSS/menu.css">
+            <ComboBox fx:id="cboMatiereModificationCompetence" layoutX="129.0" layoutY="170.0" prefWidth="150.0" />
+            <Label layoutX="184.0" layoutY="131.0" text="Matière" />
+            <TableView fx:id="tvSousMatiereModificationCompetence" layoutX="412.0" layoutY="126.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcSousMatiereModificationCompetence" prefWidth="199.20001220703125" text="Sous Matières" />
+                  <TableColumn fx:id="tcSousMatiereModificationCompetence" prefWidth="199.20001220703125" text="Sous-Matière(s)" />
                </columns>
             </TableView>
-            <Button fx:id="btnAnnulerModificationCompetence" layoutX="110.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerModificationCompetenceClicked" prefHeight="35.0" prefWidth="118.0" text="Annuler" />
-            <Button fx:id="btnValiderModificationCompetence" layoutX="466.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#btnValiderModificationCompetenceCllicked" prefHeight="35.0" prefWidth="118.0" text="Valider" />
+            <Button fx:id="btnAnnulerModificationCompetence" layoutX="110.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#btnAnnulerModificationCompetenceClicked" prefHeight="35.0" prefWidth="118.0" text="Annuler" visible="false" />
+            <Button fx:id="btnValiderModificationCompetence" layoutX="294.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#btnValiderModificationCompetenceCllicked" prefHeight="35.0" prefWidth="118.0" text="Valider" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="apStatsMesDemandes" layoutX="203.0" layoutY="59.0" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
          <children>
-            <BarChart fx:id="bcVoirSoutientRealiser" layoutX="54.0" layoutY="68.0" prefHeight="360.0" prefWidth="600.0" title="Nombre de soutien réalisé par matière">
+            <BarChart fx:id="bcVoirSoutientRealiser" layoutX="54.0" layoutY="68.0" prefHeight="360.0" prefWidth="600.0" title="Nombre de soutiens réalisés par matière">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -450,7 +450,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
-            <BarChart fx:id="bcVoirDemandeSansSoutien" layoutX="54.0" layoutY="68.0" prefHeight="360.0" prefWidth="600.0" title="Nombre de demande resté sans soutien">
+            <BarChart fx:id="bcVoirDemandeSansSoutien" layoutX="54.0" layoutY="68.0" prefHeight="360.0" prefWidth="600.0" title="Nombre de demandes restées sans soutien">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>
@@ -458,7 +458,7 @@
                   <NumberAxis side="LEFT" />
                </yAxis>
             </BarChart>
-            <PieChart fx:id="pcVoirStatsSoutienParMatiere" layoutX="104.0" layoutY="26.0" title="Nombre de soutien par matière" />
+            <PieChart fx:id="pcVoirStatsSoutienParMatiere" layoutX="104.0" layoutY="26.0" title="Nombre de soutiens par matière" />
          </children>
       </AnchorPane>
    </children>
