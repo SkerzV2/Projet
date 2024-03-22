@@ -55,6 +55,26 @@ public class AdminController implements Initializable {
     private Button btnCreeMatiereAnnuler;
     @javafx.fxml.FXML
     private Button btnCreeMatiereSupprSousMatiere;
+    @javafx.fxml.FXML
+    private AnchorPane apModifMatiere;
+    @javafx.fxml.FXML
+    private TableView tvModifMatiereSousMatiere;
+    @javafx.fxml.FXML
+    private TableColumn tcModifMatiereSousMatiere;
+    @javafx.fxml.FXML
+    private TextField txtModifMatiereSousMatiere;
+    @javafx.fxml.FXML
+    private Button btnModifMatiereAjouterSousMatiere;
+    @javafx.fxml.FXML
+    private Button btnModifMatiereModifier;
+    @javafx.fxml.FXML
+    private Button btnModifMatiereAnnuler;
+    @javafx.fxml.FXML
+    private Button btnModifMatiereSupprSousMatiere;
+    @javafx.fxml.FXML
+    private TextField txtModifMatiereNomMatiere;
+    @javafx.fxml.FXML
+    private ComboBox cbModifMatiereSelectionnerMatiere;
 
     public void setUser(User user) {
         this.user = user;
@@ -78,13 +98,9 @@ public class AdminController implements Initializable {
             alert.setContentText("Veuillez saisir une matière");
             alert.setHeaderText("");
             alert.showAndWait();
-        }else{
-            //on doit mettre un "#" devant chaque sous_matiere
-            /*ObservableList<String> listesSousMatieres = tvCreeMatiereSousMatiere.getItems();
-            for (int i = 0; i < listesSousMatieres.size(); i++) {
-                listesSousMatieres.set(i, "#" + listesSousMatieres.get(i));
-            }
-            System.out.println(listesSousMatieres);*/
+        }
+        else
+        {
             apCreeMatiere.toFront();
             Matiere uneMatiere = new Matiere(0,txtCreeMatiereNomMatiere.getText(),getStringObservable(tvCreeMatiereSousMatiere.getItems()));
             serviceMatieres.CreeMatiere(uneMatiere);
@@ -120,7 +136,9 @@ public class AdminController implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void btnModifierMatiereClicked(Event event) {
+    public void btnModifierMatiereClicked(Event event)
+    {
+
     }
 
     @javafx.fxml.FXML
@@ -162,5 +180,29 @@ public class AdminController implements Initializable {
     @javafx.fxml.FXML
     public void btnCreerMatiereClicked(Event event) throws SQLException {
 
+    }
+
+    @javafx.fxml.FXML
+    public void tvModifMatiereSousMatiereClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void btnModifMatiereAjouterSousMatiereClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void btnModifMatiereModifierClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void btnModifMatiereAnnulerClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void btnModifMatiereSupprSousMatiereClicked(Event event) {
+    }
+
+    @javafx.fxml.FXML
+    public void cbModifMatiereSelectionnerMatiereClicked(Event event) {
     }
 }
