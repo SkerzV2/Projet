@@ -20,7 +20,7 @@
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="710.0">
           <children>
-              <AnchorPane fx:id="apCreeMatiere" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;" visible="false">
+              <AnchorPane fx:id="apCreeMatiere" prefHeight="452.0" prefWidth="707.0" style="-fx-background-color: ffffff;">
                   <children>
                       <Label layoutX="298.0" layoutY="39.0" text="Crée une Matière">
                           <font>
@@ -49,7 +49,7 @@
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tvModifMatiereSousMatiere" layoutX="421.0" layoutY="132.0" onMouseClicked="#tvModifMatiereSousMatiereClicked" prefHeight="182.0" prefWidth="200.0">
+                  <TableView fx:id="tvModifMatiereSousMatiere" layoutX="421.0" layoutY="132.0" prefHeight="182.0" prefWidth="200.0">
                      <columns>
                         <TableColumn fx:id="tcModifMatiereSousMatiere" prefWidth="199.1999969482422" text="Les Sous Matières" />
                      </columns>
@@ -62,7 +62,37 @@
                   <Label layoutX="79.0" layoutY="185.0" prefHeight="18.0" prefWidth="108.0" text="Nom de la matière" />
                   <Label layoutX="80.0" layoutY="245.0" prefHeight="18.0" prefWidth="146.0" text="Sous-matières" />
                   <TextField fx:id="txtModifMatiereNomMatiere" layoutX="79.0" layoutY="203.0" />
-                  <ComboBox fx:id="cbModifMatiereSelectionnerMatiere" layoutX="78.0" layoutY="132.0" onMouseClicked="#cbModifMatiereSelectionnerMatiereClicked" prefHeight="26.0" prefWidth="247.0" promptText="Liste des matières" />
+                  <ComboBox fx:id="cbModifMatiereSelectionnerMatiere" layoutX="78.0" layoutY="132.0" prefHeight="26.0" prefWidth="247.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="apCreeSalle" prefHeight="455.0" prefWidth="711.0" style="-fx-background-color: ffff;">
+               <children>
+                  <Label layoutX="309.0" layoutY="46.0" text="Crée une Salle">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cboCreeSalleEtage" layoutX="281.0" layoutY="145.0" prefWidth="150.0" />
+                  <TextField fx:id="txtCreeSalleId" layoutX="281.0" layoutY="234.0" />
+                  <Button fx:id="btnCreeSalle" layoutX="309.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnCreeSalleClicked" prefHeight="26.0" prefWidth="94.0" text="Crée" />
+                  <Label layoutX="281.0" layoutY="112.0" text="Selectioner un Etage" />
+                  <Label layoutX="281.0" layoutY="200.0" text="Identifiant de la salle" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="appModifierSalle" layoutX="-2.0" prefHeight="458.0" prefWidth="714.0" style="-fx-background-color: ffff;">
+               <children>
+                  <Label layoutX="298.0" layoutY="46.0" text="Modifier une Salle">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cboModifierSalleEtage" layoutX="281.0" layoutY="145.0" prefWidth="150.0" />
+                  <TextField fx:id="txtModifierSalleIdSalle" layoutX="281.0" layoutY="234.0" />
+                  <Button fx:id="btnModifierSalleModifier" layoutX="384.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnModifierSalleCreeClicked" prefHeight="26.0" prefWidth="94.0" text="Modifier" />
+                  <Label layoutX="281.0" layoutY="112.0" text="Selectioner un Etage" />
+                  <Label layoutX="281.0" layoutY="200.0" text="Identifiant de la salle" />
+                  <ComboBox fx:id="cboModifierSalleNomSalle" layoutX="37.0" layoutY="96.0" prefWidth="150.0" />
+                  <Button fx:id="btnModifierSalleAnnuler" layoutX="251.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnModifierSalleAnnulerClicked" prefHeight="26.0" prefWidth="94.0" text="Annuler" />
                </children>
             </AnchorPane>
           </children>
@@ -92,7 +122,7 @@
                                         <String fx:value="btn1" />
                                     </styleClass>
                                 </Button>
-                                <Button fx:id="btnModifierMatiere" mnemonicParsing="false" onMouseClicked="#btnModifierMatiereClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Modifier une matière" textFill="WHITE">
+                                <Button fx:id="btnMenuModifierMatiere" mnemonicParsing="false" onMouseClicked="#btnMenuModifierMatiereClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Modifier une matière" textFill="WHITE">
                                     <VBox.margin>
                                         <Insets top="5.0" />
                                     </VBox.margin>
@@ -101,6 +131,18 @@
                                         <String fx:value="btnsousmenu1" />
                                     </styleClass>
                                 </Button>
+                        <Button fx:id="btnMenuCreeSalle" mnemonicParsing="false" onMouseClicked="#btnMenuCreerSalleClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Crée une Salle" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="btnsousmenu1" />
+                              <String fx:value="btn1" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="btnMenuModifierSalle" mnemonicParsing="false" onMouseClicked="#btnMenuModifierSalleClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Modifier une Salle" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="btn2" />
+                              <String fx:value="btnsousmenu1" />
+                           </styleClass>
+                        </Button>
                             </children>
                             <padding>
                                 <Insets top="15.0" />

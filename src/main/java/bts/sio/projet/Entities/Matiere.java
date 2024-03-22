@@ -13,13 +13,20 @@ public class Matiere {
     private int idMatiere;
     private String designation;
     private String sousMatiere;
-
+    private String nouvelleDesignation;
 
     public Matiere(int idMatiere, String designation, String sousMatiere) {
         this.idMatiere = idMatiere;
         this.designation = designation;
         this.sousMatiere = sousMatiere;
     }
+
+    public Matiere(String designation, String sousMatiere, String nouvelleDesignation) {
+        this.designation = designation;
+        this.sousMatiere = sousMatiere;
+        this.nouvelleDesignation = nouvelleDesignation;
+    }
+
     public Matiere(String sousMatiere) {
         this.sousMatiere = sousMatiere;
     }
@@ -36,5 +43,9 @@ public class Matiere {
 
     public int getIdMatiere() {
         return idMatiere;
+    }
+
+    public String getNouvelleDesignation() {
+        return nouvelleDesignation;
     }
 }

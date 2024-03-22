@@ -106,4 +106,13 @@ public class ServiceMatieres {
         ps.setString(2, laMatiere.getSousMatiere());
         ps.executeUpdate();
     }
+    public void ModifierMatiere(Matiere laMatiere) throws SQLException {
+        ps = unCnx.prepareStatement("UPDATE Matiere SET designation = ?, sous_matiere = ?"+
+                " WHERE designation = ? ");
+        ps.setString(1, laMatiere.getNouvelleDesignation());
+        ps.setString(2, laMatiere.getSousMatiere());
+        ps.setString(3, laMatiere.getDesignation());
+
+        ps.executeUpdate();
+    }
 }
