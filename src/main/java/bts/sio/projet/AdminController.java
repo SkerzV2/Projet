@@ -150,7 +150,7 @@ public class AdminController implements Initializable {
                         cboModifierSalleNomSalle.setItems(serviceSalle.GetAllSalle());
                         txtModifierSalleIdSalle.setText(cboModifierSalleNomSalle.getSelectionModel().getSelectedItem().toString().replace("Salle ", "").trim());
                         cboModifierSalleEtage.setValue("Etage "+cboModifierSalleNomSalle.getSelectionModel().getSelectedItem().toString().replace("Salle ", "").trim().charAt(0));
-                        } catch (SQLException e) {
+                    } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 }
@@ -159,7 +159,7 @@ public class AdminController implements Initializable {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- //                                           CREATION D UNE MATIERE                                                                          //
+    //                                           CREATION D UNE MATIERE                                                                          //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @javafx.fxml.FXML
     public void btnCreerMatiereClicked(Event event) throws SQLException {
@@ -209,7 +209,7 @@ public class AdminController implements Initializable {
             tvCreeMatiereSousMatiere.getItems().remove(tvCreeMatiereSousMatiere.getSelectionModel().getSelectedItem());
         }
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                           MODIFICATION MATIERE                                                                             //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @javafx.fxml.FXML
@@ -264,7 +264,7 @@ public class AdminController implements Initializable {
         }
     }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                           CREATION SALLE                                                                                   //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @javafx.fxml.FXML
@@ -328,7 +328,6 @@ public class AdminController implements Initializable {
 
         return result;
     }
-
     public ObservableList<String> getObservableSplit(String sousMatiere){
         ObservableList<String> leSousMatieres = FXCollections.observableArrayList();
         String[] splitSousMatiere = sousMatiere.split("#");
