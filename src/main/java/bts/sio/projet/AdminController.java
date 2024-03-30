@@ -2,6 +2,7 @@ package bts.sio.projet;
 
 import bts.sio.projet.Entities.Matiere;
 import bts.sio.projet.Entities.Salle;
+import bts.sio.projet.Entities.Soutient;
 import bts.sio.projet.Entities.User;
 import bts.sio.projet.Services.*;
 import javafx.beans.value.ChangeListener;
@@ -26,6 +27,7 @@ public class AdminController implements Initializable {
     ServiceCompetences serviceCompetences;
     ServiceSoutients serviceSoutients;
     ServiceSalle serviceSalle;
+    ObservableList lesSoutiens;
     private User user;
     @javafx.fxml.FXML
     private AnchorPane apCreeMatiere;
@@ -103,6 +105,22 @@ public class AdminController implements Initializable {
     private Button btnModifierSalleAnnuler;
     @javafx.fxml.FXML
     private Button btnMenuModifierSalle;
+    @javafx.fxml.FXML
+    private Button btnMenuGererSoutiens;
+    @javafx.fxml.FXML
+    private ComboBox cboGererSoutiensSelectionnerSoutiens;
+    @javafx.fxml.FXML
+    private TextField txtGererSoutiensDescription;
+    @javafx.fxml.FXML
+    private Button btnGererSoutiensAssigner;
+    @javafx.fxml.FXML
+    private Button btnGererSoutiensAnnuler;
+    @javafx.fxml.FXML
+    private ComboBox cboGererSoutiensSelectionnerSalle;
+    @javafx.fxml.FXML
+    private ComboBox cboGererSoutiensStatut;
+    @javafx.fxml.FXML
+    private AnchorPane apGererSoutiens;
 
     public void setUser(User user) {
         this.user = user;
@@ -310,16 +328,23 @@ public class AdminController implements Initializable {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @javafx.fxml.FXML
-    public void btnMenuSalleClicked(Event event) {
+    public void btnMenuSalleClicked(Event event)
+    {
+
     }
 
     @javafx.fxml.FXML
-    public void btnMenuSoutienClicked(Event event) {
+    public void btnMenuSoutienClicked(Event event)
+    {
+
     }
 
     @javafx.fxml.FXML
-    public void btnMenuStatistiqueClicked(Event event) {
+    public void btnMenuStatistiqueClicked(Event event)
+    {
+
     }
+
     public String getStringObservable(ObservableList<Matiere> leSousMatieres) {
         String result = "";
         for (Matiere uneSousMatiere : leSousMatieres) {
@@ -351,5 +376,38 @@ public class AdminController implements Initializable {
     public void btnMenuModifierSalleClicked(Event event) throws SQLException {
         appModifierSalle.toFront();
         cboModifierSalleNomSalle.setItems(serviceSalle.GetAllSalle());
+    }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////                                    GESTION SOUTIENS ET ASSIGNATION SALLES                                                                              //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//    public String getStringObservable(ObservableList<Matiere> leSousMatieres) {
+//        String result = "";
+//        for (Matiere uneSousMatiere : leSousMatieres) {
+//            result += "#"+uneSousMatiere.getSousMatiere();
+//        }
+//
+//        return result;
+//    }
+
+    @javafx.fxml.FXML
+    public void btnMenuGererSoutiensClicked(Event event) throws SQLException {
+        apGererSoutiens.toFront();
+        lesSoutiens = serviceSoutients.GetAllSoutiensId();
+        cboGererSoutiensSelectionnerSoutiens.setItems(lesSoutiens);
+    }
+
+    @javafx.fxml.FXML
+    public void btnGererSoutiensAssignerClicked(Event event)
+    {
+        apGererSoutiens.toFront();
+    }
+
+    @javafx.fxml.FXML
+    public void btnGererSoutiensAnnulerClicked(Event event)
+    {
+        apGererSoutiens.toFront();
     }
 }

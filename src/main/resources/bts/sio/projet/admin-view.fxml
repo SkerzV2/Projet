@@ -95,6 +95,25 @@
                         <Button fx:id="btnModifierSalleAnnuler" layoutX="251.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnModifierSalleAnnulerClicked" prefHeight="26.0" prefWidth="94.0" text="Annuler" />
                     </children>
                 </AnchorPane>
+            <AnchorPane fx:id="apGererSoutiens" layoutX="-4.0" prefHeight="456.0" prefWidth="714.0" style="-fx-background-color: ffff;">
+               <children>
+                  <Label layoutX="263.0" layoutY="48.0" text="Gérer les soutiens à venir">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cboGererSoutiensSelectionnerSoutiens" layoutX="115.0" layoutY="129.0" prefWidth="150.0" />
+                  <TextField fx:id="txtGererSoutiensDescription" layoutX="116.0" layoutY="215.0" />
+                  <Button fx:id="btnGererSoutiensAssigner" layoutX="384.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnGererSoutiensAssignerClicked" prefHeight="26.0" prefWidth="94.0" text="Assigner" />
+                  <Label layoutX="131.0" layoutY="102.0" text="Selectioner un Soutien" />
+                  <Label layoutX="472.0" layoutY="102.0" text="Salle" />
+                  <Button fx:id="btnGererSoutiensAnnuler" layoutX="251.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnGererSoutiensAnnulerClicked" prefHeight="26.0" prefWidth="94.0" text="Annuler" />
+                  <ComboBox fx:id="cboGererSoutiensSelectionnerSalle" layoutX="409.0" layoutY="129.0" prefWidth="150.0" />
+                  <Label layoutX="160.0" layoutY="188.0" text="Description" />
+                  <Label layoutX="468.0" layoutY="188.0" text="Statut" />
+                  <ComboBox fx:id="cboGererSoutiensStatut" layoutX="409.0" layoutY="215.0" prefWidth="150.0" />
+               </children>
+            </AnchorPane>
             </children>
         </AnchorPane>
     </center>
@@ -143,6 +162,12 @@
                                         <String fx:value="btnsousmenu1" />
                                     </styleClass>
                                 </Button>
+                        <Button fx:id="btnMenuGererSoutiens" mnemonicParsing="false" onMouseClicked="#btnMenuGererSoutiensClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Gérer les soutiens" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="btnsousmenu1" />
+                              <String fx:value="btn1" />
+                           </styleClass>
+                        </Button>
                             </children>
                             <padding>
                                 <Insets top="15.0" />

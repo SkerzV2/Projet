@@ -1,6 +1,9 @@
 package bts.sio.projet.Services;
 
+import bts.sio.projet.Entities.Soutient;
 import bts.sio.projet.Tools.ConnexionBDD;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,6 +47,22 @@ public class ServiceSoutients {
 
         ps.close();
 
+    }
+
+    public ObservableList<Integer> GetAllSoutiensId() throws SQLException
+    {
+        ObservableList<Integer> lesSoutiens = FXCollections.observableArrayList();
+
+        ps = unCnx.prepareStatement("SELECT soutien.id \n"
+                +"FROM `soutien`\n");
+
+        rs = ps.executeQuery();
+        while(rs.next())
+        {
+            //ajouter à une collection
+            lesSoutiens.add(rs.getInt("id"));
+        }
+        return lesSoutiens;
     }
 
     public HashMap<String, ArrayList<Integer>> getDatasGraphiqueSoutienRealiser(int idUser){
