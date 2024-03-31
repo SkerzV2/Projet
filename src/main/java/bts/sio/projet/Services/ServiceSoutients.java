@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class ServiceSoutients {
@@ -49,21 +50,30 @@ public class ServiceSoutients {
 
     }
 
-    public ObservableList<Integer> GetAllSoutiensId() throws SQLException
-    {
-        ObservableList<Integer> lesSoutiens = FXCollections.observableArrayList();
+//    public ObservableList<Soutient> GetAllSoutiens() throws SQLException {
+//        ObservableList<Soutient> lesSoutiens = FXCollections.observableArrayList();
+//
+//        Connection unCnx = // obtenir la connexion à la base de données
+//                PreparedStatement ps = unCnx.prepareStatement("SELECT *\n" +
+//                "FROM soutien\n" +
+//                "WHERE date_du_soutien < NOW();");
+//
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {
+//            int id = rs.getInt("id");
+//            int idSalle = rs.getInt("id_salle");
+//            int idCompetence = rs.getInt("id_competence");
+//            String dateDebut = Integer.toString(rs.getInt("date_du_soutien"));
+//            String dateUpdate = Integer.toString(rs.getInt("date_updated"));
+//            String description = rs.getString("description");
+//            String statut = rs.getString("status");
+//
+//            Soutient unSoutien = new Soutient("id", idCompetence, "idSalle", "idSalle", "dateDebut", "dateUpdate", "description", "statut", "");
+//            lesSoutiens.add(unSoutien);
+//        }
 
-        ps = unCnx.prepareStatement("SELECT soutien.id \n"
-                +"FROM `soutien`\n");
-
-        rs = ps.executeQuery();
-        while(rs.next())
-        {
-            //ajouter à une collection
-            lesSoutiens.add(rs.getInt("id"));
-        }
-        return lesSoutiens;
-    }
+//        return lesSoutiens;
+//    }
 
     public HashMap<String, ArrayList<Integer>> getDatasGraphiqueSoutienRealiser(int idUser){
         HashMap<String, ArrayList<Integer>> datas = new HashMap<>();

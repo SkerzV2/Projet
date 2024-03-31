@@ -27,7 +27,6 @@ public class AdminController implements Initializable {
     ServiceCompetences serviceCompetences;
     ServiceSoutients serviceSoutients;
     ServiceSalle serviceSalle;
-    ObservableList lesSoutiens;
     private User user;
     @javafx.fxml.FXML
     private AnchorPane apCreeMatiere;
@@ -108,10 +107,6 @@ public class AdminController implements Initializable {
     @javafx.fxml.FXML
     private Button btnMenuGererSoutiens;
     @javafx.fxml.FXML
-    private ComboBox cboGererSoutiensSelectionnerSoutiens;
-    @javafx.fxml.FXML
-    private TextField txtGererSoutiensDescription;
-    @javafx.fxml.FXML
     private Button btnGererSoutiensAssigner;
     @javafx.fxml.FXML
     private Button btnGererSoutiensAnnuler;
@@ -121,6 +116,16 @@ public class AdminController implements Initializable {
     private ComboBox cboGererSoutiensStatut;
     @javafx.fxml.FXML
     private AnchorPane apGererSoutiens;
+    @javafx.fxml.FXML
+    private TableView tvGererSoutiensSoutiens;
+    @javafx.fxml.FXML
+    private TableColumn tcGererSoutiensID;
+    @javafx.fxml.FXML
+    private TableColumn tcGererSoutiensDate;
+    @javafx.fxml.FXML
+    private TableColumn tcGererSoutiensMatiere;
+    @javafx.fxml.FXML
+    private TextArea txtGererSoutiensDescription;
 
     public void setUser(User user) {
         this.user = user;
@@ -135,6 +140,20 @@ public class AdminController implements Initializable {
         serviceUsers = new ServiceUsers();
         serviceSalle = new ServiceSalle();
         apCreeMatiere.toFront();
+
+        ObservableList<ObservableList> lesIdSoutiens = FXCollections.observableArrayList();
+//        try
+//        {
+//            lesIdSoutiens.add(serviceSoutients.GetAllSoutiensId());
+//        }
+//        catch (SQLException e)
+//        {
+//            throw new RuntimeException(e);
+//        }
+
+        tcGererSoutiensID.setCellValueFactory(new PropertyValueFactory<>("lesIdSoutiens"));
+//        tcGererSoutiensMatiere.setCellValueFactory(new PropertyValueFactory<>("matiere"));
+//        tcGererSoutiensDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         tcCreeMatiereSousMatiere.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
         ObservableList<String> lesEtages = FXCollections.observableArrayList();
@@ -393,10 +412,9 @@ public class AdminController implements Initializable {
 //    }
 
     @javafx.fxml.FXML
-    public void btnMenuGererSoutiensClicked(Event event) throws SQLException {
+    public void btnMenuGererSoutiensClicked(Event event) throws SQLException
+    {
         apGererSoutiens.toFront();
-        lesSoutiens = serviceSoutients.GetAllSoutiensId();
-        cboGererSoutiensSelectionnerSoutiens.setItems(lesSoutiens);
     }
 
     @javafx.fxml.FXML
@@ -409,5 +427,9 @@ public class AdminController implements Initializable {
     public void btnGererSoutiensAnnulerClicked(Event event)
     {
         apGererSoutiens.toFront();
+    }
+
+    @javafx.fxml.FXML
+    public void tvGererSoutiensSoutiensClicked(Event event) {
     }
 }
