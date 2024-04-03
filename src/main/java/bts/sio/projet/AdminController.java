@@ -28,6 +28,7 @@ public class AdminController implements Initializable {
     ServiceCompetences serviceCompetences;
     ServiceSoutients serviceSoutients;
     ServiceSalle serviceSalle;
+    ObservableList lesSoutiens;
     private User user;
     @javafx.fxml.FXML
     private AnchorPane apCreeMatiere;
@@ -124,8 +125,6 @@ public class AdminController implements Initializable {
     @javafx.fxml.FXML
     private TableColumn tcGererSoutiensDate;
     @javafx.fxml.FXML
-    private TableColumn tcGererSoutiensMatiere;
-    @javafx.fxml.FXML
     private TextArea txtGererSoutiensDescription;
     @javafx.fxml.FXML
     private AnchorPane apStatsDemande;
@@ -150,20 +149,11 @@ public class AdminController implements Initializable {
         serviceSalle = new ServiceSalle();
         apCreeMatiere.toFront();
 
-        ObservableList<ObservableList> lesIdSoutiens = FXCollections.observableArrayList();
-        ObservableList<Integer> lesNiveaux = FXCollections.observableArrayList();
-//        try
-//        {
-//            lesIdSoutiens.add(serviceSoutients.GetAllSoutiensId());
-//        }
-//        catch (SQLException e)
-//        {
-//            throw new RuntimeException(e);
-//        }
+        ObservableList<ObservableList> lesSoutiens = FXCollections.observableArrayList();
+        tcGererSoutiensID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tcGererSoutiensDate.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
 
-        tcGererSoutiensID.setCellValueFactory(new PropertyValueFactory<>("lesIdSoutiens"));
-//        tcGererSoutiensMatiere.setCellValueFactory(new PropertyValueFactory<>("matiere"));
-//        tcGererSoutiensDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        ObservableList<Integer> lesNiveaux = FXCollections.observableArrayList();
 
         tcCreeMatiereSousMatiere.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
         ObservableList<String> lesEtages = FXCollections.observableArrayList();
@@ -174,6 +164,12 @@ public class AdminController implements Initializable {
         cboCreeSalleEtage.setItems(lesEtages);
         cboModifierSalleEtage.setItems(lesEtages);
         cboCreeSalleEtage.getSelectionModel().selectFirst();
+
+        ObservableList<String> lesStatuts = FXCollections.observableArrayList();
+        lesStatuts.add("En cours");
+        lesStatuts.add("Validé");
+        cboGererSoutiensStatut.setItems(lesStatuts);
+        cboGererSoutiensStatut.getSelectionModel().selectFirst();
 
         tcModifMatiereSousMatiere.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
 
@@ -267,13 +263,16 @@ public class AdminController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnModifMatiereAjouterSousMatiereClicked(Event event) {
-        if(txtModifMatiereSousMatiere.getText().isEmpty()){
+        if(txtModifMatiereSousMatiere.getText().isEmpty())
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setContentText("Veuillez saisir une sous-matière");
             alert.setHeaderText("");
             alert.showAndWait();
-        }else{
+        }
+        else
+        {
             Matiere uneMatiere = new Matiere(txtModifMatiereSousMatiere.getText());
             tvModifMatiereSousMatiere.getItems().add(uneMatiere);
             txtModifMatiereSousMatiere.setText(null);
@@ -425,6 +424,7 @@ public class AdminController implements Initializable {
     @javafx.fxml.FXML
     public void btnMenuGererSoutiensClicked(Event event) throws SQLException
     {
+        tvGererSoutiensSoutiens.setItems(serviceSoutients.GetAllSoutiens());
         apGererSoutiens.toFront();
     }
 
@@ -441,7 +441,10 @@ public class AdminController implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void tvGererSoutiensSoutiensClicked(Event event) {
+    public void tvGererSoutiensSoutiensClicked(Event event) throws SQLException
+    {
+        cboGererSoutiensSelectionnerSalle.setItems(serviceSalle.GetAllSalle());
+        cboGererSoutiensSelectionnerSalle.getSelectionModel().selectFirst();
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

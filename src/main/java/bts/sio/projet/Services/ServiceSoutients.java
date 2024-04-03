@@ -50,30 +50,26 @@ public class ServiceSoutients {
 
     }
 
-//    public ObservableList<Soutient> GetAllSoutiens() throws SQLException {
-//        ObservableList<Soutient> lesSoutiens = FXCollections.observableArrayList();
-//
-//        Connection unCnx = // obtenir la connexion à la base de données
-//                PreparedStatement ps = unCnx.prepareStatement("SELECT *\n" +
-//                "FROM soutien\n" +
-//                "WHERE date_du_soutien < NOW();");
-//
-//        ResultSet rs = ps.executeQuery();
-//        while (rs.next()) {
-//            int id = rs.getInt("id");
-//            int idSalle = rs.getInt("id_salle");
-//            int idCompetence = rs.getInt("id_competence");
-//            String dateDebut = Integer.toString(rs.getInt("date_du_soutien"));
-//            String dateUpdate = Integer.toString(rs.getInt("date_updated"));
-//            String description = rs.getString("description");
-//            String statut = rs.getString("status");
-//
-//            Soutient unSoutien = new Soutient("id", idCompetence, "idSalle", "idSalle", "dateDebut", "dateUpdate", "description", "statut", "");
-//            lesSoutiens.add(unSoutien);
-//        }
+    public ObservableList<Soutient> GetAllSoutiens() throws SQLException
+    {
+        ObservableList<Soutient> lesSoutiens = FXCollections.observableArrayList();
+        ps = unCnx.prepareStatement("SELECT * FROM soutien WHERE status = ? ");
+        ps.setInt(1,1);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Soutient unSoutien = new Soutient(
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getInt(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7),
+                    rs.getInt(8));
+            lesSoutiens.add(unSoutien);
+        }
+        return lesSoutiens;
+    }
 
-//        return lesSoutiens;
-//    }
 
     public HashMap<String, ArrayList<Integer>> getDatasGraphiqueSoutienRealiser(int idUser){
         HashMap<String, ArrayList<Integer>> datas = new HashMap<>();

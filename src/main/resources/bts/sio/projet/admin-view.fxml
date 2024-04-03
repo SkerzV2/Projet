@@ -116,15 +116,14 @@
                   <ComboBox fx:id="cboGererSoutiensStatut" layoutX="408.0" layoutY="202.0" prefWidth="150.0" />
                   <TableView fx:id="tvGererSoutiensSoutiens" layoutX="53.0" layoutY="125.0" onMouseClicked="#tvGererSoutiensSoutiensClicked" prefHeight="239.0" prefWidth="275.0">
                     <columns>
-                      <TableColumn fx:id="tcGererSoutiensID" prefWidth="88.79998397827148" text="C1" />
-                      <TableColumn fx:id="tcGererSoutiensDate" prefWidth="93.59991455078125" text="C2" />
-                        <TableColumn fx:id="tcGererSoutiensMatiere" prefWidth="93.59991455078125" text="C2" />
+                      <TableColumn fx:id="tcGererSoutiensID" prefWidth="110.0" text="Id du soutien" />
+                      <TableColumn fx:id="tcGererSoutiensDate" prefWidth="165.0" text="Date du soutien" />
                     </columns>
                   </TableView>
                   <TextArea fx:id="txtGererSoutiensDescription" layoutX="392.0" layoutY="280.0" prefHeight="84.0" prefWidth="182.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="apStatsDemande" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;">
+            <AnchorPane fx:id="apStatsDemande" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;" visible="false">
                <children>
                   <ComboBox fx:id="cboStatsDemandeNiveau" layoutX="145.0" layoutY="22.0" onMouseClicked="#cboStatsDemandeNiveauClicked" prefWidth="150.0" />
                   <Label layoutX="87.0" layoutY="26.0" text="Niveau :" />
