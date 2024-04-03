@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -126,6 +127,14 @@ public class AdminController implements Initializable {
     private TableColumn tcGererSoutiensMatiere;
     @javafx.fxml.FXML
     private TextArea txtGererSoutiensDescription;
+    @javafx.fxml.FXML
+    private AnchorPane apStatsDemande;
+    @javafx.fxml.FXML
+    private ComboBox cboStatsDemandeNiveau;
+    @javafx.fxml.FXML
+    private BarChart bcStatsDemandeParNiveauMatiere;
+    @javafx.fxml.FXML
+    private Button btnMenuStatsDemande;
 
     public void setUser(User user) {
         this.user = user;
@@ -142,6 +151,7 @@ public class AdminController implements Initializable {
         apCreeMatiere.toFront();
 
         ObservableList<ObservableList> lesIdSoutiens = FXCollections.observableArrayList();
+        ObservableList<Integer> lesNiveaux = FXCollections.observableArrayList();
 //        try
 //        {
 //            lesIdSoutiens.add(serviceSoutients.GetAllSoutiensId());
@@ -433,4 +443,35 @@ public class AdminController implements Initializable {
     @javafx.fxml.FXML
     public void tvGererSoutiensSoutiensClicked(Event event) {
     }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////                                    STATISTIQUES                                                                            //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////
+//                 STATS 1                   //
+//////////////////////////////////////////////
+
+    @javafx.fxml.FXML
+    public void btnMenuStatsDemandeClicked(Event event)
+    {
+        apStatsDemande.toFront();
+        //cboStatsDemandeNiveau.setItems();
+    }
+
+    @javafx.fxml.FXML
+    public void cboStatsDemandeNiveauClicked(Event event)
+    {
+        cboStatsDemandeNiveau.getSelectionModel().getSelectedItem();
+    }
+
+////////////////////////////////////////////////
+//                 STATS 2                   //
+//////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////
+//                 STATS 3                   //
+//////////////////////////////////////////////
 }

@@ -31,6 +31,7 @@ public class ServiceUsers {
         }
         return user;
     }
+
     public int getNiveau(int idUser) throws SQLException {
         int niveau;
         ps = uneCnx.prepareStatement("SELECT user.niveau"
@@ -42,5 +43,10 @@ public class ServiceUsers {
         rs.next();
         niveau = rs.getInt(1);
         return niveau;
+    }
+
+    public int getAllNiveau(){
+
+        return 0;
     }
 }
