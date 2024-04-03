@@ -306,7 +306,7 @@ public class AdminController implements Initializable {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @javafx.fxml.FXML
     public void btnCreeSalleClicked(Event event) throws SQLException {
-        String etageString =cboCreeSalleEtage.getSelectionModel().getSelectedItem().toString();
+        String etageString = cboCreeSalleEtage.getSelectionModel().getSelectedItem().toString();
         String numeroEtage = etageString.replace("Etage ", "").trim();
         String code_salle = "Salle "+ txtCreeSalleId.getText();
         int etage =Integer.parseInt(numeroEtage);
@@ -321,6 +321,7 @@ public class AdminController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnMenuMatiereClicked(Event event) {
+        appModifierSalle.toFront();
     }
 
     @javafx.fxml.FXML

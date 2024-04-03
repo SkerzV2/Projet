@@ -69,7 +69,7 @@ public class ServiceDemandes {
     }
     public ObservableList<Demande> getAllDemandesEnCours(int idUser) throws SQLException
     {
-        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , status.libelle "
+        ps = unCnx.prepareStatement("SELECT demande.id_matiere, demande.date_updated, demande.date_fin_demande, matiere.designation, demande.sous_matiere , demande.status "
                 + "FROM demande "
                 + "JOIN matiere ON demande.id_matiere = matiere.id "
                 + "JOIN status ON demande.status = status.id "
