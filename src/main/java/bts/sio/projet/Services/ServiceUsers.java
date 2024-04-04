@@ -2,6 +2,8 @@ package bts.sio.projet.Services;
 
 import bts.sio.projet.Tools.ConnexionBDD;
 import bts.sio.projet.Entities.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,8 +47,17 @@ public class ServiceUsers {
         return niveau;
     }
 
-    public int getAllNiveau(){
-
-        return 0;
+    public ObservableList<Integer> getAllNiveauDesUsers() throws SQLException {
+        ObservableList<Integer> niveaux = FXCollections.observableArrayList();
+        ps = uneCnx.prepareStatement("SELECT DISTINCT user.niveau " +
+                "FROM user " +
+                "ORDER BY user.niveau ASC; ");
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int niveau = rs.getInt("niveau");
+            niveaux.add(niveau);
+        }
+        return niveaux;
     }
+
 }

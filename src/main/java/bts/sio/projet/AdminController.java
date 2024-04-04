@@ -151,7 +151,6 @@ public class AdminController implements Initializable {
         apCreeMatiere.toFront();
 
         ObservableList<ObservableList> lesIdSoutiens = FXCollections.observableArrayList();
-        ObservableList<Integer> lesNiveaux = FXCollections.observableArrayList();
 //        try
 //        {
 //            lesIdSoutiens.add(serviceSoutients.GetAllSoutiensId());
@@ -160,6 +159,19 @@ public class AdminController implements Initializable {
 //        {
 //            throw new RuntimeException(e);
 //        }
+
+        ObservableList<Integer> lesNiveauxDesEtudiants = FXCollections.observableArrayList();
+        try {
+            lesNiveauxDesEtudiants.setAll(serviceUsers.getAllNiveauDesUsers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        ObservableList<Integer> tousLesNiveaux = FXCollections.observableArrayList();
+        for (int i = 0; i <= 5; i++) {
+            tousLesNiveaux.add(i);
+        }
+        cboStatsDemandeNiveau.setItems(tousLesNiveaux);
 
         tcGererSoutiensID.setCellValueFactory(new PropertyValueFactory<>("lesIdSoutiens"));
 //        tcGererSoutiensMatiere.setCellValueFactory(new PropertyValueFactory<>("matiere"));
@@ -456,7 +468,6 @@ public class AdminController implements Initializable {
     public void btnMenuStatsDemandeClicked(Event event)
     {
         apStatsDemande.toFront();
-        //cboStatsDemandeNiveau.setItems();
     }
 
     @javafx.fxml.FXML
