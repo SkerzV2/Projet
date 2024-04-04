@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="toutes les fautes sont corrigées">
+    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="Pas fait grand chose">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Soutient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Soutient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceSoutients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceSoutients.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceDemandes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceDemandes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceUsers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/admin-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/admin-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -319,7 +319,23 @@
       <option name="project" value="LOCAL" />
       <updated>1711841674560</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Pas fait grand chose">
+      <option name="closed" value="true" />
+      <created>1712216950582</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1712216950582</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Pas fait grand chose">
+      <option name="closed" value="true" />
+      <created>1712217054292</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1712217054292</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -357,7 +373,8 @@
     <MESSAGE value="le graphique voir les stats sur ses soutients marche" />
     <MESSAGE value="toutes les fautes et erreurs sont régler" />
     <MESSAGE value="gérer soutiens commencé" />
-    <option name="LAST_COMMIT_MESSAGE" value="gérer soutiens commencé" />
+    <MESSAGE value="Pas fait grand chose" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pas fait grand chose" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -370,16 +387,6 @@
           <properties class="java.sql.SQLException" package="java.sql" />
           <option name="timeStamp" value="4" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java</url>
-          <line>418</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java</url>
-          <line>152</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -242,4 +242,24 @@ public class ServiceDemandes {
         }
         return lesDemandes;
     }
+
+    public HashMap<String, Integer> getDemandeParNiveau(int niveau) throws SQLException {
+        HashMap<String, Integer> datas = new HashMap<>();
+        ps = unCnx.prepareStatement("SELECT COUNT(demande.id), matiere.designation\n" +
+                "FROM demande\n" +
+                "JOIN user on demande.id_user=user.id\n" +
+                "JOIN matiere on demande.id_matiere=matiere.id\n" +
+                "WHERE user.niveau=?\n" +
+                "GROUP BY demande.id_matiere");
+
+        ps.setInt(1, niveau);
+
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            datas.put(rs.getString(2), rs.getInt(1));
+        }
+        rs.close();
+        return datas;
+    }
 }

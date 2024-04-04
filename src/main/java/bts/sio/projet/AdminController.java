@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +21,8 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
@@ -154,6 +158,10 @@ public class AdminController implements Initializable {
         tcGererSoutiensDate.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
 
         ObservableList<Integer> lesNiveaux = FXCollections.observableArrayList();
+        for (int i = 0; i <= 5; i++) {
+            lesNiveaux.add(i);
+        }
+        cboStatsDemandeNiveau.setItems(lesNiveaux);
 
         tcCreeMatiereSousMatiere.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
         ObservableList<String> lesEtages = FXCollections.observableArrayList();
@@ -459,13 +467,26 @@ public class AdminController implements Initializable {
     public void btnMenuStatsDemandeClicked(Event event)
     {
         apStatsDemande.toFront();
-        //cboStatsDemandeNiveau.setItems();
+        cboStatsDemandeNiveau.getSelectionModel().selectFirst();;
     }
 
     @javafx.fxml.FXML
-    public void cboStatsDemandeNiveauClicked(Event event)
-    {
-        cboStatsDemandeNiveau.getSelectionModel().getSelectedItem();
+    public void cboStatsDemandeNiveauClicked(Event event) throws SQLException {
+        bcStatsDemandeParNiveauMatiere.getData().clear();
+        int niveau =((int)cboStatsDemandeNiveau.getSelectionModel().getSelectedItem());
+
+        HashMap<String, Integer> donnees = serviceDemandes.getDemandeParNiveau(niveau);
+
+        for (String matiere : donnees.keySet()) {
+            XYChart.Series<String, Integer> serieGraphVisualiserDemandesParNiveau = new XYChart.Series<>();
+            serieGraphVisualiserDemandesParNiveau.setName(matiere);
+
+            int valeur = donnees.get(matiere);
+            serieGraphVisualiserDemandesParNiveau.getData().add(new XYChart.Data<>("Total", valeur));
+
+            bcStatsDemandeParNiveauMatiere.getData().add(serieGraphVisualiserDemandesParNiveau);
+        }
+
     }
 
 ////////////////////////////////////////////////

@@ -47,17 +47,5 @@ public class ServiceUsers {
         return niveau;
     }
 
-    public ObservableList<Integer> getAllNiveauDesUsers() throws SQLException {
-        ObservableList<Integer> niveaux = FXCollections.observableArrayList();
-        ps = uneCnx.prepareStatement("SELECT DISTINCT user.niveau " +
-                "FROM user " +
-                "ORDER BY user.niveau ASC; ");
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            int niveau = rs.getInt("niveau");
-            niveaux.add(niveau);
-        }
-        return niveaux;
-    }
 
 }
