@@ -568,4 +568,5 @@ public class AdminController implements Initializable {
             bcStatsSoutiensParMatiere.getData().add(serieGraphVisualiserSoutiensParMatiere);
         }
     }
+
 }
