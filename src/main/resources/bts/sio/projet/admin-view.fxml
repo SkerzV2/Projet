@@ -165,7 +165,7 @@
             <children>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="202.0" stylesheets="@../../../CSS/menu.css">
                     <children>
-                        <VBox fx:id="vbxDemande" alignment="TOP_CENTER" layoutX="-1.0" layoutY="-17.0" prefHeight="458.0" prefWidth="202.0" spacing="15.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css">
+                        <VBox fx:id="vbxMatiere" alignment="TOP_CENTER" layoutX="-1.0" layoutY="-17.0" prefHeight="458.0" prefWidth="202.0" spacing="15.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css">
                             <children>
                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Gérer les matières" textAlignment="CENTER">
                                     <font>
@@ -193,6 +193,21 @@
                                         <String fx:value="btnsousmenu1" />
                                     </styleClass>
                                 </Button>
+                            </children>
+                            <padding>
+                                <Insets top="15.0" />
+                            </padding>
+                        </VBox>
+                  <VBox fx:id="vbxSalle" alignment="TOP_CENTER" layoutX="-2.0" layoutY="-16.0" prefHeight="459.0" prefWidth="204.0" spacing="15.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Gérer les Salle" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
                                 <Button fx:id="btnMenuCreeSalle" mnemonicParsing="false" onMouseClicked="#btnMenuCreerSalleClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Crée une Salle" textFill="WHITE">
                                     <styleClass>
                                         <String fx:value="btnsousmenu1" />
@@ -205,12 +220,21 @@
                                         <String fx:value="btnsousmenu1" />
                                     </styleClass>
                                 </Button>
-                                <Button fx:id="btnMenuGererSoutiens" mnemonicParsing="false" onMouseClicked="#btnMenuGererSoutiensClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Gérer les soutiens" textFill="WHITE">
-                                    <styleClass>
-                                        <String fx:value="btnsousmenu1" />
-                                        <String fx:value="btn1" />
-                                    </styleClass>
-                                </Button>
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="vbxStatistiques" alignment="TOP_CENTER" layoutY="-16.0" prefHeight="460.0" prefWidth="202.0" spacing="15.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Statistiques" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
                                 <Button fx:id="btnMenuStatsDemande" mnemonicParsing="false" onMouseClicked="#btnMenuStatsDemandeClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de demande" textFill="WHITE">
                                     <styleClass>
                                         <String fx:value="btn2" />
@@ -229,11 +253,32 @@
                                         <String fx:value="btnsousmenu1" />
                                     </styleClass>
                                 </Button>
-                            </children>
-                            <padding>
-                                <Insets top="15.0" />
-                            </padding>
-                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="vbxSoutien" alignment="TOP_CENTER" layoutY="-14.0" prefHeight="458.0" prefWidth="202.0" spacing="15.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Gérer les Soutiens" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button fx:id="btnMenuGererSoutiens1" mnemonicParsing="false" onMouseClicked="#btnMenuGererSoutiensClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Gérer les soutiens" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="btnsousmenu1" />
+                              <String fx:value="btn1" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </VBox>
                     </children>
                 </AnchorPane>
             </children>
