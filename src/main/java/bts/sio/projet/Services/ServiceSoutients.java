@@ -196,4 +196,23 @@ public class ServiceSoutients {
 
     }
 
+    public HashMap<String, Integer> getNbMatiereDemande() throws SQLException {
+        HashMap<String, Integer> datas = new HashMap<>();
+        ps = unCnx.prepareStatement("SELECT matiere.designation, COUNT(soutien.id_competence)\n" +
+                "FROM matiere\n" +
+                "JOIN competence on matiere.id=competence.id_matiere\n" +
+                "JOIN soutien on competence.id=soutien.id_competence\n" +
+                "WHERE soutien.id_salle IS NOT NULL\n" +
+                "GROUP BY matiere.designation");
+
+
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            datas.put(rs.getString(1), rs.getInt(2));
+        }
+        rs.close();
+        return datas;
+    }
+
 }

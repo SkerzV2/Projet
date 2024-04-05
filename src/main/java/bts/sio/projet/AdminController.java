@@ -149,6 +149,8 @@ public class AdminController implements Initializable {
     private Button btnMenuStatsSoutiens;
     @javafx.fxml.FXML
     private Button btnMenuStatsSousMatieres;
+    @javafx.fxml.FXML
+    private BarChart bcStatsSoutiensParMatiere;
 
     public void setUser(User user) {
         this.user = user;
@@ -526,6 +528,8 @@ public class AdminController implements Initializable {
     @javafx.fxml.FXML
     public void btnMenuStatsSoutiensClicked(Event event) throws SQLException {
         apStatsSoutiens.toFront();
+        bcStatsSoutiensParMatiere.setVisible(false);
+        bcStatsSoutiensParEtudiant.setVisible(true);
         bcStatsSoutiensParEtudiant.getData().clear();
 
         HashMap<String, Integer> donnees = serviceSoutients.getSoutiensParEtudiant();
@@ -546,7 +550,22 @@ public class AdminController implements Initializable {
 //////////////////////////////////////////////
 
     @javafx.fxml.FXML
-    public void btnMenuStatsSousMatieresClicked(Event event) {
-    }
+    public void btnMenuStatsSousMatieresClicked(Event event) throws SQLException {
+        apStatsSoutiens.toFront();
+        bcStatsSoutiensParMatiere.setVisible(true);
+        bcStatsSoutiensParEtudiant.setVisible(false);
+        bcStatsSoutiensParMatiere.getData().clear();
 
+        HashMap<String, Integer> donnees = serviceSoutients.getNbMatiereDemande();
+
+        for (String matiere : donnees.keySet()) {
+            XYChart.Series<String, Integer> serieGraphVisualiserSoutiensParMatiere = new XYChart.Series<>();
+            serieGraphVisualiserSoutiensParMatiere.setName(matiere);
+
+            int valeur = donnees.get(matiere);
+            serieGraphVisualiserSoutiensParMatiere.getData().add(new XYChart.Data<>("Total", valeur));
+
+            bcStatsSoutiensParMatiere.getData().add(serieGraphVisualiserSoutiensParMatiere);
+        }
+    }
 }

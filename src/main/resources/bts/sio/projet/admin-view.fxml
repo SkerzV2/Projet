@@ -99,56 +99,64 @@
                         <Button fx:id="btnModifierSalleAnnuler" layoutX="251.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnModifierSalleAnnulerClicked" prefHeight="26.0" prefWidth="94.0" text="Annuler" />
                     </children>
                 </AnchorPane>
-            <AnchorPane fx:id="apGererSoutiens" layoutX="-4.0" prefHeight="456.0" prefWidth="714.0" style="-fx-background-color: ffff;">
-               <children>
-                  <Label layoutX="263.0" layoutY="48.0" text="Gérer les soutiens à venir">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="btnGererSoutiensAssigner" layoutX="380.0" layoutY="394.0" mnemonicParsing="false" onMouseClicked="#btnGererSoutiensAssignerClicked" prefHeight="26.0" prefWidth="94.0" text="Assigner" />
-                  <Label layoutX="131.0" layoutY="102.0" text="Selectioner un Soutien" />
-                  <Label layoutX="472.0" layoutY="102.0" text="Salle" />
-                  <Button fx:id="btnGererSoutiensAnnuler" layoutX="250.0" layoutY="394.0" mnemonicParsing="false" onMouseClicked="#btnGererSoutiensAnnulerClicked" prefHeight="26.0" prefWidth="94.0" text="Annuler" />
-                  <ComboBox fx:id="cboGererSoutiensSelectionnerSalle" layoutX="408.0" layoutY="125.0" prefWidth="150.0" />
-                  <Label layoutX="454.0" layoutY="259.0" text="Description" />
-                  <Label layoutX="467.0" layoutY="180.0" text="Statut" />
-                  <ComboBox fx:id="cboGererSoutiensStatut" layoutX="408.0" layoutY="202.0" prefWidth="150.0" />
-                  <TableView fx:id="tvGererSoutiensSoutiens" layoutX="53.0" layoutY="125.0" onMouseClicked="#tvGererSoutiensSoutiensClicked" prefHeight="239.0" prefWidth="275.0">
-                    <columns>
-                      <TableColumn fx:id="tcGererSoutiensID" prefWidth="110.0" text="Id du soutien" />
-                      <TableColumn fx:id="tcGererSoutiensDate" prefWidth="165.0" text="Date du soutien" />
-                    </columns>
-                  </TableView>
-                  <TextArea fx:id="txtGererSoutiensDescription" layoutX="392.0" layoutY="280.0" prefHeight="84.0" prefWidth="182.0" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="apStatsDemande" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;">
-               <children>
-                  <ComboBox fx:id="cboStatsDemandeNiveau" layoutX="145.0" layoutY="22.0" onMouseClicked="#cboStatsDemandeNiveauClicked" prefWidth="150.0" />
-                  <Label layoutX="87.0" layoutY="26.0" text="Niveau :" />
-                  <BarChart fx:id="bcStatsDemandeParNiveauMatiere" layoutX="59.0" layoutY="70.0" prefHeight="350.0" prefWidth="600.0" title="Nombre de demande par matière">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </BarChart>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="apStatsSoutiens" layoutX="-2.0" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;">
-               <children>
-                  <BarChart fx:id="bcStatsSoutiensParEtudiant" layoutX="34.0" layoutY="28.0" prefHeight="400.0" prefWidth="650.0" title="Nombre de soutiens réalisés par étudiant">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </BarChart>
-               </children>
-            </AnchorPane>
+                <AnchorPane fx:id="apGererSoutiens" layoutX="-4.0" prefHeight="456.0" prefWidth="714.0" style="-fx-background-color: ffff;">
+                    <children>
+                        <Label layoutX="263.0" layoutY="48.0" text="Gérer les soutiens à venir">
+                            <font>
+                                <Font name="System Bold Italic" size="14.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="btnGererSoutiensAssigner" layoutX="380.0" layoutY="394.0" mnemonicParsing="false" onMouseClicked="#btnGererSoutiensAssignerClicked" prefHeight="26.0" prefWidth="94.0" text="Assigner" />
+                        <Label layoutX="131.0" layoutY="102.0" text="Selectioner un Soutien" />
+                        <Label layoutX="472.0" layoutY="102.0" text="Salle" />
+                        <Button fx:id="btnGererSoutiensAnnuler" layoutX="250.0" layoutY="394.0" mnemonicParsing="false" onMouseClicked="#btnGererSoutiensAnnulerClicked" prefHeight="26.0" prefWidth="94.0" text="Annuler" />
+                        <ComboBox fx:id="cboGererSoutiensSelectionnerSalle" layoutX="408.0" layoutY="125.0" prefWidth="150.0" />
+                        <Label layoutX="454.0" layoutY="259.0" text="Description" />
+                        <Label layoutX="467.0" layoutY="180.0" text="Statut" />
+                        <ComboBox fx:id="cboGererSoutiensStatut" layoutX="408.0" layoutY="202.0" prefWidth="150.0" />
+                        <TableView fx:id="tvGererSoutiensSoutiens" layoutX="53.0" layoutY="125.0" onMouseClicked="#tvGererSoutiensSoutiensClicked" prefHeight="239.0" prefWidth="275.0">
+                            <columns>
+                                <TableColumn fx:id="tcGererSoutiensID" prefWidth="110.0" text="Id du soutien" />
+                                <TableColumn fx:id="tcGererSoutiensDate" prefWidth="165.0" text="Date du soutien" />
+                            </columns>
+                        </TableView>
+                        <TextArea fx:id="txtGererSoutiensDescription" layoutX="392.0" layoutY="280.0" prefHeight="84.0" prefWidth="182.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="apStatsDemande" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;">
+                    <children>
+                        <ComboBox fx:id="cboStatsDemandeNiveau" layoutX="145.0" layoutY="22.0" onMouseClicked="#cboStatsDemandeNiveauClicked" prefWidth="150.0" />
+                        <Label layoutX="87.0" layoutY="26.0" text="Niveau :" />
+                        <BarChart fx:id="bcStatsDemandeParNiveauMatiere" layoutX="59.0" layoutY="70.0" prefHeight="350.0" prefWidth="600.0" title="Nombre de demande par matière">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis side="LEFT" />
+                            </yAxis>
+                        </BarChart>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="apStatsSoutiens" layoutX="-2.0" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;">
+                    <children>
+                        <BarChart fx:id="bcStatsSoutiensParEtudiant" layoutX="34.0" layoutY="28.0" prefHeight="400.0" prefWidth="650.0" title="Nombre de soutiens réalisés par étudiant">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis side="LEFT" />
+                            </yAxis>
+                        </BarChart>
+                        <BarChart fx:id="bcStatsSoutiensParMatiere" layoutX="34.0" layoutY="28.0" prefHeight="400.0" prefWidth="650.0" title="Nombre de soutient par matiere">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis side="LEFT" />
+                            </yAxis>
+                        </BarChart>
+                    </children>
+                </AnchorPane>
             </children>
         </AnchorPane>
     </center>
@@ -197,30 +205,30 @@
                                         <String fx:value="btnsousmenu1" />
                                     </styleClass>
                                 </Button>
-                        <Button fx:id="btnMenuGererSoutiens" mnemonicParsing="false" onMouseClicked="#btnMenuGererSoutiensClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Gérer les soutiens" textFill="WHITE">
-                           <styleClass>
-                              <String fx:value="btnsousmenu1" />
-                              <String fx:value="btn1" />
-                           </styleClass>
-                        </Button>
-                        <Button fx:id="btnMenuStatsDemande" mnemonicParsing="false" onMouseClicked="#btnMenuStatsDemandeClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de demande" textFill="WHITE">
-                           <styleClass>
-                              <String fx:value="btn2" />
-                              <String fx:value="btnsousmenu1" />
-                           </styleClass>
-                        </Button>
-                        <Button fx:id="btnMenuStatsSoutiens" mnemonicParsing="false" onMouseClicked="#btnMenuStatsSoutiensClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de soutiens" textFill="WHITE">
-                           <styleClass>
-                              <String fx:value="btnsousmenu1" />
-                              <String fx:value="btn1" />
-                           </styleClass>
-                        </Button>
-                        <Button fx:id="btnMenuStatsSousMatieres" mnemonicParsing="false" onMouseClicked="#btnMenuStatsSousMatieresClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Les sous matières" textFill="WHITE">
-                           <styleClass>
-                              <String fx:value="btn2" />
-                              <String fx:value="btnsousmenu1" />
-                           </styleClass>
-                        </Button>
+                                <Button fx:id="btnMenuGererSoutiens" mnemonicParsing="false" onMouseClicked="#btnMenuGererSoutiensClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Gérer les soutiens" textFill="WHITE">
+                                    <styleClass>
+                                        <String fx:value="btnsousmenu1" />
+                                        <String fx:value="btn1" />
+                                    </styleClass>
+                                </Button>
+                                <Button fx:id="btnMenuStatsDemande" mnemonicParsing="false" onMouseClicked="#btnMenuStatsDemandeClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de demande" textFill="WHITE">
+                                    <styleClass>
+                                        <String fx:value="btn2" />
+                                        <String fx:value="btnsousmenu1" />
+                                    </styleClass>
+                                </Button>
+                                <Button fx:id="btnMenuStatsSoutiens" mnemonicParsing="false" onMouseClicked="#btnMenuStatsSoutiensClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de soutiens" textFill="WHITE">
+                                    <styleClass>
+                                        <String fx:value="btnsousmenu1" />
+                                        <String fx:value="btn1" />
+                                    </styleClass>
+                                </Button>
+                                <Button fx:id="btnMenuStatsSousMatieres" mnemonicParsing="false" onMouseClicked="#btnMenuStatsSousMatieresClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Les sous matières" textFill="WHITE">
+                                    <styleClass>
+                                        <String fx:value="btn2" />
+                                        <String fx:value="btnsousmenu1" />
+                                    </styleClass>
+                                </Button>
                             </children>
                             <padding>
                                 <Insets top="15.0" />
