@@ -138,6 +138,14 @@ public class AdminController implements Initializable {
     private BarChart bcStatsDemandeParNiveauMatiere;
     @javafx.fxml.FXML
     private Button btnMenuStatsDemande;
+    @javafx.fxml.FXML
+    private AnchorPane apStatsSoutiens;
+    @javafx.fxml.FXML
+    private BarChart bcStatsSoutiensParEtudiant;
+    @javafx.fxml.FXML
+    private Button btnMenuStatsSoutiens;
+    @javafx.fxml.FXML
+    private Button btnMenuStatsSousMatieres;
 
     public void setUser(User user) {
         this.user = user;
@@ -489,13 +497,36 @@ public class AdminController implements Initializable {
 
     }
 
+
+
 ////////////////////////////////////////////////
 //                 STATS 2                   //
 //////////////////////////////////////////////
 
+    @javafx.fxml.FXML
+    public void btnMenuStatsSoutiensClicked(Event event) throws SQLException {
+        apStatsSoutiens.toFront();
+        bcStatsSoutiensParEtudiant.getData().clear();
 
+        HashMap<String, Integer> donnees = serviceSoutients.getSoutiensParEtudiant();
+
+        for (String prenom : donnees.keySet()) {
+            XYChart.Series<String, Integer> serieGraphVisualiserSoutiensParUser = new XYChart.Series<>();
+            serieGraphVisualiserSoutiensParUser.setName(prenom);
+
+            int valeur = donnees.get(prenom);
+            serieGraphVisualiserSoutiensParUser.getData().add(new XYChart.Data<>("Total", valeur));
+
+            bcStatsSoutiensParEtudiant.getData().add(serieGraphVisualiserSoutiensParUser);
+        }
+    }
 
 ////////////////////////////////////////////////
 //                 STATS 3                   //
 //////////////////////////////////////////////
+
+    @javafx.fxml.FXML
+    public void btnMenuStatsSousMatieresClicked(Event event) {
+    }
+
 }

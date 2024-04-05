@@ -163,4 +163,24 @@ public class ServiceSoutients {
         return datas;
     }
 
+    public HashMap<String, Integer> getSoutiensParEtudiant() throws SQLException {
+        HashMap<String, Integer> datas = new HashMap<>();
+        ps = unCnx.prepareStatement("SELECT user.prenom, COUNT(soutien.id), soutien.id_salle\n" +
+                "FROM user\n" +
+                "JOIN competence on user.id=competence.id_user\n" +
+                "JOIN soutien on competence.id=soutien.id_competence\n" +
+                "WHERE soutien.id_salle IS NOT NULL\n" +
+                "GROUP BY user.prenom");
+
+
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            datas.put(rs.getString(1), rs.getInt(2));
+        }
+        rs.close();
+        return datas;
+
+    }
+
 }

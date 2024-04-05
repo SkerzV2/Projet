@@ -137,6 +137,18 @@
                   </BarChart>
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="apStatsSoutiens" layoutX="-2.0" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;">
+               <children>
+                  <BarChart fx:id="bcStatsSoutiensParEtudiant" layoutX="34.0" layoutY="28.0" prefHeight="400.0" prefWidth="650.0" title="Nombre de soutiens réalisés par étudiant">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+               </children>
+            </AnchorPane>
             </children>
         </AnchorPane>
     </center>
@@ -192,6 +204,18 @@
                            </styleClass>
                         </Button>
                         <Button fx:id="btnMenuStatsDemande" mnemonicParsing="false" onMouseClicked="#btnMenuStatsDemandeClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de demande" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="btn2" />
+                              <String fx:value="btnsousmenu1" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="btnMenuStatsSoutiens" mnemonicParsing="false" onMouseClicked="#btnMenuStatsSoutiensClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de soutiens" textFill="WHITE">
+                           <styleClass>
+                              <String fx:value="btnsousmenu1" />
+                              <String fx:value="btn1" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="btnMenuStatsSousMatieres" mnemonicParsing="false" onMouseClicked="#btnMenuStatsSousMatieresClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Les sous matières" textFill="WHITE">
                            <styleClass>
                               <String fx:value="btn2" />
                               <String fx:value="btnsousmenu1" />
