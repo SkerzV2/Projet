@@ -180,6 +180,13 @@ public class AdminController implements Initializable {
             lesNiveaux.add(i);
         }
         cboStatsDemandeNiveau.setItems(lesNiveaux);
+        cboStatsDemandeNiveau.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                cboStatsDemandeNiveauClicked();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
 
         tcCreeMatiereSousMatiere.setCellValueFactory(new PropertyValueFactory<>("sousMatiere"));
         ObservableList<String> lesEtages = FXCollections.observableArrayList();
@@ -535,7 +542,7 @@ public class AdminController implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void cboStatsDemandeNiveauClicked(Event event) throws SQLException {
+    public void cboStatsDemandeNiveauClicked() throws SQLException {
         bcStatsDemandeParNiveauMatiere.getData().clear();
         int niveau =((int)cboStatsDemandeNiveau.getSelectionModel().getSelectedItem());
 
