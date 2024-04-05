@@ -32,7 +32,7 @@ public class Soutient {
         this.status = status;
     }
 
-    public Soutient(int idDemande, int id, int idSalle, String dateDebut, String dateFin, String description, int status)
+    public Soutient(int id, int idDemande, int idSalle, String dateDebut, String dateFin, String description, int status)
     {
         this.idDemande = idDemande;
         this.id = id;
@@ -43,12 +43,12 @@ public class Soutient {
         this.status = status;
     }
 
-    public Soutient(int id, int idSalle, String description, int status)
+    public Soutient(int status, String description, int idSalle, int id)
     {
-        this.id = id;
-        this.idSalle = idSalle;
-        this.description = description;
         this.status = status;
+        this.description = description;
+        this.idSalle = idSalle;
+        this.id = id;
     }
 
     public String getNom() {

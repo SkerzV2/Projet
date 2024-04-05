@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import static java.lang.Integer.parseInt;
+
 public class AdminController implements Initializable {
     ServiceUsers serviceUsers;
     ServiceMatieres serviceMatieres;
@@ -335,8 +337,8 @@ public class AdminController implements Initializable {
         String etageString = cboCreeSalleEtage.getSelectionModel().getSelectedItem().toString();
         String numeroEtage = etageString.replace("Etage ", "").trim();
         String code_salle = "Salle "+ txtCreeSalleId.getText();
-        int etage =Integer.parseInt(numeroEtage);
-        int idSalle = Integer.parseInt(txtCreeSalleId.getText());
+        int etage = parseInt(numeroEtage);
+        int idSalle = parseInt(txtCreeSalleId.getText());
         Salle uneSalle = new Salle(idSalle,code_salle,etage);
         serviceSalle.CreeSalle(uneSalle);
     }
@@ -355,9 +357,9 @@ public class AdminController implements Initializable {
         String etageString = cboModifierSalleEtage.getSelectionModel().getSelectedItem().toString();
         String numeroEtage = etageString.replace("Etage ", "").trim();
         String code_salle = "Salle "+ txtModifierSalleIdSalle.getText();
-        int etage =Integer.parseInt(numeroEtage);
-        int encienIdSalle = Integer.parseInt(cboModifierSalleNomSalle.getSelectionModel().getSelectedItem().toString().replace("Salle","").trim());
-        int idSalle = Integer.parseInt(txtModifierSalleIdSalle.getText());
+        int etage = parseInt(numeroEtage);
+        int encienIdSalle = parseInt(cboModifierSalleNomSalle.getSelectionModel().getSelectedItem().toString().replace("Salle","").trim());
+        int idSalle = parseInt(txtModifierSalleIdSalle.getText());
         Salle uneSalle = new Salle(encienIdSalle,code_salle,etage,idSalle);
         serviceSalle.ModifierSalle(uneSalle);
     }
@@ -448,11 +450,14 @@ public class AdminController implements Initializable {
     @javafx.fxml.FXML
     public void tvGererSoutiensSoutiensClicked(Event event) throws SQLException
     {
-        cboGererSoutiensSelectionnerSalle.setItems(serviceSalle.GetAllSalle());
+        cboGererSoutiensSelectionnerSalle.setItems(serviceSalle.GetAllIdSalle());
         cboGererSoutiensSelectionnerSalle.getSelectionModel().selectFirst();
         ObservableList lesSoutients = serviceSoutients.GetAllSoutiens();
-        //lesSoutients.
-        txtGererSoutiensDescription.setText(unSoutient.getDescription());
+        String desc = ((Soutient)tvGererSoutiensSoutiens.getSelectionModel().getSelectedItem()).getDescription();
+
+
+
+        txtGererSoutiensDescription.setText(desc);
     }
 
     @javafx.fxml.FXML
@@ -462,10 +467,11 @@ public class AdminController implements Initializable {
         if (!cboGererSoutiensSelectionnerSalle.getSelectionModel().getSelectedItem().toString().isEmpty()){
             statusSoutien = 2;
         }
+
         int unID = ((Soutient)tvGererSoutiensSoutiens.getSelectionModel().getSelectedItem()).getId();
-        int idSalle = ((Soutient)cboGererSoutiensSelectionnerSalle.getSelectionModel().getSelectedItem()).getIdSalle();
+        int idSalle = parseInt(cboGererSoutiensSelectionnerSalle.getSelectionModel().getSelectedItem().toString());
         String desc = txtGererSoutiensDescription.getText();
-        Soutient unSoutient = new Soutient(unID, idSalle, desc, statusSoutien);
+        Soutient unSoutient = new Soutient(statusSoutien, desc, idSalle, unID);
 
         serviceSoutients.updateSoutient(unSoutient);
         apGererSoutiens.toFront();

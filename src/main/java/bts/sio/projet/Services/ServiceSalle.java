@@ -42,6 +42,20 @@ public class ServiceSalle {
         }
         return lesSalles;
     }
+    public ObservableList<Integer> GetAllIdSalle() throws SQLException
+    {
+        ObservableList<Integer> lesIdSalles = FXCollections.observableArrayList();
+
+        ps = unCnx.prepareStatement("SELECT salle.id \n"
+                +"FROM `salle`\n");
+
+        rs = ps.executeQuery();
+        while(rs.next())
+        {
+            lesIdSalles.add(rs.getInt("id"));
+        }
+        return lesIdSalles;
+    }
     public void ModifierSalle(Salle laSalle) throws SQLException {
         ps = unCnx.prepareStatement("UPDATE salle SET salle.id = ?, salle.code_salle = ?, salle.etage = ? "+
                 " WHERE salle.id = ? ");

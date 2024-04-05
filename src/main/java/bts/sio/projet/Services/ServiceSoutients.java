@@ -53,18 +53,19 @@ public class ServiceSoutients {
     public ObservableList<Soutient> GetAllSoutiens() throws SQLException
     {
         ObservableList<Soutient> lesSoutiens = FXCollections.observableArrayList();
-        ps = unCnx.prepareStatement("SELECT * FROM soutien WHERE status = ? ");
+        ps = unCnx.prepareStatement("SELECT id_demande, id, id_salle, date_du_soutien, date_updated, description, status"+
+                " FROM soutien WHERE status = ? ");
         ps.setInt(1,1);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Soutient unSoutien = new Soutient(
-                    rs.getInt(1),
                     rs.getInt(2),
-                    rs.getInt(4),
+                    rs.getInt(1),
+                    rs.getInt(3),
+                    rs.getString(4),
                     rs.getString(5),
                     rs.getString(6),
-                    rs.getString(7),
-                    rs.getInt(8));
+                    rs.getInt(7));
             lesSoutiens.add(unSoutien);
         }
         return lesSoutiens;
