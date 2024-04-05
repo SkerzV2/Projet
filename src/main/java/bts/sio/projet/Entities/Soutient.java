@@ -1,5 +1,7 @@
 package bts.sio.projet.Entities;
 
+import java.lang.invoke.StringConcatFactory;
+
 public class Soutient {
     private int idDemande;
     private int id;
@@ -41,8 +43,20 @@ public class Soutient {
         this.status = status;
     }
 
+    public Soutient(int id, int idSalle, String description, int status)
+    {
+        this.id = id;
+        this.idSalle = idSalle;
+        this.description = description;
+        this.status = status;
+    }
+
     public String getNom() {
         return nom;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getPrenom() {

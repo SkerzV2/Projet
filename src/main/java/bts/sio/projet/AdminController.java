@@ -33,6 +33,7 @@ public class AdminController implements Initializable {
     ServiceSoutients serviceSoutients;
     ServiceSalle serviceSalle;
     ObservableList lesSoutiens;
+    Soutient unSoutient;
     private User user;
     @javafx.fxml.FXML
     private AnchorPane apCreeMatiere;
@@ -182,8 +183,8 @@ public class AdminController implements Initializable {
         cboCreeSalleEtage.getSelectionModel().selectFirst();
 
         ObservableList<String> lesStatuts = FXCollections.observableArrayList();
-        lesStatuts.add("En cours");
         lesStatuts.add("Validé");
+        lesStatuts.add("En Cours");
         cboGererSoutiensStatut.setItems(lesStatuts);
         cboGererSoutiensStatut.getSelectionModel().selectFirst();
 
@@ -445,8 +446,28 @@ public class AdminController implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void btnGererSoutiensAssignerClicked(Event event)
+    public void tvGererSoutiensSoutiensClicked(Event event) throws SQLException
     {
+        cboGererSoutiensSelectionnerSalle.setItems(serviceSalle.GetAllSalle());
+        cboGererSoutiensSelectionnerSalle.getSelectionModel().selectFirst();
+        ObservableList lesSoutients = serviceSoutients.GetAllSoutiens();
+        //lesSoutients.
+        txtGererSoutiensDescription.setText(unSoutient.getDescription());
+    }
+
+    @javafx.fxml.FXML
+    public void btnGererSoutiensAssignerClicked(Event event) throws SQLException
+    {
+        int statusSoutien = 1;
+        if (!cboGererSoutiensSelectionnerSalle.getSelectionModel().getSelectedItem().toString().isEmpty()){
+            statusSoutien = 2;
+        }
+        int unID = ((Soutient)tvGererSoutiensSoutiens.getSelectionModel().getSelectedItem()).getId();
+        int idSalle = ((Soutient)cboGererSoutiensSelectionnerSalle.getSelectionModel().getSelectedItem()).getIdSalle();
+        String desc = txtGererSoutiensDescription.getText();
+        Soutient unSoutient = new Soutient(unID, idSalle, desc, statusSoutien);
+
+        serviceSoutients.updateSoutient(unSoutient);
         apGererSoutiens.toFront();
     }
 
@@ -454,13 +475,6 @@ public class AdminController implements Initializable {
     public void btnGererSoutiensAnnulerClicked(Event event)
     {
         apGererSoutiens.toFront();
-    }
-
-    @javafx.fxml.FXML
-    public void tvGererSoutiensSoutiensClicked(Event event) throws SQLException
-    {
-        cboGererSoutiensSelectionnerSalle.setItems(serviceSalle.GetAllSalle());
-        cboGererSoutiensSelectionnerSalle.getSelectionModel().selectFirst();
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

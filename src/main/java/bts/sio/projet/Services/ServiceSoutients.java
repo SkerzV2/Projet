@@ -70,6 +70,18 @@ public class ServiceSoutients {
         return lesSoutiens;
     }
 
+    public void updateSoutient(Soutient unSoutien) throws SQLException {
+        ps = unCnx.prepareStatement(
+                "UPDATE soutien set status = ?, description = ?, id_salle = ? " +
+                "Where id= ? "
+        );
+        ps.setInt(1, unSoutien.getStatus());
+        ps.setString(2, unSoutien.getDescription());
+        ps.setInt(3, unSoutien.getIdSalle());
+        ps.setInt(4, unSoutien.getId());
+        ps.executeUpdate();
+        ps.close();
+    }
 
     public HashMap<String, ArrayList<Integer>> getDatasGraphiqueSoutienRealiser(int idUser){
         HashMap<String, ArrayList<Integer>> datas = new HashMap<>();
