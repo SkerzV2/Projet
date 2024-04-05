@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="Pas fait grand chose">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_10_17__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_10_17__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_10_34__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_04_2024_10_34__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Soutient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Entities/Soutient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceSoutients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/Services/ServiceSoutients.java" afterDir="false" />
-    </list>
+    <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="gérer soutiens presque terminé" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -337,7 +329,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712217054292</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="gérer soutiens presque terminé">
+      <option name="closed" value="true" />
+      <created>1712334818632</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1712334818632</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -376,7 +376,8 @@
     <MESSAGE value="toutes les fautes et erreurs sont régler" />
     <MESSAGE value="gérer soutiens commencé" />
     <MESSAGE value="Pas fait grand chose" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pas fait grand chose" />
+    <MESSAGE value="gérer soutiens presque terminé" />
+    <option name="LAST_COMMIT_MESSAGE" value="gérer soutiens presque terminé" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
