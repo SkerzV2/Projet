@@ -169,6 +169,7 @@ public class AdminController implements Initializable {
         serviceUsers = new ServiceUsers();
         serviceSalle = new ServiceSalle();
         apCreeMatiere.toFront();
+        vbxMatiere.toFront();
 
         tcGererSoutiensID.setCellValueFactory(new PropertyValueFactory<>("id"));
         tcGererSoutiensDate.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
