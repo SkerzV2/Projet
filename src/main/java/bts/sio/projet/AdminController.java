@@ -484,6 +484,7 @@ public class AdminController implements Initializable {
     {
         tvGererSoutiensSoutiens.setItems(serviceSoutients.GetAllSoutiens());
         apGererSoutiens.toFront();
+
     }
 
     @javafx.fxml.FXML
