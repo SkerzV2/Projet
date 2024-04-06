@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e0df46b-d5d5-4065-ad47-b540f555f57e" name="Changes" comment="gérer soutiens presque terminé">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bts/sio/projet/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/admin-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bts/sio/projet/admin-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

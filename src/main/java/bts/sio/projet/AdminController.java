@@ -82,8 +82,6 @@ public class AdminController implements Initializable {
     @javafx.fxml.FXML
     private Button btnModifMatiereSupprSousMatiere;
     @javafx.fxml.FXML
-    private TextField txtModifMatiereNomMatiere;
-    @javafx.fxml.FXML
     private ComboBox cbModifMatiereSelectionnerMatiere;
     @javafx.fxml.FXML
     private AnchorPane apCreeSalle;
@@ -212,7 +210,7 @@ public class AdminController implements Initializable {
                     String matiereSelectionne = newValue;
                     try {
                         tvModifMatiereSousMatiere.setItems(serviceMatieres.GetAllSousMatiereOBJ(matiereSelectionne));
-                        txtModifMatiereNomMatiere.setText(cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem().toString());} catch (SQLException e) {
+                        } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 }
@@ -297,7 +295,7 @@ public class AdminController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnModifMatiereAjouterSousMatiereClicked(Event event) {
-        if(txtModifMatiereSousMatiere.getText().isEmpty())
+        if(cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem() == null)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
@@ -315,7 +313,7 @@ public class AdminController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnModifMatiereModifierClicked(Event event) throws SQLException {
-        if(txtModifMatiereNomMatiere.getText().isEmpty() || tvModifMatiereSousMatiere.getItems().isEmpty())
+        if(cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem() == null|| tvModifMatiereSousMatiere.getItems().isEmpty())
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
@@ -324,11 +322,10 @@ public class AdminController implements Initializable {
             alert.showAndWait();
         }
         else {
-            Matiere matiere = new Matiere(cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem().toString(), getStringObservable(tvModifMatiereSousMatiere.getItems()), txtModifMatiereNomMatiere.getText());
+            Matiere matiere = new Matiere(cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem().toString(), getStringObservable(tvModifMatiereSousMatiere.getItems()), cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem().toString());
             serviceMatieres.ModifierMatiere(matiere);
             cbModifMatiereSelectionnerMatiere.setValue("");
             txtModifMatiereSousMatiere.setText("");
-            txtModifMatiereNomMatiere.setText("");
             tvModifMatiereSousMatiere.getItems().clear();
         }
     }
@@ -337,7 +334,6 @@ public class AdminController implements Initializable {
     public void btnModifMatiereAnnulerClicked(Event event) {
         cbModifMatiereSelectionnerMatiere.setValue("");
         txtModifMatiereSousMatiere.setText("");
-        txtModifMatiereNomMatiere.setText("");
         tvModifMatiereSousMatiere.getItems().clear();
     }
 
@@ -497,9 +493,6 @@ public class AdminController implements Initializable {
         cboGererSoutiensSelectionnerSalle.getSelectionModel().selectFirst();
         ObservableList lesSoutients = serviceSoutients.GetAllSoutiens();
         String desc = ((Soutient)tvGererSoutiensSoutiens.getSelectionModel().getSelectedItem()).getDescription();
-
-
-
         txtGererSoutiensDescription.setText(desc);
     }
 
@@ -518,6 +511,8 @@ public class AdminController implements Initializable {
 
         serviceSoutients.updateSoutient(unSoutient);
         apGererSoutiens.toFront();
+        cboGererSoutiensSelectionnerSalle.setItems(serviceSalle.GetAllIdSalle());
+        tvGererSoutiensSoutiens.setItems(serviceSoutients.GetAllSoutiens());
     }
 
     @javafx.fxml.FXML
