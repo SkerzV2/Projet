@@ -30,7 +30,7 @@ public class ServiceSalle {
         ps.executeUpdate();
     }
 
-    public boolean VerifSalle(Salle laSalle) throws SQLException {
+    public boolean VerifSalleExiste(Salle laSalle) throws SQLException {
         boolean existe = false;
         ps = unCnx.prepareStatement("SELECT salle.id, salle.code_salle, salle.etage\n" +
                 "FROM salle\n" +
@@ -85,5 +85,19 @@ public class ServiceSalle {
         ps.setInt(4, laSalle.getId());
 
         ps.executeUpdate();
+    }
+
+    public boolean VerifModifSalle(Salle laSalle) throws SQLException {
+        boolean soutienExiste = false;
+        ps = unCnx.prepareStatement("SELECT soutien.id\n" +
+                "FROM soutien\n" +
+                "WHERE soutien.id_salle = ?");
+        ps.setInt(1, laSalle.getId());
+
+        rs = ps.executeQuery();
+        if(rs.next()){
+            soutienExiste = true;
+        }
+        return soutienExiste;
     }
 }

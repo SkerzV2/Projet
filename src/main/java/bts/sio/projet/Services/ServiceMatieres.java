@@ -1,6 +1,7 @@
 package bts.sio.projet.Services;
 
 import bts.sio.projet.Entities.Matiere;
+import bts.sio.projet.Entities.Salle;
 import bts.sio.projet.Tools.ConnexionBDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -106,6 +107,21 @@ public class ServiceMatieres {
         ps.setString(2, laMatiere.getSousMatiere());
         ps.executeUpdate();
     }
+
+    public boolean VerifMatiereExiste(Matiere matiere) throws SQLException {
+        boolean soutienExiste = false;
+        ps = unCnx.prepareStatement("SELECT matiere.id\n" +
+                "FROM matiere\n" +
+                "WHERE matiere.designation = ?");
+        ps.setString(1, matiere.getDesignation());
+
+        rs = ps.executeQuery();
+        if(rs.next()){
+            soutienExiste = true;
+        }
+        return soutienExiste;
+    }
+
     public void ModifierMatiere(Matiere laMatiere) throws SQLException {
         ps = unCnx.prepareStatement("UPDATE Matiere SET designation = ?, sous_matiere = ?"+
                 " WHERE designation = ? ");

@@ -243,8 +243,8 @@ public class AdminController implements Initializable {
     }
     @javafx.fxml.FXML
     public void btnCreeMatiereCreerClicked(Event event) throws SQLException {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         if(txtCreeMatiereNomMatiere.getText().isEmpty() || tvCreeMatiereSousMatiere.getItems().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setContentText("Veuillez saisir une matière et des sous-matières");
             alert.setHeaderText("");
@@ -254,20 +254,38 @@ public class AdminController implements Initializable {
         {
             apCreeMatiere.toFront();
             Matiere uneMatiere = new Matiere(0,txtCreeMatiereNomMatiere.getText(),getStringObservable(tvCreeMatiereSousMatiere.getItems()));
-            serviceMatieres.CreeMatiere(uneMatiere);
 
-            Alert info = new Alert(Alert.AlertType.INFORMATION);
-            info.setTitle("Création réussi");
-            info.setContentText("La matière a bien été créée");
-            info.setHeaderText("");
-            info.showAndWait();
+            if(serviceMatieres.VerifMatiereExiste(uneMatiere) == true){
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("Cette matière existe déja");
+                alert.setHeaderText("");
+                alert.showAndWait();
+
+                txtCreeMatiereNomMatiere.setText("");
+                txtCreeMatiereSousMatiere.setText("");
+                tvCreeMatiereSousMatiere.setItems(null);
+            }else{
+                serviceMatieres.CreeMatiere(uneMatiere);
+
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setTitle("Création réussi");
+                info.setContentText("La matière a bien été créée");
+                info.setHeaderText("");
+                info.showAndWait();
+            }
         }
     }
 
     @javafx.fxml.FXML
     public void btnCreeMatiereAjouterSousMatiereClicked(Event event) {
-        if(txtCreeMatiereSousMatiere.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if(txtCreeMatiereNomMatiere.getText().isEmpty()){
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("Veuillez saisir une matière");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else if(txtCreeMatiereSousMatiere.getText().isEmpty()){
             alert.setTitle("Erreur de saisie");
             alert.setContentText("Veuillez saisir une sous-matière");
             alert.setHeaderText("");
@@ -290,6 +308,13 @@ public class AdminController implements Initializable {
         }else{
             tvCreeMatiereSousMatiere.getItems().remove(tvCreeMatiereSousMatiere.getSelectionModel().getSelectedItem());
         }
+    }
+
+    @javafx.fxml.FXML
+    public void btnCreeMatiereAnnulerClicked(Event event) {
+        txtCreeMatiereNomMatiere.setText(null);
+        txtCreeMatiereSousMatiere.setText(null);
+        tvCreeMatiereSousMatiere.setItems(null);
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -341,6 +366,7 @@ public class AdminController implements Initializable {
             cbModifMatiereSelectionnerMatiere.setValue("");
             txtModifMatiereSousMatiere.setText("");
             tvModifMatiereSousMatiere.getItems().clear();
+
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Modification réussi");
             info.setContentText("La matière a bien été modifiée");
@@ -402,7 +428,7 @@ public class AdminController implements Initializable {
                 premierChiffre /= 10;
             }
 
-            if(serviceSalle.VerifSalle(uneSalle) == true){
+            if(serviceSalle.VerifSalleExiste(uneSalle) == true){
                 alert.setTitle("Erreur de saisie");
                 alert.setContentText("La salle que vous essayez de créer existe déja");
                 alert.setHeaderText("");
@@ -438,9 +464,9 @@ public class AdminController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnModifierSalleCreeClicked(Event event) throws SQLException {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         if(txtModifierSalleIdSalle.getText().isEmpty() || cboModifierSalleNomSalle.getSelectionModel().getSelectedItem().equals(""))
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setContentText("Veuillez saisir un identifiant pour la salle");
             alert.setHeaderText("");
@@ -453,14 +479,29 @@ public class AdminController implements Initializable {
             int encienIdSalle = parseInt(cboModifierSalleNomSalle.getSelectionModel().getSelectedItem().toString().replace("Salle", "").trim());
             int idSalle = parseInt(txtModifierSalleIdSalle.getText());
             Salle uneSalle = new Salle(encienIdSalle, code_salle, etage, idSalle);
-            serviceSalle.ModifierSalle(uneSalle);
+
+            if(serviceSalle.VerifModifSalle(uneSalle) == true){
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("La salle été déja été assignée à un soutien, il ne peut donc pas être modifié");
+                alert.setHeaderText("");
+                alert.showAndWait();
+            }else{
+                serviceSalle.ModifierSalle(uneSalle);
+
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setTitle("Modification réussi");
+                info.setContentText("La salle a bien été modifiée");
+                info.setHeaderText("");
+                info.showAndWait();
+            }
         }
     }
 
     @javafx.fxml.FXML
     public void btnModifierSalleAnnulerClicked(Event event) {
+        cboModifierSalleNomSalle.setValue(null);
         txtModifierSalleIdSalle.setText("");
-        cboModifierSalleEtage.setValue("");
+        cboModifierSalleEtage.setValue(null);
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -567,6 +608,12 @@ public class AdminController implements Initializable {
         apGererSoutiens.toFront();
         cboGererSoutiensSelectionnerSalle.setItems(serviceSalle.GetAllIdSalle());
         tvGererSoutiensSoutiens.setItems(serviceSoutients.GetAllSoutiens());
+
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("Assignation réussi");
+        info.setContentText("Le soutien a bien été assigné");
+        info.setHeaderText("");
+        info.showAndWait();
     }
 
     @javafx.fxml.FXML
