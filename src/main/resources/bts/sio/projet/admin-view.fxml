@@ -71,15 +71,15 @@
                 </AnchorPane>
                 <AnchorPane fx:id="apCreeSalle" prefHeight="455.0" prefWidth="711.0" style="-fx-background-color: ffff;">
                     <children>
-                        <Label layoutX="309.0" layoutY="46.0" text="Crée une Salle">
+                        <Label layoutX="309.0" layoutY="46.0" text="Créer une Salle">
                             <font>
                                 <Font name="System Bold Italic" size="14.0" />
                             </font>
                         </Label>
                         <ComboBox fx:id="cboCreeSalleEtage" layoutX="281.0" layoutY="145.0" prefWidth="150.0" />
                         <TextField fx:id="txtCreeSalleId" layoutX="281.0" layoutY="234.0" />
-                        <Button fx:id="btnCreeSalle" layoutX="309.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnCreeSalleClicked" prefHeight="26.0" prefWidth="94.0" text="Crée" />
-                        <Label layoutX="281.0" layoutY="112.0" text="Selectioner un Etage" />
+                        <Button fx:id="btnCreeSalle" layoutX="309.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#btnCreeSalleClicked" prefHeight="26.0" prefWidth="94.0" text="Créer" />
+                        <Label layoutX="281.0" layoutY="112.0" text="Sélectionner un étage" />
                         <Label layoutX="281.0" layoutY="200.0" text="Identifiant de la salle" />
                     </children>
                 </AnchorPane>
@@ -108,7 +108,7 @@
                             </font>
                         </Label>
                         <Button fx:id="btnGererSoutiensAssigner" layoutX="380.0" layoutY="394.0" mnemonicParsing="false" onMouseClicked="#btnGererSoutiensAssignerClicked" prefHeight="26.0" prefWidth="94.0" text="Assigner" />
-                        <Label layoutX="131.0" layoutY="102.0" text="Selectioner un Soutien" />
+                        <Label layoutX="131.0" layoutY="102.0" text="Sélectionner un Soutien" />
                         <Label layoutX="472.0" layoutY="102.0" text="Salle" />
                         <Button fx:id="btnGererSoutiensAnnuler" layoutX="250.0" layoutY="394.0" mnemonicParsing="false" onMouseClicked="#btnGererSoutiensAnnulerClicked" prefHeight="26.0" prefWidth="94.0" text="Annuler" />
                         <ComboBox fx:id="cboGererSoutiensSelectionnerSalle" layoutX="408.0" layoutY="125.0" prefWidth="150.0" />
@@ -128,7 +128,7 @@
                     <children>
                         <ComboBox fx:id="cboStatsDemandeNiveau" layoutX="145.0" layoutY="22.0" onMouseClicked="#cboStatsDemandeNiveauClicked" prefWidth="150.0" />
                         <Label layoutX="87.0" layoutY="26.0" text="Niveau :" />
-                        <BarChart fx:id="bcStatsDemandeParNiveauMatiere" layoutX="59.0" layoutY="70.0" prefHeight="350.0" prefWidth="600.0" title="Nombre de demande par matière">
+                        <BarChart fx:id="bcStatsDemandeParNiveauMatiere" layoutX="59.0" layoutY="70.0" prefHeight="350.0" prefWidth="600.0" title="Nombre de demandes par matière">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -138,7 +138,7 @@
                         </BarChart>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="apStatsSoutiens" layoutX="-2.0" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;">
+                <AnchorPane fx:id="apStatsSoutiens" layoutX="-2.0" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;" visible="false">
                     <children>
                         <BarChart fx:id="bcStatsSoutiensParEtudiant" layoutX="34.0" layoutY="28.0" prefHeight="400.0" prefWidth="650.0" title="Nombre de soutiens réalisés par étudiant">
                             <xAxis>
@@ -209,7 +209,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                                <Button fx:id="btnMenuCreeSalle" mnemonicParsing="false" onMouseClicked="#btnMenuCreerSalleClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Crée une Salle" textFill="WHITE">
+                                <Button fx:id="btnMenuCreeSalle" mnemonicParsing="false" onMouseClicked="#btnMenuCreerSalleClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Créer une Salle" textFill="WHITE">
                                     <styleClass>
                                         <String fx:value="btnsousmenu1" />
                                         <String fx:value="btn1" />
@@ -236,7 +236,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                                <Button fx:id="btnMenuStatsDemande" mnemonicParsing="false" onMouseClicked="#btnMenuStatsDemandeClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de demande" textFill="WHITE">
+                                <Button fx:id="btnMenuStatsDemande" mnemonicParsing="false" onMouseClicked="#btnMenuStatsDemandeClicked" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CSS/menu.css" text="Nombre de demandes" textFill="WHITE">
                                     <styleClass>
                                         <String fx:value="btn2" />
                                         <String fx:value="btnsousmenu1" />
@@ -341,7 +341,7 @@
                         <Font size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnMenuStatistique" mnemonicParsing="false" onMouseClicked="#btnMenuStatistiqueClicked" prefHeight="68.0" prefWidth="165.0" style="-fx-background-color: FF000000;" styleClass="btnmenu4" stylesheets="@../../../CSS/menu.css" text=" Statistique" textFill="WHITE">
+                <Button fx:id="btnMenuStatistique" mnemonicParsing="false" onMouseClicked="#btnMenuStatistiqueClicked" prefHeight="68.0" prefWidth="165.0" style="-fx-background-color: FF000000;" styleClass="btnmenu4" stylesheets="@../../../CSS/menu.css" text=" Statistiques" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="35.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                             <image>
