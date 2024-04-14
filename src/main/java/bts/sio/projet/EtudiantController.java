@@ -738,8 +738,17 @@ public class EtudiantController implements Initializable {
     }
     @javafx.fxml.FXML
     public void BtnSupprimerLaCompetenceClicked(Event event) throws SQLException {
-        serviceCompetences.supprimerCompetence(tvModifComp.getSelectionModel().getSelectedItem().getIdCompetence());
-        refreshTv(tvModifComp,serviceCompetences.getAllCompetenceObj(user.getId()));
+        if(tvModifComp.getSelectionModel().getSelectedItems().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une compétence pour supprimer");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        else{
+            serviceCompetences.supprimerCompetence(tvModifComp.getSelectionModel().getSelectedItem().getIdCompetence());
+            refreshTv(tvModifComp,serviceCompetences.getAllCompetenceObj(user.getId()));
+        }
     }
 
     @javafx.fxml.FXML

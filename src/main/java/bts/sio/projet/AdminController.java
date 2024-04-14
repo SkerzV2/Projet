@@ -255,6 +255,12 @@ public class AdminController implements Initializable {
             apCreeMatiere.toFront();
             Matiere uneMatiere = new Matiere(0,txtCreeMatiereNomMatiere.getText(),getStringObservable(tvCreeMatiereSousMatiere.getItems()));
             serviceMatieres.CreeMatiere(uneMatiere);
+
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Création réussi");
+            info.setContentText("La matière a bien été créée");
+            info.setHeaderText("");
+            info.showAndWait();
         }
     }
 
@@ -285,7 +291,8 @@ public class AdminController implements Initializable {
             tvCreeMatiereSousMatiere.getItems().remove(tvCreeMatiereSousMatiere.getSelectionModel().getSelectedItem());
         }
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                           MODIFICATION MATIERE                                                                             //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @javafx.fxml.FXML
@@ -296,9 +303,15 @@ public class AdminController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnModifMatiereAjouterSousMatiereClicked(Event event) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         if(cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem() == null)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une matière");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
+        if(txtModifMatiereSousMatiere.getText().isEmpty()){
             alert.setTitle("Erreur de saisie");
             alert.setContentText("Veuillez saisir une sous-matière");
             alert.setHeaderText("");
@@ -328,6 +341,11 @@ public class AdminController implements Initializable {
             cbModifMatiereSelectionnerMatiere.setValue("");
             txtModifMatiereSousMatiere.setText("");
             tvModifMatiereSousMatiere.getItems().clear();
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Modification réussi");
+            info.setContentText("La matière a bien été modifiée");
+            info.setHeaderText("");
+            info.showAndWait();
         }
     }
 
@@ -340,8 +358,14 @@ public class AdminController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnModifMatiereSupprSousMatiereClicked(Event event) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if(cbModifMatiereSelectionnerMatiere.getSelectionModel().getSelectedItem() == null){
+            alert.setTitle("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner une matière");
+            alert.setHeaderText("");
+            alert.showAndWait();
+        }
         if(tvModifMatiereSousMatiere.getSelectionModel().getSelectedItem() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de sélection");
             alert.setContentText("Veuillez sélectionner une sous-matière");
             alert.setHeaderText("");
@@ -351,14 +375,15 @@ public class AdminController implements Initializable {
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                           CREATION SALLE                                                                                   //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @javafx.fxml.FXML
     public void btnCreeSalleClicked(Event event) throws SQLException {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         if(txtCreeSalleId.getText().isEmpty())
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setContentText("Veuillez saisir un identifiant pour la salle");
             alert.setHeaderText("");
@@ -371,7 +396,34 @@ public class AdminController implements Initializable {
             int etage = parseInt(numeroEtage);
             int idSalle = parseInt(txtCreeSalleId.getText());
             Salle uneSalle = new Salle(idSalle, code_salle, etage);
-            serviceSalle.CreeSalle(uneSalle);
+
+            int premierChiffre = idSalle;
+            while (premierChiffre >= 10) {
+                premierChiffre /= 10;
+            }
+
+            if(serviceSalle.VerifSalle(uneSalle) == true){
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("La salle que vous essayez de créer existe déja");
+                alert.setHeaderText("");
+                alert.showAndWait();
+            }
+            if(premierChiffre != etage){
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("Identifiant de la salle ne correspond pas à l'étage (1er étage : 100, 2ème étage : 200, ect... )");
+                alert.setHeaderText("");
+                alert.showAndWait();
+            }
+            else{
+                serviceSalle.CreeSalle(uneSalle);
+                cboCreeSalleEtage.getSelectionModel().selectFirst();
+                txtCreeSalleId.setText(null);
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setTitle("Création réussi");
+                info.setContentText("La salle a bien été créée");
+                info.setHeaderText("");
+                info.showAndWait();
+            }
         }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

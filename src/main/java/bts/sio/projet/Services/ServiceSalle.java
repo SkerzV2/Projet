@@ -19,6 +19,7 @@ public class ServiceSalle {
     {
         unCnx = ConnexionBDD.getCnx();
     }
+
     public void CreeSalle(Salle laSalle) throws SQLException {
         ps = unCnx.prepareStatement("INSERT INTO Salle ( id, code_salle , etage)" +
                 "VALUES (?,?,?)");
@@ -28,6 +29,25 @@ public class ServiceSalle {
 
         ps.executeUpdate();
     }
+
+    public boolean VerifSalle(Salle laSalle) throws SQLException {
+        boolean existe = false;
+        ps = unCnx.prepareStatement("SELECT salle.id, salle.code_salle, salle.etage\n" +
+                "FROM salle\n" +
+                "WHERE salle.id = ?\n" +
+                "AND salle.code_salle = ?\n" +
+                "AND salle.etage = ?");
+        ps.setInt(1, laSalle.getId());
+        ps.setString(2, laSalle.getCodeSalle());
+        ps.setInt(3, laSalle.getEtage());
+
+        rs = ps.executeQuery();
+        if(rs.next()){
+            existe = true;
+        }
+        return existe;
+    }
+
     public ObservableList<String> GetAllSalle() throws SQLException
     {
         ObservableList<String> lesSalles = FXCollections.observableArrayList();
@@ -63,7 +83,7 @@ public class ServiceSalle {
         ps.setString(2, laSalle.getCodeSalle());
         ps.setInt(3, laSalle.getEtage());
         ps.setInt(4, laSalle.getId());
-        System.out.println(ps);
+
         ps.executeUpdate();
     }
 }
