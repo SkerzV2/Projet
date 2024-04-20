@@ -138,7 +138,7 @@
                         </BarChart>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="apStatsSoutiens" layoutX="-2.0" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;" visible="false">
+                <AnchorPane fx:id="apStatsSoutiens" layoutX="-2.0" prefHeight="455.0" prefWidth="718.0" style="-fx-background-color: white;">
                     <children>
                         <BarChart fx:id="bcStatsSoutiensParEtudiant" layoutX="34.0" layoutY="28.0" prefHeight="400.0" prefWidth="650.0" title="Nombre de soutiens réalisés par étudiant">
                             <xAxis>
@@ -201,7 +201,7 @@
                         </VBox>
                   <VBox fx:id="vbxSalle" alignment="TOP_CENTER" layoutX="-2.0" layoutY="-16.0" prefHeight="459.0" prefWidth="204.0" spacing="15.0" styleClass="vbxbg" stylesheets="@../../../CSS/menu.css">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Gérer les Salle" textAlignment="CENTER">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: white;" text="Gérer les Salles" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
@@ -311,7 +311,7 @@
                         <Font size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnMenuSalle" mnemonicParsing="false" onMouseClicked="#btnMenuSalleClicked" prefHeight="92.0" prefWidth="164.0" style="-fx-background-color: FF000000;" styleClass="btnmenu2" stylesheets="@../../../CSS/menu.css" text="Salle" textFill="WHITE">
+                <Button fx:id="btnMenuSalle" mnemonicParsing="false" onMouseClicked="#btnMenuSalleClicked" prefHeight="92.0" prefWidth="164.0" style="-fx-background-color: FF000000;" styleClass="btnmenu2" stylesheets="@../../../CSS/menu.css" text="Salles" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -326,7 +326,7 @@
                         <Font size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnMenuSoutien" mnemonicParsing="false" onMouseClicked="#btnMenuSoutienClicked" prefHeight="68.0" prefWidth="165.0" style="-fx-background-color: FF000000;" styleClass="btnmenu3" stylesheets="@../../../CSS/menu.css" text="Soutien" textFill="WHITE">
+                <Button fx:id="btnMenuSoutien" mnemonicParsing="false" onMouseClicked="#btnMenuSoutienClicked" prefHeight="68.0" prefWidth="165.0" style="-fx-background-color: FF000000;" styleClass="btnmenu3" stylesheets="@../../../CSS/menu.css" text="Soutiens" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="35.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                             <image>

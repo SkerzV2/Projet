@@ -393,7 +393,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="402.0" layoutY="92.0" text="Compétence secondaire">
+            <Label layoutX="402.0" layoutY="92.0" text="Compétences secondaires">
                <font>
                   <Font size="18.0" />
                </font>
@@ -407,7 +407,7 @@
             </TableView>
             <TableView fx:id="tvSousMatiereCreeCompetence" layoutX="377.0" layoutY="143.0" prefHeight="200.0" prefWidth="242.0" stylesheets="@../../../CSS/menu.css">
                <columns>
-                  <TableColumn fx:id="tcSousMatiereCreeCompetence" prefWidth="241.59998168945313" text="Sous-Matiere(s)" />
+                  <TableColumn fx:id="tcSousMatiereCreeCompetence" prefWidth="241.59998168945313" text="Sous-Matière(s)" />
                </columns>
             </TableView>
          </children>
