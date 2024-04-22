@@ -199,7 +199,6 @@ public class AdminController implements Initializable {
 
         ObservableList<String> lesStatuts = FXCollections.observableArrayList();
         lesStatuts.add("Validé");
-        lesStatuts.add("En Cours");
         cboGererSoutiensStatut.setItems(lesStatuts);
         cboGererSoutiensStatut.getSelectionModel().selectFirst();
 
@@ -564,21 +563,12 @@ public class AdminController implements Initializable {
 ////                                    GESTION SOUTIENS ET ASSIGNATION SALLES                                                                              //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//    public String getStringObservable(ObservableList<Matiere> leSousMatieres) {
-//        String result = "";
-//        for (Matiere uneSousMatiere : leSousMatieres) {
-//            result += "#"+uneSousMatiere.getSousMatiere();
-//        }
-//
-//        return result;
-//    }
 
     @javafx.fxml.FXML
     public void btnMenuGererSoutiensClicked(Event event) throws SQLException
     {
         tvGererSoutiensSoutiens.setItems(serviceSoutients.GetAllSoutiens());
         apGererSoutiens.toFront();
-
     }
 
     @javafx.fxml.FXML
@@ -594,32 +584,52 @@ public class AdminController implements Initializable {
     @javafx.fxml.FXML
     public void btnGererSoutiensAssignerClicked(Event event) throws SQLException
     {
-        int statusSoutien = 1;
-        if (!cboGererSoutiensSelectionnerSalle.getSelectionModel().getSelectedItem().toString().isEmpty()){
+        if(!tvGererSoutiensSoutiens.getSelectionModel().getSelectedItems().isEmpty())
+        {
+            int statusSoutien = 1;
+            if (!cboGererSoutiensSelectionnerSalle.getSelectionModel().getSelectedItem().toString().isEmpty())
+            {
             statusSoutien = 2;
+            }
+
+            int unID = ((Soutient)tvGererSoutiensSoutiens.getSelectionModel().getSelectedItem()).getId();
+            int idSalle = parseInt(cboGererSoutiensSelectionnerSalle.getSelectionModel().getSelectedItem().toString());
+            String desc = txtGererSoutiensDescription.getText();
+            Soutient unSoutient = new Soutient(statusSoutien, desc, idSalle, unID);
+
+            serviceSoutients.updateSoutient(unSoutient);
+            apGererSoutiens.toFront();
+            cboGererSoutiensSelectionnerSalle.setItems(serviceSalle.GetAllIdSalle());
+            tvGererSoutiensSoutiens.setItems(serviceSoutients.GetAllSoutiens());
+
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Assignation réussi");
+            info.setContentText("Le soutien a bien été assigné");
+            info.setHeaderText("");
+            info.showAndWait();
         }
-
-        int unID = ((Soutient)tvGererSoutiensSoutiens.getSelectionModel().getSelectedItem()).getId();
-        int idSalle = parseInt(cboGererSoutiensSelectionnerSalle.getSelectionModel().getSelectedItem().toString());
-        String desc = txtGererSoutiensDescription.getText();
-        Soutient unSoutient = new Soutient(statusSoutien, desc, idSalle, unID);
-
-        serviceSoutients.updateSoutient(unSoutient);
-        apGererSoutiens.toFront();
-        cboGererSoutiensSelectionnerSalle.setItems(serviceSalle.GetAllIdSalle());
-        tvGererSoutiensSoutiens.setItems(serviceSoutients.GetAllSoutiens());
-
-        Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle("Assignation réussi");
-        info.setContentText("Le soutien a bien été assigné");
-        info.setHeaderText("");
-        info.showAndWait();
+        else if (tvGererSoutiensSoutiens.getSelectionModel().getSelectedItems().isEmpty())
+        {
+            Alert info = new Alert(Alert.AlertType.WARNING);
+            info.setTitle("Erreur de sélection");
+            info.setContentText("Veuillez sélectionner un soutien");
+            info.setHeaderText("");
+            info.showAndWait();
+        }
     }
 
     @javafx.fxml.FXML
     public void btnGererSoutiensAnnulerClicked(Event event)
     {
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("Annulation");
+        info.setContentText("Vous avez annulé la modification");
+        info.setHeaderText("");
+        info.showAndWait();
+
         apGererSoutiens.toFront();
+        txtGererSoutiensDescription.setText("");
+        cboGererSoutiensSelectionnerSalle.setItems(null);
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
